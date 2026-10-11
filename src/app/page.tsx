@@ -1,69 +1,214 @@
-import Image from "next/image";
+﻿"use client";
+
+import { useState } from "react";
+
+const courses = [
+  { icon: "📚", title: "واژگان انگلیسی", subtitle: "لغت، معنی، تلفظ و املا", color: "violet", href: "#vocabulary" },
+  { icon: "🧩", title: "گرامر کاربردی", subtitle: "یادگیری قدم‌به‌قدم قواعد", color: "blue", href: "#grammar" },
+  { icon: "🎧", title: "مهارت شنیداری", subtitle: "درک مکالمه و فایل صوتی", color: "orange", href: "#skills" },
+  { icon: "💬", title: "مکالمه انگلیسی", subtitle: "تمرین صحبت کردن", color: "green", href: "#skills" },
+  { icon: "📖", title: "درک مطلب", subtitle: "متن‌خوانی و پاسخ به سؤال", color: "pink", href: "#skills" },
+  { icon: "✍️", title: "مهارت نوشتن", subtitle: "از جمله تا متن انگلیسی", color: "cyan", href: "#skills" },
+];
+
+const words = [
+  { word: "Beautiful", phonetic: "/ˈbjuːtɪfəl/", meaning: "زیبا", type: "صفت", example: "It is a beautiful day." },
+  { word: "Improve", phonetic: "/ɪmˈpruːv/", meaning: "بهبود دادن", type: "فعل", example: "I want to improve my English." },
+  { word: "Knowledge", phonetic: "/ˈnɒlɪdʒ/", meaning: "دانش", type: "اسم", example: "Knowledge is important." },
+];
 
 export default function Home() {
+  const [active, setActive] = useState("خانه");
+  const [search, setSearch] = useState("");
+  const [saved, setSaved] = useState<string[]>([]);
+  const [checked, setChecked] = useState(false);
+
+  const navigation = [
+    { name: "خانه", icon: "⌂", href: "#home" },
+    { name: "واژگان", icon: "▤", href: "#vocabulary" },
+    { name: "گرامر", icon: "◈", href: "#grammar" },
+    { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
+    { name: "تمرین روزانه", icon: "✓", href: "#practice" },
+    { name: "آزمون‌ها", icon: "▣", href: "#exams" },
+  ];
+
+  const filteredWords = words.filter((w) =>
+    `${w.word} ${w.meaning} ${w.type}`.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+    <main className="app-shell" id="home">
+      <aside className="sidebar">
+        <a href="#home" className="brand">
+          <span className="brand-mark">L</span>
+          <span className="brand-copy">
+            <strong>LinguaPro</strong>
+            <small>یادگیری هوشمند زبان</small>
+          </span>
+        </a>
+
+        <div className="side-label">منوی اصلی</div>
+        <nav className="nav-list" aria-label="منوی اصلی">
+          {navigation.map((item) => (
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href={item.href}
+              key={item.name}
+              className={`nav-link ${active === item.name ? "nav-active" : ""}`}
+              onClick={() => setActive(item.name)}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              <span className="nav-icon">{item.icon}</span>
+              <span>{item.name}</span>
+              {item.name === "تمرین روزانه" && <span className="nav-dot" />}
+            </a>
+          ))}
+        </nav>
+
+        <div className="side-label side-label-spaced">حساب کاربری</div>
+        <a className="nav-link" href="#teachers">
+          <span className="nav-icon">♧</span><span>بخش معلمان</span>
+        </a>
+        <a className="nav-link" href="#exams">
+          <span className="nav-icon">▧</span><span>کلاس و آزمون</span>
+        </a>
+
+        <div className="sidebar-bottom">
+          <div className="help-card">
+            <span className="help-icon">✦</span>
+            <strong>هر روز یک قدم جلوتر!</strong>
+            <p>با تمرین منظم، انگلیسی را بهتر یاد بگیر.</p>
+            <a href="#practice">شروع یادگیری ←</a>
+          </div>
+          <div className="profile-row">
+            <div className="avatar">ز</div>
+            <div className="profile-info"><strong>زبان‌آموز</strong><small>خوش آمدی!</small></div>
+            <span className="profile-menu">···</span>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </aside>
+
+      <section className="main-panel">
+        <header className="topbar">
+          <div className="breadcrumb"><span>خانه</span><span className="crumb-sep">/</span><strong>داشبورد یادگیری</strong></div>
+          <div className="topbar-actions">
+            <label className="search-box">
+              <span>⌕</span>
+              <input value={search} onChange={(e) => { setSearch(e.target.value); document.getElementById("vocabulary")?.scrollIntoView({ behavior: "smooth", block: "start" }); }} placeholder="جست‌وجوی لغت..." aria-label="جست‌وجوی لغت" />
+              <kbd>جست‌وجو</kbd>
+            </label>
+            <button className="icon-button" aria-label="اعلان‌ها" title="اعلان‌ها">♧</button>
+            <span className="language-pill">EN <span>↔</span> FA</span>
+          </div>
+        </header>
+
+        <div className="page-content">
+          <section className="welcome-row">
+            <div>
+              <div className="eyebrow"><span className="eyebrow-star">✦</span> مسیر یادگیری تو از اینجا شروع می‌شود</div>
+              <h1>سلام، به دنیای <span className="text-gradient">انگلیسی</span> خوش آمدی!</h1>
+              <p className="welcome-description">یاد بگیر، تمرین کن و هر روز یک قدم به تسلط بر زبان انگلیسی نزدیک‌تر شو.</p>
+            </div>
+            <div className="date-chip"><span>◷</span> فضای یادگیری شخصی تو</div>
+          </section>
+
+          <section className="hero-banner">
+            <div className="hero-orb orb-one" />
+            <div className="hero-orb orb-two" />
+            <div className="hero-copy">
+              <div className="hero-badge"><span>✦</span> شروع یک مسیر تازه</div>
+              <h2>انگلیسی را فقط یاد نگیر،<br /><span>زندگی‌اش کن!</span></h2>
+              <p>از اولین لغت تا مکالمه روان؛ قدم‌به‌قدم در کنار تو هستیم.</p>
+              <a className="hero-button" href="#courses">کشف مسیر یادگیری <span>←</span></a>
+            </div>
+            <div className="hero-art" aria-hidden="true">
+              <div className="book-glow" />
+              <div className="floating-card float-word"><span className="mini-spark">✦</span><div><strong>Learn</strong><small>یاد گرفتن</small></div></div>
+              <div className="book-emoji">📚</div>
+              <div className="floating-card float-score"><span className="score-icon">↗</span><div><strong>Keep going!</strong><small>به مسیرت ادامه بده</small></div></div>
+              <div className="orbit orbit-a" />
+              <div className="orbit orbit-b" />
+            </div>
+            <div className="hero-bottom-note"><span className="live-dot" /> هر روز بهتر از دیروز</div>
+          </section>
+
+          <section className="stats-grid" aria-label="آمار یادگیری">
+            <article className="stat-card"><span className="stat-icon stat-violet">▤</span><div><span className="stat-label">واژگان نمونه</span><strong>۳ <small>لغت</small></strong><span className="stat-note">برای شروع یادگیری</span></div><span className="stat-decoration">Aa</span></article>
+            <article className="stat-card"><span className="stat-icon stat-orange">⚡</span><div><span className="stat-label">تمرین امروز</span><strong>۱ <small>تمرین</small></strong><span className="stat-note">یک قدم به جلو</span></div><span className="stat-decoration">✓</span></article>
+            <article className="stat-card"><span className="stat-icon stat-green">◷</span><div><span className="stat-label">زمان یادگیری</span><strong>۰ <small>دقیقه</small></strong><span className="stat-note">از همین امروز شروع کن</span></div><span className="stat-decoration">↗</span></article>
+            <article className="stat-card"><span className="stat-icon stat-blue">◎</span><div><span className="stat-label">مسیر یادگیری</span><strong>۳ <small>پایه</small></strong><span className="stat-note">هفتم، هشتم و نهم</span></div><span className="stat-decoration">✦</span></article>
+          </section>
+
+          <section className="section-block" id="courses">
+            <div className="section-heading">
+              <div><span className="section-kicker">LEARNING PATH</span><h2>مسیر یادگیری تو</h2><p>مهارتت را انتخاب کن و از همین‌جا شروع کن.</p></div>
+              <a className="text-link" href="#skills">همه مهارت‌ها <span>←</span></a>
+            </div>
+            <div className="courses-grid">
+              {courses.map((course) => (
+                <a className="course-card" href={course.href} key={course.title}>
+                  <div className={`course-icon ${course.color}`}>{course.icon}</div>
+                  <span className="course-arrow">↖</span>
+                  <h3>{course.title}</h3>
+                  <p>{course.subtitle}</p>
+                  <div className="course-footer"><span>مشاهده بخش</span><span className="mini-arrow">←</span></div>
+                </a>
+              ))}
+            </div>
+          </section>
+
+          <section className="lower-grid">
+            <div className="section-block vocabulary-panel" id="vocabulary">
+              <div className="section-heading compact-heading">
+                <div><span className="section-kicker">WORD OF THE DAY</span><h2>واژگان منتخب</h2><p>لغات کاربردی برای تقویت دایره واژگان</p></div>
+                <span className="round-symbol">Aa</span>
+              </div>
+              <div className="word-list">
+                {filteredWords.map((word) => (
+                  <article className="word-card" key={word.word}>
+                    <div className="word-letter">{word.word.charAt(0)}</div>
+                    <div className="word-main"><div className="word-title-row"><strong>{word.word}</strong><span className="word-type">{word.type}</span></div><span className="phonetic">{word.phonetic}</span><p>{word.meaning}</p><small className="word-example" dir="ltr">{word.example}</small></div>
+                    <button className={`save-word ${saved.includes(word.word) ? "saved" : ""}`} onClick={() => setSaved((old) => old.includes(word.word) ? old.filter((w) => w !== word.word) : [...old, word.word])} aria-label={saved.includes(word.word) ? "حذف از لغات ذخیره‌شده" : "ذخیره لغت"} title="ذخیره لغت">{saved.includes(word.word) ? "♥" : "♡"}</button>
+                  </article>
+                ))}
+                {filteredWords.length === 0 && <p className="empty-state">لغتی پیدا نشد. املای کلمه یا معنی فارسی را بررسی کن.</p>}
+              </div>
+              <div className="panel-footer"><span>تعداد لغات نمایش‌داده‌شده: {filteredWords.length}</span><span>ذخیره‌شده‌ها: {saved.length}</span></div>
+            </div>
+
+            <div className="section-block practice-panel" id="practice">
+              <div className="section-heading compact-heading"><div><span className="section-kicker">DAILY PRACTICE</span><h2>تمرین امروز</h2><p>با یک تمرین کوتاه شروع کن.</p></div><span className="practice-emoji">✍️</span></div>
+              <div className="practice-box">
+                <div className="practice-label"><span>تمرین واژگان</span><span className="difficulty">آسان</span></div>
+                <h3>معنی کلمهٔ <span dir="ltr">Beautiful</span> چیست؟</h3>
+                <p className="practice-hint">گزینهٔ درست را انتخاب کن.</p>
+                <div className="answer-list">
+                  <button className={`answer-option ${checked ? "incorrect" : ""}`} onClick={() => setChecked(false)}><span className="answer-letter">A</span> بزرگ</button>
+                  <button className={`answer-option ${checked ? "correct" : ""}`} onClick={() => setChecked(true)}><span className="answer-letter">B</span> زیبا <span className="answer-check">{checked ? "✓" : ""}</span></button>
+                  <button className="answer-option" onClick={() => setChecked(false)}><span className="answer-letter">C</span> سریع</button>
+                </div>
+                {checked && <p className="feedback-success">آفرین! پاسخ درست است. Beautiful یعنی «زیبا».</p>}
+                <button className="check-answer" onClick={() => setChecked(true)}>{checked ? "پاسخ بررسی شد ✓" : "بررسی پاسخ"} <span>←</span></button>
+              </div>
+            </div>
+          </section>
+
+          <section className="teacher-banner" id="teachers">
+            <div className="teacher-symbol">♧</div>
+            <div className="teacher-copy"><span className="section-kicker">FOR TEACHERS</span><h2>فضایی برای آموزش بهتر</h2><p>ساخت کلاس، طراحی آزمون و پیگیری پیشرفت زبان‌آموزان؛ در مسیر توسعه سامانه.</p></div>
+            <a href="#exams" className="teacher-button">بخش معلمان <span>←</span></a>
+          </section>
+
+          <section className="section-block future-section" id="grammar">
+            <div className="section-heading compact-heading"><div><span className="section-kicker">COMING INTO THE LEARNING PATH</span><h2>ادامه مسیر تو</h2><p>بخش‌های آموزشی در مراحل بعدی توسعه کامل می‌شوند.</p></div></div>
+            <div className="future-grid" id="exams">
+              <div className="future-card"><span>📝</span><div><strong>آزمون آنلاین</strong><p>آزمون‌های موضوعی و تعیین سطح</p></div><span className="future-tag">در مسیر توسعه</span></div>
+              <div className="future-card"><span>🧠</span><div><strong>گرامر مرحله‌ای</strong><p>آموزش قواعد با مثال و تمرین</p></div><span className="future-tag">در مسیر توسعه</span></div>
+              <div className="future-card" id="skills"><span>🎙️</span><div><strong>مکالمه و شنیدار</strong><p>تمرین مهارت‌های ارتباطی</p></div><span className="future-tag">در مسیر توسعه</span></div>
+            </div>
+          </section>
+
+          <footer className="footer"><a href="#home" className="footer-brand"><span className="brand-mark small-mark">L</span> LinguaPro</a><span>یادگیری بهتر، آینده روشن‌تر.</span><span>نسخه اولیه · ۰.۱</span></footer>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   );
 }

@@ -2,6 +2,7 @@
 
 const nextConfig: NextConfig = {
   output: "export",
+  basePath: "/english-learning-project",
   images: {
     unoptimized: true,
   },

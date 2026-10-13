@@ -142,6 +142,21 @@ export default function Home() {
     Math.round((learned.length / VOCABULARY_GOAL) * 100)
   );
 
+  const speakWord = (text: string) => {
+    if (!("speechSynthesis" in window)) {
+      alert("مرورگر شما از پخش تلفظ پشتیبانی نمی‌کند.");
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.rate = 0.85;
+    utterance.pitch = 1;
+
+    window.speechSynthesis.speak(utterance);
+  };
   const toggleSaved = (word: string) => {
     setSaved((previous) =>
       previous.includes(word)
@@ -636,6 +651,28 @@ export default function Home() {
                       <div className="word-main">
                         <div className="word-title-row">
                           <strong>{word.word}</strong>
+                          <button
+                            type="button"
+                            onClick={() => speakWord(word.word)}
+                            aria-label={`شنیدن تلفظ ${word.word}`}
+                            title="شنیدن تلفظ انگلیسی"
+                            style={{
+                              border: "1px solid #ddd6fe",
+                              background: "#f5f3ff",
+                              color: "#6d28d9",
+                              borderRadius: "9px",
+                              width: "32px",
+                              height: "32px",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              cursor: "pointer",
+                              fontSize: "15px",
+                              flexShrink: 0,
+                            }}
+                          >
+                            🔊
+                          </button>
                           <span className="word-type">{word.type}</span>
                         </div>
 
@@ -645,9 +682,57 @@ export default function Home() {
 
                         <p>{word.meaning}</p>
 
-                        <small className="word-example" dir="ltr">
-                          {word.example}
-                        </small>
+                        <div
+  style={{
+    marginTop: "10px",
+    padding: "12px",
+    borderRadius: "12px",
+    background: "#f8fafc",
+    border: "1px solid #e2e8f0",
+  }}
+>
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: "10px",
+      marginBottom: "8px",
+    }}
+  >
+    <span
+      dir="rtl"
+      style={{ fontSize: "12px", color: "#64748b", fontWeight: 600 }}
+    >
+      مثال در جمله
+    </span>
+    <button
+      type="button"
+      onClick={() => speakWord(word.example)}
+      aria-label="شنیدن تلفظ جمله مثال"
+      title="شنیدن تلفظ جمله مثال"
+      style={{
+        border: "1px solid #ddd6fe",
+        background: "#f5f3ff",
+        color: "#6d28d9",
+        borderRadius: "9px",
+        padding: "5px 9px",
+        cursor: "pointer",
+        fontSize: "12px",
+        whiteSpace: "nowrap",
+      }}
+    >
+      🔊 شنیدن جمله
+    </button>
+  </div>
+  <small
+    className="word-example"
+    dir="ltr"
+    style={{ display: "block", textAlign: "left", lineHeight: 1.8 }}
+  >
+    {word.example}
+  </small>
+</div>
                       </div>
 
                       <div
@@ -873,4 +958,7 @@ export default function Home() {
     </main>
   );
 }
+
+
+
 

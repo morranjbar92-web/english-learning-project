@@ -1,0 +1,77 @@
+﻿"use client";
+
+const root = "/english-learning-project";
+
+const skills = [
+  {
+    icon: "🎧",
+    name: "Listening",
+    fa: "مهارت شنیداری",
+    description: "شنیدن واژه‌ها، جمله‌ها و مکالمه‌های انگلیسی",
+    ready: false
+  },
+  {
+    icon: "🎙️",
+    name: "Speaking",
+    fa: "مهارت گفتاری",
+    description: "تمرین مکالمه و بیان جمله‌ها",
+    ready: false
+  },
+  {
+    icon: "📖",
+    name: "Reading",
+    fa: "مهارت خواندن",
+    description: "خواندن متن و درک معنی",
+    ready: false
+  },
+  {
+    icon: "✍️",
+    name: "Writing",
+    fa: "مهارت نوشتن",
+    description: "تمرین گرامر، ساخت جمله و بازی کلمات",
+    ready: true
+  }
+];
+
+export default function GamesPage() {
+  return (
+    <main className="games-hub-page" dir="rtl">
+      <div className="games-hub-shell">
+        <a className="games-back-link" href={root + "/"}>
+          ← بازگشت به صفحه اصلی
+        </a>
+
+        <header className="games-hub-hero">
+          <span className="games-hub-eyebrow">LINGUAPRO · GAME CENTER</span>
+          <h1>🎮 مرکز بازی‌های زبان</h1>
+          <p>مهارت موردنظرت را انتخاب کن و یادگیری را با بازی ادامه بده.</p>
+        </header>
+
+        <div className="games-skill-grid">
+          {skills.map((skill) => (
+            <article
+              className={`games-skill-card ${skill.ready ? "is-ready" : "is-coming"}`}
+              key={skill.name}
+            >
+              <span className="games-skill-icon">{skill.icon}</span>
+              <h2>{skill.name}</h2>
+              <h3>{skill.fa}</h3>
+              <p>{skill.description}</p>
+
+              {skill.ready ? (
+                <a
+                  className="games-primary-link"
+                  href={root + "/games/writing/"}
+                >
+                  ورود به Writing ←
+                </a>
+              ) : (
+                <span className="games-coming-label">به‌زودی</span>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </main>
+  );
+}

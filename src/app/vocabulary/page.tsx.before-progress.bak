@@ -1,0 +1,298 @@
+﻿"use client";
+
+import { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
+import { vocabularyWords } from "../../data/vocabulary";
+
+const SAVED_KEY = "linguapro-saved-words";
+const LEARNED_KEY = "linguapro-learned-words";
+const PAGE_SIZE = 50;
+
+export default function VocabularyPage() {
+  const [search, setSearch] = useState("");
+  const [level, setLevel] = useState("همه");
+  const [topic, setTopic] = useState("همه");
+  const [limit, setLimit] = useState(PAGE_SIZE);
+  const [saved, setSaved] = useState<string[]>([]);
+  const [learned, setLearned] = useState<string[]>([]);
+  const [ready, setReady] = useState(false);
+
+  const pathname = usePathname() || "/";
+  const isVocabulary = pathname.replace(/\/+$/, "").endsWith("/vocabulary");
+
+  useEffect(() => {
+    try {
+      const s = localStorage.getItem(SAVED_KEY);
+      const l = localStorage.getItem(LEARNED_KEY);
+
+      if (s) {
+        const parsed: unknown = JSON.parse(s);
+        if (Array.isArray(parsed)) {
+          setSaved(parsed.filter((x): x is string => typeof x === "string"));
+        }
+      }
+
+      if (l) {
+        const parsed: unknown = JSON.parse(l);
+        if (Array.isArray(parsed)) {
+          setLearned(parsed.filter((x): x is string => typeof x === "string"));
+        }
+      }
+    } catch {
+      console.warn("بازیابی اطلاعات لغات انجام نشد.");
+    } finally {
+      setReady(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+    try {
+      localStorage.setItem(SAVED_KEY, JSON.stringify(saved));
+      localStorage.setItem(LEARNED_KEY, JSON.stringify(learned));
+    } catch {
+      console.warn("ذخیره اطلاعات لغات انجام نشد.");
+    }
+  }, [saved, learned, ready]);
+
+  const levels = useMemo(
+    () => Array.from(new Set(vocabularyWords.map((w) => w.level))).sort(),
+    []
+  );
+
+  const topics = useMemo(
+    () => Array.from(new Set(vocabularyWords.map((w) => w.topic))).sort(),
+    []
+  );
+
+  const filteredWords = useMemo(() => {
+    const query = search.trim().toLocaleLowerCase();
+
+    return vocabularyWords.filter((w) => {
+      const text = [
+        w.word, w.meaning, w.type, w.example, w.level, w.topic, w.phonetic,
+      ].join(" ").toLocaleLowerCase();
+
+      return (
+        (!query || text.includes(query)) &&
+        (level === "همه" || w.level === level) &&
+        (topic === "همه" || w.topic === topic)
+      );
+    });
+  }, [search, level, topic]);
+
+  function speak(text: string) {
+    if (typeof window === "undefined") return;
+
+    if (!("speechSynthesis" in window)) {
+      alert("مرورگر شما از پخش تلفظ پشتیبانی نمی‌کند.");
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "en-US";
+    utterance.rate = 0.85;
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function toggleSaved(word: string) {
+    setSaved((old) =>
+      old.includes(word) ? old.filter((x) => x !== word) : [...old, word]
+    );
+  }
+
+  function toggleLearned(word: string) {
+    setLearned((old) =>
+      old.includes(word) ? old.filter((x) => x !== word) : [...old, word]
+    );
+  }
+
+  function reset() {
+    setSearch("");
+    setLevel("همه");
+    setTopic("همه");
+    setLimit(PAGE_SIZE);
+  }
+
+  return (
+    <main className="vocabulary-page" dir="rtl">
+      <div className="vocabulary-shell">
+        <header className="vocab-hero">
+          <div className="vocab-breadcrumb">
+            <a href="/english-learning-project/">خانه</a>
+            <span>›</span>
+            <span>واژگان انگلیسی</span>
+          </div>
+          <h1>بانک واژگان انگلیسی</h1>
+          <p>لغت را پیدا کن، معنی را بخوان و تلفظ و مثالش را بشنو.</p>
+
+          <div className="vocab-stat-grid">
+            <div>
+              <strong>{vocabularyWords.length.toLocaleString("fa-IR")}</strong>
+              <span>لغت در بانک</span>
+            </div>
+            <div>
+              <strong>{saved.length.toLocaleString("fa-IR")}</strong>
+              <span>لغت ذخیره‌شده</span>
+            </div>
+            <div>
+              <strong>{learned.length.toLocaleString("fa-IR")}</strong>
+              <span>لغت یادگرفته‌شده</span>
+            </div>
+          </div>
+        </header>
+
+        <section className="vocab-search-panel">
+          <label className="vocab-search">
+            <span aria-hidden="true">⌕</span>
+            <input
+              type="search"
+              value={search}
+              onChange={(event) => {
+                setSearch(event.target.value);
+                setLimit(PAGE_SIZE);
+              }}
+              placeholder="کلمه انگلیسی یا معنی فارسی را بنویس..."
+              aria-label="جست‌وجوی انگلیسی یا فارسی"
+            />
+            {search && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearch("");
+                  setLimit(PAGE_SIZE);
+                }}
+                aria-label="پاک کردن جست‌وجو"
+              >
+                ×
+              </button>
+            )}
+          </label>
+
+          <div className="vocab-filter-row">
+            <label>
+              <span>سطح زبان</span>
+              <select value={level} onChange={(e) => {
+                setLevel(e.target.value);
+                setLimit(PAGE_SIZE);
+              }}>
+                <option value="همه">همه سطح‌ها</option>
+                {levels.map((x) => <option key={x} value={x}>{x}</option>)}
+              </select>
+            </label>
+
+            <label>
+              <span>موضوع</span>
+              <select value={topic} onChange={(e) => {
+                setTopic(e.target.value);
+                setLimit(PAGE_SIZE);
+              }}>
+                <option value="همه">همه موضوع‌ها</option>
+                {topics.map((x) => <option key={x} value={x}>{x}</option>)}
+              </select>
+            </label>
+
+            <button className="vocab-reset" type="button" onClick={reset}>
+              پاک‌کردن فیلترها
+            </button>
+          </div>
+
+          <p className="vocab-count" aria-live="polite">
+            {filteredWords.length.toLocaleString("fa-IR")} نتیجه
+          </p>
+        </section>
+
+        <section className="vocab-word-list" aria-label="فهرست واژگان">
+          {filteredWords.slice(0, limit).map((word) => {
+            const isSaved = saved.includes(word.word);
+            const isLearned = learned.includes(word.word);
+
+            return (
+              <article className="vocab-card" key={word.word}>
+                <div className="vocab-initial" dir="ltr">
+                  {word.word.charAt(0).toUpperCase()}
+                </div>
+
+                <div className="vocab-card-main">
+                  <div className="vocab-word-title" dir="ltr">
+                    <h2>{word.word}</h2>
+                    <button
+                      type="button"
+                      className="vocab-audio"
+                      onClick={() => speak(word.word)}
+                      aria-label={`شنیدن ${word.word}`}
+                    >
+                      🔊 تلفظ
+                    </button>
+                    <span className="vocab-tag">{word.type}</span>
+                    <span className="vocab-level">{word.level}</span>
+                  </div>
+
+                  <div className="vocab-phonetic" dir="ltr">{word.phonetic}</div>
+                  <p className="vocab-meaning">{word.meaning}</p>
+
+                  <div className="vocab-example">
+                    <div className="vocab-example-top">
+                      <span>مثال در جمله</span>
+                      <button
+                        type="button"
+                        className="vocab-audio"
+                        onClick={() => speak(word.example)}
+                      >
+                        🔊 شنیدن جمله
+                      </button>
+                    </div>
+                    <p dir="ltr">{word.example}</p>
+                  </div>
+
+                  <div className="vocab-actions">
+                    <button
+                      type="button"
+                      aria-pressed={isSaved}
+                      className={isSaved ? "vocab-action saved" : "vocab-action"}
+                      onClick={() => toggleSaved(word.word)}
+                    >
+                      {isSaved ? "♥ ذخیره‌شده" : "♡ ذخیره لغت"}
+                    </button>
+                    <button
+                      type="button"
+                      aria-pressed={isLearned}
+                      className={isLearned ? "vocab-action learned" : "vocab-action"}
+                      onClick={() => toggleLearned(word.word)}
+                    >
+                      {isLearned ? "✓ یاد گرفتم" : "علامت‌گذاری به‌عنوان یادگرفته‌شده"}
+                    </button>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+
+          {filteredWords.length === 0 && (
+            <div className="vocab-empty">
+              <h2>لغتی پیدا نشد</h2>
+              <p>املای کلمه یا معنی فارسی را بررسی کن.</p>
+              <button type="button" onClick={reset}>پاک‌کردن جست‌وجو</button>
+            </div>
+          )}
+
+          {limit < filteredWords.length && (
+            <button
+              type="button"
+              className="vocab-load-more"
+              onClick={() => setLimit((n) => n + PAGE_SIZE)}
+            >
+              نمایش لغات بیشتر
+            </button>
+          )}
+
+          <p className="vocab-count vocab-bottom-count">
+            نمایش {Math.min(limit, filteredWords.length).toLocaleString("fa-IR")} از{" "}
+            {filteredWords.length.toLocaleString("fa-IR")} لغت
+          </p>
+        </section>
+      </div>
+    </main>
+  );
+}

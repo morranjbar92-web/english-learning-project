@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10162f">
+<title>ENGLISH QUEST: LOST WORLDS</title>
+<style>
+:root{--bg:#0b1025;--panel:#151f40;--panel2:#1c2a52;--line:#334777;--text:#f4f7ff;--muted:#b7c5e6;--cyan:#67e8f9;--violet:#a78bfa;--gold:#fbbf24;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#202b59 0,#0b1025 58%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:15px;padding:12px 16px;background:linear-gradient(135deg,#6d5ce8,#4f46e5);color:#fff;font-weight:800;box-shadow:0 5px 0 #25245f;transition:transform .12s,filter .12s;touch-action:manipulation;min-height:44px}button:active{transform:translateY(2px);box-shadow:0 3px 0 #25245f}button:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.7)}button.secondary{background:#26375f;box-shadow:0 4px 0 #172343;border:1px solid #425b8b}button.gold{background:linear-gradient(135deg,#fbbf24,#f97316);box-shadow:0 4px 0 #7c381b;color:#23142b}button.green{background:linear-gradient(135deg,#34d399,#059669);box-shadow:0 4px 0 #065f46}button.danger{background:#9f294b;box-shadow:0 4px 0 #601a35}button:focus-visible,input:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+header{position:sticky;top:0;z-index:20;background:#0c1228ed;backdrop-filter:blur(16px);border-bottom:1px solid #293a65;padding:10px max(14px,env(safe-area-inset-left));display:flex;align-items:center;gap:12px;justify-content:space-between}.brand{display:flex;align-items:center;gap:10px;font-weight:1000}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#22d3ee,#8b5cf6);display:grid;place-items:center;font-size:24px}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:600}.headerstats{display:flex;gap:7px;flex-wrap:wrap}.pill{background:#1a274a;border:1px solid #354c7d;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800}
+nav{display:flex;gap:8px;overflow:auto;padding:12px max(14px,calc((100vw - 1050px)/2));border-bottom:1px solid #24345a;scrollbar-width:none}nav button{flex:0 0 auto;box-shadow:none;border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 13px;min-height:40px}nav button.active{background:#263660;border-color:#53699c;color:#fff}
+main{max-width:1050px;margin:auto;padding:18px 14px 50px}.view{display:none}.view.active{display:block;animation:fade .18s ease}@keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+.hero{position:relative;overflow:hidden;border:1px solid #52699e;border-radius:26px;padding:24px;background:linear-gradient(120deg,#263a70,#4b3980 58%,#173c62);min-height:240px;display:grid;grid-template-columns:1.25fr .75fr;gap:15px;align-items:center}.hero h1{font-size:clamp(28px,5vw,47px);line-height:1.2;margin:10px 0}.hero p{color:#d2def7;line-height:1.9}.heroart{font-size:clamp(65px,12vw,120px);text-align:center;filter:drop-shadow(0 12px 10px #0005);animation:float 3s ease-in-out infinite}@keyframes float{50%{transform:translateY(-9px) rotate(2deg)}}.eyebrow{color:var(--cyan);font-weight:900;font-size:12px;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}.card{background:linear-gradient(145deg,#192749,#111a35);border:1px solid #334a7c;border-radius:20px;padding:17px;min-width:0;box-shadow:0 8px 24px #0002}.card h3{margin:8px 0}.card p{color:var(--muted);line-height:1.7;margin:5px 0 12px}.iconbig{font-size:34px}.card button{width:100%;margin-top:6px}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:25px 0 12px}.sectionhead h2{margin:0}.muted{color:var(--muted)}.small{font-size:13px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grow{flex:1}.progress{height:9px;background:#0a1023;border-radius:99px;overflow:hidden;border:1px solid #2c3b62}.progress span{display:block;height:100%;background:linear-gradient(90deg,#22d3ee,#a78bfa);width:0%;transition:width .2s}
+.game-shell{background:linear-gradient(150deg,#182749,#10162d);border:1px solid #425b8c;border-radius:24px;padding:18px;margin-top:12px}.game-top{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.question{font-size:clamp(22px,4vw,32px);font-weight:950;margin:22px 0 14px;line-height:1.5}.subquestion{color:var(--muted);margin:0 0 16px;line-height:1.7}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.answer{background:#24365f;border:1px solid #456298;box-shadow:none;text-align:right;min-height:58px}.answer.correct{background:#145b4c;border-color:#4ade80}.answer.wrong{background:#742a47;border-color:#fb7185}.feedback{padding:12px;border-radius:14px;margin-top:13px;background:#1b2b50;border:1px solid #425b80;line-height:1.7}.feedback.good{background:#123d36;border-color:#23856c}.feedback.bad{background:#4c2337;border-color:#9f4166}.hidden{display:none!important}.wordinput{width:100%;padding:14px;border-radius:14px;border:1px solid #526a9a;background:#0b1329;color:#fff;margin:8px 0 12px}.wordlist{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}.worditem{background:#1a2848;border:1px solid #304774;border-radius:14px;padding:12px}.worditem strong{direction:ltr;display:block;text-align:left;font-size:18px}.worditem span{display:block;color:var(--muted);margin-top:5px}.memorygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.memorytile{min-height:82px;font-size:24px;background:#25365f;box-shadow:none;border:1px solid #465d8c}.memorytile.revealed{background:#e0e7ff;color:#1b2450}.memorytile.matched{background:#145b4c;color:white}.scene{border-radius:18px;min-height:220px;background:linear-gradient(#222e67,#6c65aa 66%,#1c2846 67%);position:relative;overflow:hidden;display:flex;align-items:end;justify-content:center;padding:20px;font-size:65px}.scene:before{content:"✦     ·      ✧       ·      ✦";position:absolute;top:15px;left:10%;right:10%;font-size:24px;color:#e7eaff;letter-spacing:14px}.scene .herochar{z-index:1;filter:drop-shadow(0 8px 4px #0006)}.scene .buddy{z-index:1;font-size:43px;margin-bottom:10px}.badge{display:inline-flex;padding:5px 9px;border-radius:999px;background:#27395f;color:#dce7ff;font-size:12px}.toast{position:fixed;z-index:50;bottom:20px;left:50%;transform:translateX(-50%);background:#f4f7ff;color:#121b36;border-radius:14px;padding:12px 17px;font-weight:800;box-shadow:0 10px 40px #0006;max-width:90vw}.footer{text-align:center;color:#7f91ba;font-size:12px;padding:25px 0 5px}.status{font-size:11px;color:#a7b9de}
+@media(max-width:720px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{grid-template-columns:1fr .6fr;padding:18px}.heroart{font-size:68px}.wordlist{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:470px){header{align-items:flex-start}.brand{font-size:13px}.logo{width:36px;height:36px}.headerstats .pill:nth-child(2){display:none}.grid{grid-template-columns:1fr 1fr;gap:9px}.card{padding:12px}.card p{font-size:12px}.hero{grid-template-columns:1fr}.heroart{display:none}.answers{grid-template-columns:1fr}.game-shell{padding:13px}.memorytile{min-height:67px}.wordlist{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">🧭</div><div>ENGLISH QUEST<small>LOST WORLDS · نسخهٔ مستقل</small></div></div>
+ <div class="headerstats"><span class="pill">⭐ تجربه: <b id="xpTop">0</b></span><span class="pill">🪙 سکه: <b id="coinsTop">0</b></span></div>
+</header>
+<nav id="mainNav" aria-label="منوی اصلی">
+ <button type="button" class="active" data-view="home">🏠 خانه</button>
+ <button type="button" data-view="games">🎮 بازی‌ها</button>
+ <button type="button" data-view="learn">📚 آموزش</button>
+ <button type="button" data-view="worlds">🗺️ جهان‌ها</button>
+ <button type="button" data-view="words">🔎 واژگان</button>
+ <button type="button" data-view="profile">🏆 پروفایل</button>
+</nav>
+<main>
+<section class="view active" id="home">
+ <div class="hero"><div><div class="eyebrow">YOUR NEXT ADVENTURE STARTS HERE</div><h1>به دنیای گمشده خوش آمدی!</h1><p>انگلیسی یاد بگیر، مأموریت انجام بده، کریستال جمع کن و جهان‌های تازه را باز کن. همه‌چیز در همین فایل اجرا می‌شود.</p><div class="actions"><button type="button" data-go="games">🎮 انتخاب بازی</button><button type="button" class="secondary" data-go="learn">📖 شروع آموزش</button></div></div><div class="heroart">🧙‍♂️ 🦊</div></div>
+ <div class="grid">
+  <article class="card"><div class="iconbig">🎮</div><h3>بازی‌های متنوع</h3><p>واژگان، جمله‌سازی، سرعت، املا، حافظه و شکار گنج.</p><button type="button" data-go="games">دیدن بازی‌ها ←</button></article>
+  <article class="card"><div class="iconbig">📚</div><h3>یادگیری روزانه</h3><p>واژه‌های تازه را با معنی و مثال مرور کن.</p><button type="button" class="secondary" data-go="learn">رفتن به آموزش ←</button></article>
+  <article class="card"><div class="iconbig">🏆</div><h3>پیشرفت تو</h3><p>امتیاز، سکه و رکوردهای بازی‌ات را دنبال کن.</p><button type="button" class="secondary" data-go="profile">پروفایل من ←</button></article>
+ </div>
+ <div class="sectionhead"><h2>⚡ ادامهٔ ماجراجویی</h2><span class="muted small">شروع سریع</span></div>
+ <div class="grid">
+  <article class="card"><div class="iconbig">🧭</div><h3>چهارراه واژگان</h3><p>معنی درست واژه را پیدا کن.</p><button type="button" data-game="quiz">شروع بازی</button></article>
+  <article class="card"><div class="iconbig">🧩</div><h3>جورچین جمله</h3><p>کلمات را مرتب کن.</p><button type="button" data-game="sentence">شروع بازی</button></article>
+  <article class="card"><div class="iconbig">💎</div><h3>شکار گنج</h3><p>واژهٔ هدف را در صحنه پیدا کن.</p><button type="button" data-game="hunt">شروع بازی</button></article>
+ </div>
+</section>
+
+<section class="view" id="games">
+ <div class="sectionhead"><div><h2>🎮 انتخاب سبک بازی</h2><div class="muted small">هر کارت یک بازی واقعی و مستقل را شروع می‌کند.</div></div><span class="badge" id="gameCountBadge">۱۰ بازی + ۸ مینی‌بازی</span></div>
+ <div class="grid">
+  <article class="card"><div class="iconbig">🧭</div><h3>چهارراه واژگان</h3><p>چهار گزینه؛ معنی صحیح را انتخاب کن.</p><button type="button" data-game="quiz">بازی کن</button></article>
+  <article class="card"><div class="iconbig">🧩</div><h3>جورچین جمله</h3><p>واژه‌های به‌هم‌ریخته را به جمله تبدیل کن.</p><button type="button" data-game="sentence">بازی کن</button></article>
+  <article class="card"><div class="iconbig">⚡</div><h3>برق‌آسا</h3><p>در ۴۵ ثانیه تا می‌توانی پاسخ درست بده.</p><button type="button" data-game="speed">بازی کن</button></article>
+  <article class="card"><div class="iconbig">🔤</div><h3>قهرمان املا</h3><p>واژهٔ انگلیسی را با حروف درست بنویس.</p><button type="button" data-game="spelling">بازی کن</button></article>
+  <article class="card"><div class="iconbig">🧠</div><h3>حافظهٔ جادویی</h3><p>کارت‌های انگلیسی و معنی را جفت کن.</p><button type="button" data-game="memory">بازی کن</button></article>
+  <article class="card"><div class="iconbig">💎</div><h3>شکار گنج تصویری</h3><p>هدف را در میان اشیای صحنه پیدا کن.</p><button type="button" data-game="hunt">بازی کن</button></article>
+  <article class="card"><div class="iconbig">🔀</div><h3>کلمهٔ درهم‌ریخته</h3><p>حروف را مرتب کن و واژهٔ انگلیسی را بساز.</p><button type="button" data-game="scramble">بازی کن</button></article>
+  <article class="card"><div class="iconbig">🎧</div><h3>گوش کن و پیدا کن</h3><p>تلفظ واژه را بشنو و معنی درست را انتخاب کن.</p><button type="button" data-game="listen">بازی کن</button></article>
+  <article class="card"><div class="iconbig">✅</div><h3>درست یا نادرست</h3><p>معنی واژه‌ها را سریع ارزیابی کن.</p><button type="button" data-game="truefalse">بازی کن</button></article>
+  <article class="card"><div class="iconbig">⌨️</div><h3>تایپ قهرمان</h3><p>واژه را از روی معنی تایپ کن و رکورد بزن.</p><button type="button" data-game="typing">بازی کن</button></article>
+ </div>
+ <div class="sectionhead"><div><h2>🌟 مینی‌بازی‌های ماجراجویی</h2><div class="muted small">یادگیری از راه داستان، موقعیت واقعی و حل مسئله؛ نه فقط سؤال‌های چهارگزینه‌ای.</div></div><span class="badge">۸ تجربهٔ تازه</span></div>
+ <div class="grid">
+  <article class="card"><div class="iconbig">🔎</div><h3>شکارچی واژگان</h3><p>معنی را پیدا کن و گنج درست را از میان اشیای جنگل بردار.</p><button type="button" data-game="hunt">ورود به جنگل</button></article>
+  <article class="card"><div class="iconbig">🌲</div><h3>فرار از جنگل کلمات</h3><p>با فهمیدن دستورها و انتخاب وسیلهٔ درست، از مسیرهای خطرناک عبور کن.</p><button type="button" data-game="escape">شروع مأموریت</button></article>
+  <article class="card"><div class="iconbig">🔤</div><h3>استاد املای کلمات</h3><p>حروف به‌هم‌ریخته را مرتب کن و رمز خروج را بساز.</p><button type="button" data-game="scramble">مرتب‌کردن حروف</button></article>
+  <article class="card"><div class="iconbig">🕵️</div><h3>کارآگاه انگلیسی</h3><p>سرنخ‌های پرونده را بخوان و پاسخ معما را کشف کن.</p><button type="button" data-game="detective">بازکردن پرونده</button></article>
+  <article class="card"><div class="iconbig">🍔</div><h3>رستوران انگلیسی</h3><p>سفارش مشتری را بفهم و خوراکی درست را تحویل بده.</p><button type="button" data-game="restaurant">بازکردن رستوران</button></article>
+  <article class="card"><div class="iconbig">🎧</div><h3>گوش کن و پیدا کن</h3><p>تلفظ انگلیسی را بشنو و از میان گزینه‌ها انتخاب کن.</p><button type="button" data-game="listen">شروع شنیدار</button></article>
+  <article class="card"><div class="iconbig">🧩</div><h3>جمله‌ساز ماجراجو</h3><p>کلمات را کنار هم بچین تا جملهٔ درست ساخته شود.</p><button type="button" data-game="sentence">ساخت جمله</button></article>
+  <article class="card"><div class="iconbig">✈️</div><h3>سفر دور دنیا</h3><p>در فرودگاه، هتل و شهر با انگلیسی کارهای روزمره را انجام بده.</p><button type="button" data-game="travel">شروع سفر</button></article>
+ </div>
+ <div class="game-shell hidden" id="gamePanel"><div class="game-top"><div><span class="badge" id="gameMode">بازی</span><h2 id="gameTitle">عنوان بازی</h2></div><div class="row"><span class="pill">امتیاز: <b id="roundScore">0</b></span><button type="button" class="secondary" id="exitGame">↩ برگشت به بازی‌ها</button></div></div><div id="gameBody"></div></div>
+</section>
+
+<section class="view" id="learn">
+ <div class="hero"><div><div class="eyebrow">LEARN · PRACTICE · LEVEL UP</div><h1>کارگاه یادگیری</h1><p>واژه را ببین، معنی‌اش را یاد بگیر، تلفظش را بشنو و سپس با بازی تمرین کن.</p><div class="actions"><button type="button" data-go="words">🔎 جست‌وجوی واژه</button><button type="button" class="secondary" data-game="quiz">تمرین فوری</button></div></div><div class="heroart">📖 ✨</div></div>
+ <div class="sectionhead"><h2>🪄 واژهٔ روز</h2><button type="button" class="secondary" id="newWord">واژهٔ تازه ↻</button></div>
+ <div class="card" id="wordOfDay"><div class="muted">در حال آماده‌سازی…</div></div>
+ <div class="sectionhead"><h2>🎯 مأموریت روزانه</h2><span class="badge" id="dailyBadge">۰ از ۱۰</span></div>
+ <div class="card"><p id="dailyText">در بازی‌ها پاسخ بده و پیشرفتت را ثبت کن.</p><div class="progress"><span id="dailyBar"></span></div><div class="actions"><button type="button" data-game="quiz">شروع تمرین</button></div></div>
+</section>
+
+<section class="view" id="worlds">
+ <div class="sectionhead"><div><h2>🗺️ نقشهٔ جهان‌های گمشده</h2><div class="muted small">جهان‌ها با جمع‌کردن تجربه باز می‌شوند.</div></div></div>
+ <div class="grid" id="worldGrid"></div>
+</section>
+
+<section class="view" id="words">
+ <div class="sectionhead"><div><h2>🔎 جست‌وجوی هوشمند واژگان</h2><div class="muted small">جست‌وجو در واژه‌های داخلی، بدون نیاز به اینترنت.</div></div><span class="badge" id="wordCount">۰ واژه</span></div>
+ <input class="wordinput" id="wordSearch" type="search" placeholder="واژهٔ انگلیسی یا معنی فارسی را بنویس…" autocomplete="off">
+ <div class="row"><button type="button" id="randomCard">🪄 کارت تصادفی</button><button type="button" class="secondary" id="showAllWords">نمایش همه</button><button type="button" class="secondary" id="speakSearch">🔊 تلفظ واژه</button><button type="button" class="gold" id="loadOpenjam">⬇️ دریافت واژگان معتبر (تا ۵۰۰۰)</button></div>
+ <div class="card" style="margin-top:12px"><b>منبع دادهٔ تکمیلی: Openjam</b><p class="muted small">پایگاه واژگان چندزبانه با مجوز MIT؛ دریافت آنلاین نیازمند اینترنت است. فهرست Oxford 3000/5000 به‌صورت جداگانه مالکیت و شرایط استفادهٔ خودش را دارد، بنابراین بدون مجوز مناسب عیناً درون‌ریزی نمی‌شود.</p><a href="https://github.com/amirj4m/openjam" target="_blank" rel="noopener" style="color:#67e8f9">مشاهدهٔ منبع و مجوز ↗</a><div class="progress"><span id="importProgress"></span></div><div id="importStatus" class="status" style="margin-top:8px">واژه‌های داخلی آماده‌اند؛ برای دریافت بانک تکمیلی دکمه را بزن.</div></div>
+ <div class="card hidden" id="flashcard"></div>
+ <div class="status" id="wordStatus" style="margin-top:12px">واژه‌ها در حال آماده‌سازی‌اند.</div>
+ <div class="wordlist" id="wordResults"></div>
+</section>
+
+<section class="view" id="profile">
+ <div class="sectionhead"><div><h2>🏆 پروفایل ماجراجو</h2><div class="muted small">آمار روی همین دستگاه ذخیره می‌شود.</div></div><button type="button" class="danger" id="resetProgress">پاک‌کردن پیشرفت</button></div>
+ <div class="grid">
+  <article class="card"><div class="iconbig">⭐</div><h3>تجربه</h3><div style="font-size:30px;font-weight:1000" id="profileXP">0</div></article>
+  <article class="card"><div class="iconbig">🪙</div><h3>سکه</h3><div style="font-size:30px;font-weight:1000" id="profileCoins">0</div></article>
+  <article class="card"><div class="iconbig">✅</div><h3>پاسخ‌های درست</h3><div style="font-size:30px;font-weight:1000" id="profileCorrect">0</div></article>
+ </div>
+ <div class="card" style="margin-top:14px"><h3>📈 سطح فعلی</h3><p id="levelText">ماجراجوی تازه‌کار</p><div class="progress"><span id="levelBar"></span></div><p class="muted small" id="levelDetail"></p></div>
+</section>
+<div class="footer">ENGLISH QUEST · یک ماجراجویی آموزشی مستقل · پیشرفت فقط در همین مرورگر ذخیره می‌شود.</div>
+</main>
+<div id="toast" class="toast hidden" role="status"></div>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const vocabulary=[
+["adventure","ماجراجویی","Our adventure begins today."],["ancient","باستانی","We found an ancient map."],["answer","پاسخ دادن؛ پاسخ","Please answer the question."],["arrive","رسیدن","They arrive at noon."],["beautiful","زیبا","The garden is beautiful."],["brave","شجاع","The brave explorer smiled."],["bridge","پل","Cross the bridge carefully."],["bright","درخشان؛ روشن","The stars are bright."],["build","ساختن","We build a small house."],["careful","مراقب؛ دقیق","Be careful near the river."],["challenge","چالش","This challenge is fun."],["choose","انتخاب کردن","Choose the correct answer."],["clever","باهوش","The clever fox escaped."],["cloud","ابر","A cloud covered the moon."],["collect","جمع‌آوری کردن","Collect three magic stones."],["danger","خطر","The sign warns us of danger."],["discover","کشف کردن","We discover a hidden cave."],["dream","رویا","My dream is to travel."],["early","زود","We woke up early."],["earth","زمین","The earth moves around the sun."],["easy","آسان","This question is easy."],["enough","کافی","We have enough water."],["explore","کاوش کردن","Let's explore the forest."],["famous","مشهور","The city is famous."],["fast","سریع","The horse runs fast."],["forest","جنگل","A fox lives in the forest."],["friendly","دوستانه؛ مهربان","Our guide is friendly."],["future","آینده","The future is full of hope."],["gather","جمع کردن","Gather the golden leaves."],["gentle","ملایم؛ آرام","A gentle wind blew."],["glad","خوشحال","I am glad to see you."],["goal","هدف","Our goal is to learn."],["gold","طلا","The box contains gold."],["ground","زمین","The ground is wet."],["guide","راهنما","Follow your guide."],["healthy","سالم","Fruit is healthy food."],["hidden","پنهان","A hidden door opened."],["honest","صادق","An honest person tells the truth."],["hope","امید","Never lose hope."],["huge","بسیار بزرگ","A huge mountain stood ahead."],["improve","بهبود دادن","Practice helps you improve."],["journey","سفر","The journey was long."],["kind","مهربان","Be kind to others."],["knowledge","دانش","Knowledge makes us stronger."],["language","زبان","English is a language."],["learn","یاد گرفتن","We learn something new."],["leave","ترک کردن","We leave at sunrise."],["legend","افسانه","The legend tells of a hero."],["light","نور؛ روشن","Turn on the light."],["listen","گوش دادن","Listen to the teacher."],["little","کوچک؛ کم","A little bird sang."],["magic","جادو","The key has magic power."],["map","نقشه","Read the map."],["memory","حافظه","This game trains your memory."],["message","پیام","I sent a message."],["minute","دقیقه","Wait one minute."],["mountain","کوه","The mountain is tall."],["move","حرکت کردن","Move the blue tile."],["nature","طبیعت","We should protect nature."],["near","نزدیک","The village is near."],["need","نیاز داشتن","Plants need water."],["notice","متوجه شدن؛ اعلان","Did you notice the sign?"],["ocean","اقیانوس","The ocean looks blue."],["often","اغلب","We often read together."],["open","باز کردن؛ باز","Open the old chest."],["order","ترتیب؛ سفارش","Put the words in order."],["peace","صلح؛ آرامش","We all want peace."],["people","مردم","People gathered in the square."],["perhaps","شاید","Perhaps we can help."],["place","مکان؛ قرار دادن","This is a safe place."],["planet","سیاره","Earth is our planet."],["plant","گیاه؛ کاشتن","We plant a tree."],["play","بازی کردن","Children play outside."],["protect","محافظت کردن","Protect the forest."],["quick","سریع","That was a quick answer."],["quiet","ساکت؛ آرام","The library is quiet."],["reach","رسیدن به","We reach the castle."],["ready","آماده","Are you ready?"],["remember","به خاطر آوردن","Remember this new word."],["rescue","نجات دادن","They rescue the lost cat."],["river","رودخانه","The river is wide."],["safe","امن","This path is safe."],["search","جست‌وجو کردن","Search for the golden key."],["secret","راز","The letter holds a secret."],["share","به اشتراک گذاشتن","Share your ideas."],["shine","درخشیدن","The moon shines at night."],["skill","مهارت","Reading is an important skill."],["slow","آهسته","Please walk slowly."],["solve","حل کردن","Can you solve this puzzle?"],["sound","صدا","I heard a strange sound."],["special","ویژه","Today is a special day."],["story","داستان","Tell me a story."],["strong","قوی","The bridge is strong."],["student","دانش‌آموز","The student asks a question."],["success","موفقیت","Practice brings success."],["team","گروه؛ تیم","Our team works together."],["treasure","گنج","The treasure is under the tree."],["travel","سفر کردن","We travel by train."],["trust","اعتماد کردن","Friends trust each other."],["useful","مفید","This book is useful."],["usually","معمولاً","I usually walk to school."],["visit","دیدار کردن","We visit our grandparents."],["voice","صدا","I recognize her voice."],["warm","گرم","The soup is warm."],["water","آب","Drink enough water."],["wonder","شگفتی؛ تعجب کردن","I wonder what is inside."],["wonderful","عالی؛ شگفت‌انگیز","We had a wonderful day."],["world","جهان","The world is full of wonders."],["write","نوشتن","Write your name here."],["young","جوان؛ کم‌سن","The young explorer is curious."],["active","فعال","Stay active and curious."],["agree","موافقت کردن","I agree with you."],["almost","تقریباً","We are almost there."],["alone","تنها","The puppy was not alone."],["amazing","شگفت‌انگیز","That is an amazing idea."],["animal","حیوان","The animal needs food."],["appear","ظاهر شدن","A rainbow may appear."],["around","اطراف؛ حدود","Look around the room."],["believe","باور کردن","Believe in your ability."],["borrow","قرض گرفتن","May I borrow your pen?"],["bottom","پایین؛ ته","The key is at the bottom."],["break","شکستن؛ استراحت","Let's take a short break."],["busy","مشغول","My parents are busy."],["carry","حمل کردن","Carry the small bag."],["cause","سبب شدن؛ علت","What caused the problem?"],["center","مرکز","Meet me at the center."],["change","تغییر دادن","We can change the plan."],["circle","دایره","Draw a circle."],["common","رایج؛ مشترک","This is a common word."],["complete","کامل کردن","Complete the task."],["continue","ادامه دادن","Continue your good work."],["correct","درست","Your answer is correct."],["country","کشور","Iran is a beautiful country."],["create","خلق کردن","Create a new story."],["culture","فرهنگ","Culture connects people."],["decide","تصمیم گرفتن","We decide together."],["different","متفاوت","We have different ideas."],["difficult","دشوار","This puzzle is difficult."],["during","در طول","Do not talk during the test."],["example","مثال","Here is an example."],["excited","هیجان‌زده","We are excited about the trip."],["exercise","تمرین","Exercise every day."],["experience","تجربه","It was a great experience."],["explain","توضیح دادن","Can you explain this rule?"],["favorite","موردعلاقه","Blue is my favorite color."],["finish","تمام کردن","Finish your homework."],["follow","دنبال کردن","Follow the path."],["forget","فراموش کردن","Do not forget your book."],["friend","دوست","My friend helps me."],["habit","عادت","Reading is a good habit."],["important","مهم","Sleep is important."],["interesting","جالب","This story is interesting."],["invite","دعوت کردن","I invite you to play."],["letter","حرف؛ نامه","Write a letter."],["library","کتابخانه","The library has many books."],["meaning","معنی","What is the meaning of this word?"],["mistake","اشتباه","Everyone can learn from a mistake."],["practice","تمرین کردن","Practice makes progress."],["question","پرسش","Ask a good question."],["reason","دلیل","Tell me the reason."],["sentence","جمله","Write a complete sentence."],["simple","ساده","The answer is simple."],["subject","موضوع؛ درس","English is my favorite subject."],["understand","فهمیدن","I understand the lesson."],["welcome","خوش آمدید","Welcome to our school."],["without","بدون","Do not leave without your bag."]];
+const words=vocabulary.map((x,i)=>({en:x[0],fa:x[1],example:x[2],id:i}));
+const stateDefault={xp:0,coins:0,correct:0,played:0,streak:0,daily:0,unlocked:0};
+let state={...stateDefault};
+try{state={...stateDefault,...JSON.parse(localStorage.getItem("eq_from_scratch_state")||"{}")}}catch(e){}
+let currentGame=null,toastTimer=null,showAll=false,flashIndex=0;
+const gameNames={quiz:"چهارراه واژگان",sentence:"جورچین جمله",speed:"برق‌آسا",spelling:"قهرمان املا",memory:"حافظهٔ جادویی",hunt:"شکار گنج تصویری",scramble:"کلمهٔ درهم‌ریخته",listen:"گوش کن و پیدا کن",truefalse:"درست یا نادرست",typing:"تایپ قهرمان",escape:"فرار از جنگل کلمات",detective:"کارآگاه انگلیسی",restaurant:"رستوران انگلیسی",travel:"سفر دور دنیا"};
+const worlds=[{name:"جنگل واژه‌ها",icon:"🌲",need:0,desc:"واژه‌های پایه و مسیرهای سبز"},{name:"غار رمزها",icon:"🪨",need:100,desc:"جمله‌سازی و رمزگشایی"},{name:"بیابان طلایی",icon:"🏜️",need:250,desc:"چالش‌های سرعتی"},{name:"قلعهٔ آسمانی",icon:"🏰",need:500,desc:"آزمون قهرمانان"}];
+function save(){try{localStorage.setItem("eq_from_scratch_state",JSON.stringify(state))}catch(e){} updateStats()}
+function toast(msg){const el=$("toast");el.textContent=msg;el.classList.remove("hidden");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.add("hidden"),2200)}
+function showView(id){const target=$(id);if(!target)return;document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));document.querySelectorAll("#mainNav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));if(id==="worlds")renderWorlds();if(id==="profile")updateStats();if(id==="words")renderWords();window.scrollTo({top:0,behavior:"smooth"})}
+function updateStats(){["xpTop","profileXP"].forEach(id=>{if($(id))$(id).textContent=state.xp});["coinsTop","profileCoins"].forEach(id=>{if($(id))$(id).textContent=state.coins});if($("profileCorrect"))$("profileCorrect").textContent=state.correct;const level=Math.floor(state.xp/100)+1;if($("levelText"))$("levelText") .textContent=["ماجراجوی تازه‌کار","جست‌وجوگر","قهرمان واژگان","استاد جهان‌ها"][Math.min(3,Math.floor((level-1)/3))];if($("levelBar"))$("levelBar").style.width=(state.xp%100)+"%";if($("levelDetail"))$("levelDetail").textContent=`سطح ${level} · ${state.xp%100}/100 تجربه تا سطح بعد`;if($("dailyBadge"))$("dailyBadge").textContent=Math.min(10,state.daily)+" از ۱۰";if($("dailyText"))$("dailyText").textContent=state.daily>=10?"آفرین! مأموریت روزانه تکمیل شد.":"در بازی‌ها پاسخ بده؛ "+Math.min(10,state.daily)+" از ۱۰ پاسخ امروز ثبت شده است.";if($("dailyBar"))$("dailyBar").style.width=Math.min(100,state.daily*10)+"%"}
+function rand(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderWorlds(){$("worldGrid").innerHTML=worlds.map((w,i)=>{const open=state.xp>=w.need;return `<article class="card"><div class="iconbig">${w.icon}</div><h3>${w.name}</h3><p>${w.desc}</p><span class="badge">${open?"🔓 باز است":"🔒 نیاز به "+w.need+" تجربه"}</span><button type="button" ${open?'data-game="'+(["quiz","sentence","speed","hunt"][i])+'"':'disabled'}>${open?"ورود به جهان":"قفل است"}</button></article>`}).join("")}
+function showGamePanel(){showView("games");$("gamePanel").classList.remove("hidden");$("gamePanel").scrollIntoView({behavior:"smooth",block:"start"})}
+function beginGame(type){
+ if(currentGame?.interval)clearInterval(currentGame.interval);
+ if(!gameNames[type]){toast("این بازی شناخته نشد.");return}
+ currentGame={type,score:0,round:0,locked:false,done:false,used:[],timer:45,matches:0,selected:[],cards:[]};
+ showGamePanel();$("gameMode").textContent="بازی فعال";$("gameTitle").textContent=gameNames[type];$("roundScore").textContent="0";$("gameBody").innerHTML="";
+ if(type==="memory")startMemory();else if(type==="speed")startSpeed();else nextRound();
+}
+function setBody(s){$("gameBody").innerHTML=s}
+function wordQuestion(){const correct=rand(words),others=shuffle(words.filter(w=>w.en!==correct.en)).slice(0,3);return {correct,opts:shuffle([correct,...others])}}
+function nextRound(){
+ if(!currentGame||currentGame.done)return;currentGame.locked=false;currentGame.round++;
+ const g=currentGame;
+ if(g.type==="quiz"||g.type==="speed"){
+  const q=wordQuestion();g.answer=q.correct.en;
+  setBody(`<div class="game-top"><span class="badge">مرحله ${g.round}</span><span class="badge">پاسخ درست: ${state.correct}</span></div><div class="question" dir="ltr">${escapeHTML(q.correct.en)}</div><p class="subquestion">معنی درست این واژه کدام است؟</p><div class="answers">${q.opts.map(w=>`<button type="button" class="answer" data-answer="${escapeHTML(w.en)}">${escapeHTML(w.fa)}</button>`).join("")}</div><div id="gameFeedback" class="feedback hidden"></div><div class="actions"><button type="button" class="secondary hidden" id="nextRoundBtn">سؤال بعدی ←</button></div>`);
+  if(g.type==="speed")$("gameMode").textContent=`زمان باقی‌مانده: ${g.timer} ثانیه`;
+ }else if(g.type==="sentence"){
+  const w=rand(words),parts=(w.example||`I can ${w.en}.`).replace(/[.!?]/g,"").split(" "),scrambled=shuffle(parts);g.sentenceAnswer=parts.join(" ");g.sentenceChosen=[];
+  setBody(`<div class="badge">مرحله ${g.round}</div><div class="question">🧩 جمله را مرتب کن</div><p class="subquestion">معنی واژهٔ هدف <b>${escapeHTML(w.en)}</b>: ${escapeHTML(w.fa)}</p><div class="row" id="sentenceChosen"></div><hr style="border-color:#304774;margin:16px 0"><div class="row" id="sentenceOptions">${scrambled.map((x,i)=>`<button type="button" class="secondary" data-word="${i}">${escapeHTML(x)}</button>`).join("")}</div><div class="actions"><button type="button" id="checkSentence">بررسی جمله</button><button type="button" class="secondary" id="clearSentence">پاک کردن</button></div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">جملهٔ بعدی ←</button>`);
+  g.sentenceWords=scrambled;
+ }else if(g.type==="spelling"){
+  const w=rand(words);g.answer=w.en;const letters=shuffle(w.en.split(""));setBody(`<div class="badge">مرحله ${g.round}</div><div class="question">${escapeHTML(w.fa)}</div><p class="subquestion">واژهٔ انگلیسی را بنویس.</p><input id="spellInput" class="wordinput" autocomplete="off" autocapitalize="none" placeholder="English word" dir="ltr"><div class="actions"><button type="button" id="checkSpell">بررسی املا</button><button type="button" class="secondary" id="hintSpell">راهنمایی</button></div><div id="spellHint" class="muted small"></div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">واژهٔ بعدی ←</button>`);g.spellHint=w.en[0]+" · "+w.en.length+" حرف";
+ }else if(g.type==="hunt"){
+  const q=wordQuestion();g.answer=q.correct.en;const icons=["🗝️","📜","💎","🧪","🪙","🧭","📕","🌟"];const opts=shuffle(q.opts);
+  setBody(`<div class="scene"><span class="herochar">🧙‍♂️</span><span class="buddy">🦊</span></div><div class="question">🎯 پیدا کن: ${escapeHTML(q.correct.fa)}</div><p class="subquestion">کدام گنج نام انگلیسی درست را دارد؟</p><div class="answers">${opts.map((w,i)=>`<button type="button" class="answer" data-answer="${escapeHTML(w.en)}">${icons[i]} ${escapeHTML(w.en)}</button>`).join("")}</div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">ادامهٔ جست‌وجو ←</button>`);
+ }else if(g.type==="scramble"){
+  const w=rand(words);g.answer=w.en;let letters=shuffle(w.en.split(""));if(letters.join("")===w.en)letters=shuffle(letters);
+  setBody(`<div class="badge">مرحله ${g.round}</div><div class="question">${escapeHTML(w.fa)}</div><p class="subquestion">حروف را مرتب کن و کلمهٔ انگلیسی را بنویس.</p><div class="row" style="direction:ltr;justify-content:center;font-size:27px;letter-spacing:5px;font-weight:900">${letters.map(x=>`<span class="badge">${escapeHTML(x)}</span>`).join("")}</div><input id="spellInput" class="wordinput" dir="ltr" autocapitalize="none" placeholder="Type the word"><div class="actions"><button type="button" id="checkSpell">بررسی پاسخ</button><button type="button" class="secondary" id="hintSpell">راهنمایی</button></div><div id="spellHint" class="muted small"></div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">کلمهٔ بعدی ←</button>`);g.spellHint=`حرف اول: ${w.en[0]} · تعداد حروف: ${w.en.length}`;
+ }else if(g.type==="typing"){
+  const w=rand(words);g.answer=w.en;setBody(`<div class="badge">مرحله ${g.round}</div><div class="question">${escapeHTML(w.fa)}</div><p class="subquestion">معنی را به واژهٔ انگلیسی تبدیل کن.</p><input id="spellInput" class="wordinput" dir="ltr" autocapitalize="none" placeholder="English word"><div class="actions"><button type="button" id="checkSpell">ثبت پاسخ</button><button type="button" class="secondary" id="hintSpell">راهنمایی</button></div><div id="spellHint" class="muted small"></div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">واژهٔ بعدی ←</button>`);g.spellHint=`حرف اول: ${w.en[0]}`;
+ }else if(g.type==="listen"){
+  const q=wordQuestion();g.answer=q.correct.en;setBody(`<div class="scene"><span class="herochar">🎧</span><span class="buddy">🦊</span></div><div class="question">گوش کن و معنی را پیدا کن</div><div class="actions"><button type="button" id="playListen">🔊 پخش تلفظ</button></div><div class="answers">${q.opts.map(w=>`<button type="button" class="answer" data-answer="${escapeHTML(w.en)}">${escapeHTML(w.fa)}</button>`).join("")}</div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">سؤال بعدی ←</button>`);g.listenWord=q.correct.en;
+ }else if(g.type==="truefalse"){
+  const w=rand(words),isTrue=Math.random()>.5,shown=isTrue?w.fa:rand(words.filter(x=>x.en!==w.en).map(x=>x.fa));g.answer=isTrue?"true":"false";setBody(`<div class="badge">مرحله ${g.round}</div><div class="question" dir="ltr">${escapeHTML(w.en)}</div><p class="subquestion">آیا معنی این واژه «${escapeHTML(shown)}» است؟</p><div class="answers"><button type="button" class="answer" data-answer="true">✅ درست</button><button type="button" class="answer" data-answer="false">❌ نادرست</button></div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">بعدی ←</button>`);g.trueFalseMeaning=w.fa;
+ }
+ else if(g.type==="escape"){
+  const scenes=[
+   {title:"The bridge is broken!",fa:"پل خراب شده! برای عبور چه چیزی لازم داری؟",opts:[["a rope","طناب"],["a pillow","بالش"],["an apple","سیب"],["a spoon","قاشق"]],answer:"a rope",hint:"rope = طناب"},
+   {title:"You are thirsty.",fa:"تشنه‌ای؛ کدام وسیله کمکت می‌کند؟",opts:[["water","آب"],["a map","نقشه"],["a key","کلید"],["a shoe","کفش"]],answer:"water",hint:"water = آب"},
+   {title:"The door says: FIND THE KEY",fa:"روی در نوشته کلید را پیدا کن. کدام شیء را باید برداری؟",opts:[["a key","کلید"],["a book","کتاب"],["a hat","کلاه"],["a fish","ماهی"]],answer:"a key",hint:"key = کلید"},
+   {title:"It is dark. Turn on the light!",fa:"هوا تاریک است؛ چه چیزی را روشن می‌کنی؟",opts:[["a lamp","چراغ"],["a cup","فنجان"],["a bag","کیف"],["a banana","موز"]],answer:"a lamp",hint:"lamp = چراغ"}
+  ];const q=rand(scenes);g.answer=q.answer;setBody(`<div class="scene"><span class="herochar">🧭</span><span class="buddy">🦊</span></div><div class="badge">مأموریت جنگل · مرحله ${g.round}</div><div class="question" dir="ltr">${q.title}</div><p class="subquestion">${q.fa}</p><div class="answers">${shuffle(q.opts).map(o=>`<button type="button" class="answer" data-answer="${escapeHTML(o[0])}">${escapeHTML(o[0])}<br><small>${escapeHTML(o[1])}</small></button>`).join("")}</div><p class="muted small">💡 پس از انتخاب، معنی واژهٔ کلیدی را یاد می‌گیری.</p><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">ادامهٔ مسیر ←</button>`);g.hint=q.hint;
+ }else if(g.type==="detective"){
+  const cases=[
+   {title:"پروندهٔ گربهٔ گمشده",clue:"I am small. I say meow. I like milk.",fa:"این سرنخ‌ها دربارهٔ کدام حیوان است؟",opts:[["a cat","گربه"],["a dog","سگ"],["a bird","پرنده"],["a horse","اسب"]],answer:"a cat"},
+   {title:"پروندهٔ هوای بارانی",clue:"You open me when it rains.",fa:"وقتی باران می‌آید از چه چیزی استفاده می‌کنی؟",opts:[["an umbrella","چتر"],["a plate","بشقاب"],["a pencil","مداد"],["a pillow","بالش"]],answer:"an umbrella"},
+   {title:"پروندهٔ کلاس",clue:"You write with me. I can be made of wood.",fa:"کدام وسیله با این سرنخ‌ها جور است؟",opts:[["a pencil","مداد"],["a window","پنجره"],["a shoe","کفش"],["a sandwich","ساندویچ"]],answer:"a pencil"},
+   {title:"پروندهٔ زمان",clue:"You wear me on your wrist. I tell the time.",fa:"این وسیله چیست؟",opts:[["a watch","ساعت مچی"],["a key","کلید"],["a spoon","قاشق"],["a ball","توپ"]],answer:"a watch"}
+  ];const q=rand(cases);g.answer=q.answer;setBody(`<div class="scene"><span class="herochar">🕵️</span><span class="buddy">📁</span></div><div class="badge">${q.title}</div><div class="question" dir="ltr" style="font-size:22px">“${q.clue}”</div><p class="subquestion">${q.fa}</p><div class="answers">${shuffle(q.opts).map(o=>`<button type="button" class="answer" data-answer="${escapeHTML(o[0])}">${escapeHTML(o[0])}<br><small>${escapeHTML(o[1])}</small></button>`).join("")}</div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">پروندهٔ بعدی ←</button>`);
+ }else if(g.type==="restaurant"){
+  const orders=[
+   {customer:"Customer: I'd like a cheese burger, please.",fa:"مشتری یک چیزبرگر می‌خواهد. کدام سفارش را آماده می‌کنی؟",opts:[["a cheeseburger","چیزبرگر"],["ice cream","بستنی"],["tea","چای"],["salad","سالاد"]],answer:"a cheeseburger"},
+   {customer:"Customer: Can I have a glass of water?",fa:"مشتری یک لیوان آب می‌خواهد.",opts:[["water","آب"],["coffee","قهوه"],["cake","کیک"],["soup","سوپ"]],answer:"water"},
+   {customer:"Customer: I'd like some apple juice.",fa:"مشتری آب‌سیب سفارش داده است.",opts:[["apple juice","آب‌سیب"],["milk","شیر"],["bread","نان"],["rice","برنج"]],answer:"apple juice"},
+   {customer:"Customer: Can I see the menu, please?",fa:"مشتری منو می‌خواهد. کدام را به او می‌دهی؟",opts:[["the menu","منو"],["the bill","صورتحساب"],["a spoon","قاشق"],["a ticket","بلیط" ]],answer:"the menu"}
+  ];const q=rand(orders);g.answer=q.answer;setBody(`<div class="scene"><span class="herochar">🍽️</span><span class="buddy">🧑‍🍳</span></div><div class="badge">مشتری شمارهٔ ${g.round}</div><div class="question" dir="ltr" style="font-size:22px">${q.customer}</div><p class="subquestion">${q.fa}</p><div class="answers">${shuffle(q.opts).map(o=>`<button type="button" class="answer" data-answer="${escapeHTML(o[0])}">${escapeHTML(o[0])}<br><small>${escapeHTML(o[1])}</small></button>`).join("")}</div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">مشتری بعدی ←</button>`);
+ }else if(g.type==="travel"){
+  const trips=[
+   {place:"At the airport",line:"Where is Gate 4, please?",fa:"می‌خواهی مسیر گیت ۴ را بپرسی. کدام جمله مناسب است؟",opts:[["Where is Gate 4, please?","گیت ۴ کجاست؟"],["I am hungry.","من گرسنه‌ام."],["It is a blue bag.","این یک کیف آبی است."],["I like apples.","من سیب دوست دارم."]],answer:"Where is Gate 4, please?"},
+   {place:"At the hotel",line:"You want a room for one night.",fa:"برای یک شب اتاق می‌خواهی؛ چه می‌گویی؟",opts:[["I'd like a room for one night.","برای یک شب اتاق می‌خواهم."],["Close the window.","پنجره را ببند."],["I can swim.","من می‌توانم شنا کنم."],["This is my pencil.","این مداد من است."]],answer:"I'd like a room for one night."},
+   {place:"In the city",line:"You need help finding the museum.",fa:"می‌خواهی موزه را پیدا کنی؛ چه می‌پرسی؟",opts:[["How can I get to the museum?","چطور به موزه بروم؟"],["I have two brothers.","من دو برادر دارم."],["The soup is hot.","سوپ داغ است."],["Open your book.","کتابت را باز کن."]],answer:"How can I get to the museum?"},
+   {place:"At a shop",line:"You want to know the price.",fa:"می‌خواهی قیمت را بدانی؛ چه می‌گویی؟",opts:[["How much is it?","قیمتش چقدر است؟"],["What is your name?","اسمت چیست؟"],["I am twelve.","من دوازده ساله‌ام."],["See you tomorrow.","فردا می‌بینمت."]],answer:"How much is it?"}
+  ];const q=rand(trips);g.answer=q.answer;setBody(`<div class="scene"><span class="herochar">✈️</span><span class="buddy">🧳</span></div><div class="badge">${q.place} · موقعیت ${g.round}</div><div class="question" dir="ltr" style="font-size:22px">${q.line}</div><p class="subquestion">${q.fa}</p><div class="answers">${shuffle(q.opts).map(o=>`<button type="button" class="answer" data-answer="${escapeHTML(o[0])}">${escapeHTML(o[0])}<br><small>${escapeHTML(o[1])}</small></button>`).join("")}</div><div id="gameFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="nextRoundBtn">مقصد بعدی ←</button>`);
+ }
+}
+function scoreAnswer(correct,feedback,answerButtons){
+ const g=currentGame;if(!g||g.locked)return;g.locked=true;state.played++;if(correct){g.score+=10;state.xp+=10;state.coins+=3;state.correct++;state.streak++;state.daily=Math.min(10,state.daily+1)}else{state.streak=0}
+ $("roundScore").textContent=g.score;save();updateStats();
+ if(feedback){feedback.classList.remove("hidden","good","bad");feedback.classList.add(correct?"good":"bad");let extra="";if(g.type==="escape"&&g.hint)extra=" · "+g.hint;feedback.textContent=(correct?"آفرین! انتخاب درستی بود. +۱۰ تجربه و +۳ سکه":"این انتخاب مناسب نبود؛ پاسخ درست را ببین و دوباره یاد بگیر.")+(correct?extra:((g.type==="escape"&&g.hint)?" · "+g.hint:""));}
+ (answerButtons||[]).forEach(b=>{b.disabled=true;if(b.dataset.answer===g.answer)b.classList.add("correct");else if(b.dataset.answer===g.selectedAnswer)b.classList.add("wrong")});
+ const next=$("nextRoundBtn");if(next)next.classList.remove("hidden");
+ const speedNext=$("speedNext");if(speedNext)speedNext.classList.remove("hidden");
+}
+function startSpeed(){const g=currentGame;setBody(`<div class="game-top"><span class="badge">⏱️ <b id="speedTimer">45</b> ثانیه</span><span class="badge">رکورد این دور: <b id="speedScore">0</b></span></div><div id="speedQuestion"></div><div id="speedFeedback" class="feedback hidden"></div><button type="button" class="secondary hidden" id="speedNext">سؤال بعدی ←</button>`);speedQuestion();g.interval=setInterval(()=>{if(!currentGame||currentGame!==g){clearInterval(g.interval);return}g.timer--;if($("speedTimer"))$("speedTimer").textContent=g.timer;if(g.timer<=0){clearInterval(g.interval);g.done=true;$("speedQuestion").innerHTML=`<div class="question">⏰ زمان تمام شد!</div><p>امتیاز این دور: ${g.score}</p><button type="button" id="speedAgain">دوباره بازی کن</button>`;if($("speedFeedback"))$("speedFeedback").classList.add("hidden");}},1000)}
+function speedQuestion(){const g=currentGame;if(!g||g.done)return;g.locked=false;const q=wordQuestion();g.answer=q.correct.en;$("speedQuestion").innerHTML=`<div class="question" dir="ltr">${escapeHTML(q.correct.en)}</div><p class="subquestion">معنی کدام است؟</p><div class="answers">${q.opts.map(w=>`<button type="button" class="answer" data-answer="${escapeHTML(w.en)}">${escapeHTML(w.fa)}</button>`).join("")}</div>`;$("speedFeedback").classList.add("hidden");$("speedNext").classList.add("hidden")}
+function startMemory(){const g=currentGame;const pairs=shuffle(words).slice(0,4);g.cards=shuffle(pairs.flatMap((w,i)=>[{id:i,label:w.en,pair:i,type:"en"},{id:i,label:w.fa,pair:i,type:"fa"}]));g.flipped=[];g.matched=new Set();g.moves=0;setBody(`<p class="subquestion">هر کارت انگلیسی را با معنی فارسی آن جفت کن.</p><div class="memorygrid" id="memoryGrid">${g.cards.map((c,i)=>`<button type="button" class="memorytile" data-card="${i}">❔</button>`).join("")}</div><p class="muted small" id="memoryStatus">جفت‌های پیدا شده: ۰ از ۴</p><button type="button" class="secondary hidden" id="memoryAgain">بازی دوباره</button>`)}
+function flipMemory(i,btn){const g=currentGame;if(!g||g.done||g.matched.has(i)||g.flipped.includes(i)||g.flipped.length>=2)return;g.flipped.push(i);const c=g.cards[i];btn.textContent=c.label;btn.classList.add("revealed");if(g.flipped.length===2){g.moves++;const [a,b]=g.flipped;if(g.cards[a].pair===g.cards[b].pair&&g.cards[a].type!==g.cards[b].type){g.matched.add(a);g.matched.add(b);document.querySelectorAll(`[data-card="${a}"],[data-card="${b}"]`).forEach(x=>x.classList.add("matched"));g.score+=20;state.xp+=10;state.coins+=3;state.correct++;state.daily=Math.min(10,state.daily+1);save();$("roundScore").textContent=g.score;$("memoryStatus").textContent=`جفت‌های پیدا شده: ${g.matched.size/2} از ۴ · حرکت: ${g.moves}`;g.flipped=[];if(g.matched.size===8){g.done=true;$("memoryStatus").textContent+= " — عالی! همهٔ جفت‌ها را پیدا کردی."; $("memoryAgain").classList.remove("hidden")}}else{setTimeout(()=>{if(currentGame!==g)return;g.flipped.forEach(j=>{const el=document.querySelector(`[data-card="${j}"]`);if(el&&!g.matched.has(j)){el.textContent="❔";el.classList.remove("revealed")}});g.flipped=[]},750)}}}
+function renderWords(){const q=($("wordSearch").value||"").trim().toLowerCase();const list=words.filter(w=>w.en.includes(q)||w.fa.toLowerCase().includes(q)||(w.example||"").toLowerCase().includes(q));$("wordCount").textContent=words.length.toLocaleString("fa-IR")+" واژه";const shown=showAll?list:list.slice(0,36);$("wordResults").innerHTML=shown.map(w=>`<div class="worditem"><strong>${escapeHTML(w.en)}</strong><span>${escapeHTML(w.fa)}</span><div class="muted small" dir="ltr" style="margin-top:7px">${escapeHTML(w.example)}</div><button type="button" class="secondary" style="margin-top:8px;width:100%" data-speak="${escapeHTML(w.en)}">🔊 تلفظ</button></div>`).join("")||'<p class="muted">واژه‌ای پیدا نشد.</p>';$("wordStatus").textContent=`${list.length} واژه در بانک داخلی؛ جست‌وجو آفلاین است.`}
+function newWord(){const w=rand(words);$("wordOfDay").innerHTML=`<div class="eyebrow">WORD OF THE DAY</div><div class="question" dir="ltr">${escapeHTML(w.en)}</div><p style="font-size:20px">${escapeHTML(w.fa)}</p><p class="muted" dir="ltr">${escapeHTML(w.example)}</p><div class="actions"><button type="button" data-speak="${escapeHTML(w.en)}">🔊 شنیدن تلفظ</button><button type="button" class="secondary" data-game="quiz">تمرین این واژه</button></div>`}
+function speak(word){if(!("speechSynthesis" in window)){toast("تلفظ در این مرورگر پشتیبانی نمی‌شود.");return}try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(word);u.lang="en-US";u.rate=.85;speechSynthesis.speak(u)}catch(e){toast("پخش تلفظ ممکن نشد.")}}
+function showFlash(){const w=rand(words);$("flashcard").classList.remove("hidden");$("flashcard").innerHTML=`<div class="eyebrow">FLASH CARD</div><div class="question" dir="ltr">${escapeHTML(w.en)}</div><p style="font-size:21px">${escapeHTML(w.fa)}</p><p class="muted" dir="ltr">${escapeHTML(w.example)}</p><button type="button" data-speak="${escapeHTML(w.en)}">🔊 تلفظ</button>`}
+function showFeedback(ok,msg){const f=$("gameFeedback");if(!f)return;f.classList.remove("hidden","good","bad");f.classList.add(ok?"good":"bad");f.textContent=msg}
+document.addEventListener("click",e=>{
+ const b=e.target.closest("button");if(!b)return;
+ if(b.dataset.view){showView(b.dataset.view);return}
+ if(b.dataset.go){showView(b.dataset.go);return}
+ if(b.dataset.game){beginGame(b.dataset.game);return}
+ if(b.dataset.speak){speak(b.dataset.speak);return}
+ if(b.id==="exitGame"){if(currentGame?.interval)clearInterval(currentGame.interval);$("gamePanel").classList.add("hidden");currentGame=null;return}
+ if(b.dataset.answer!==undefined){
+  const g=currentGame;if(!g||g.locked||g.done)return;
+  g.selectedAnswer=b.dataset.answer;const correct=b.dataset.answer===g.answer;scoreAnswer(correct,$("gameFeedback"),[...document.querySelectorAll("#gameBody button[data-answer]")]);if(g.type==="truefalse"&&$("gameFeedback"))$("gameFeedback").textContent+=(correct?` معنی درست: ${g.trueFalseMeaning}`:` پاسخ صحیح: ${g.answer==="true"?"درست":"نادرست"}؛ معنی واژه: ${g.trueFalseMeaning}`);return
+ }
+ if(b.id==="nextRoundBtn"){if(currentGame?.type==="speed"){speedQuestion();return}nextRound();return}
+ if(b.id==="speedNext"){speedQuestion();return}
+ if(b.id==="checkSentence"){const g=currentGame;if(!g||g.locked)return;const ok=g.sentenceChosen.join(" ")===g.sentenceAnswer;g.answer="";g.locked=true;state.played++;if(ok){g.score+=10;state.xp+=10;state.coins+=3;state.correct++;state.daily=Math.min(10,state.daily+1);save()}$("roundScore").textContent=g.score;showFeedback(ok,ok?"جمله درست است! +۱۰ تجربه":"ترتیب جمله درست نیست. یک بار دیگر جمله را بساز.");$("nextRoundBtn").classList.remove("hidden");return}
+ if(b.id==="clearSentence"){const g=currentGame;if(!g)return;g.sentenceChosen=[];document.querySelectorAll("#sentenceOptions button").forEach(x=>x.disabled=false);$("sentenceChosen").innerHTML="";$("gameFeedback").classList.add("hidden");$("nextRoundBtn").classList.add("hidden");g.locked=false;return}
+ if(b.dataset.word!==undefined){const g=currentGame;if(!g||g.locked)return;const i=Number(b.dataset.word);g.sentenceChosen.push(g.sentenceWords[i]);b.disabled=true;$("sentenceChosen").innerHTML=g.sentenceChosen.map(w=>`<span class="badge">${escapeHTML(w)}</span>`).join("");return}
+ if(b.id==="checkSpell"){const g=currentGame;if(!g||g.locked)return;const ok=$("spellInput").value.trim().toLowerCase()===g.answer;scoreAnswer(ok,$("gameFeedback"),[]);$("spellInput").disabled=true;return}
+ if(b.id==="hintSpell"){const g=currentGame;if(g)$("spellHint").textContent="راهنمایی: "+g.spellHint;return}
+ if(b.dataset.card!==undefined){const idx=Number(b.dataset.card);flipMemory(idx,b);return}
+ if(b.id==="memoryAgain"){beginGame("memory");return}
+ if(b.id==="speedAgain"){beginGame("speed");return}
+ if(b.id==="playListen"){if(currentGame?.listenWord)speak(currentGame.listenWord);return}
+ if(b.id==="newWord"){newWord();return}
+ if(b.id==="randomCard"){showFlash();return}
+ if(b.id==="showAllWords"){showAll=!showAll;b.textContent=showAll?"نمایش کمتر":"نمایش همه";renderWords();return}
+ if(b.id==="speakSearch"){const q=$("wordSearch").value.trim();if(q)speak(q);else toast("اول یک واژه بنویس.");return}
+ if(b.id==="loadOpenjam"){loadOpenjam();return}
+ if(b.id==="resetProgress"){if(confirm("همهٔ امتیازها و پیشرفت روی این دستگاه پاک شود؟")){state={...stateDefault};save();toast("پیشرفت پاک شد.")}return}
+});
+$("wordSearch").addEventListener("input",()=>{showAll=false;renderWords()});
+async function loadOpenjam(){
+ const status=$("importStatus"),bar=$("importProgress"),btn=$("loadOpenjam");
+ if(!status||btn.disabled)return;
+ btn.disabled=true;status.textContent="در حال اتصال به بانک Openjam…";bar.style.width="2%";
+ try{
+  let gathered=[];const pageSize=100;const target=5000;
+  for(let offset=0;offset<target;offset+=pageSize){
+   const url=`https://openjam.amirj4m.com/v1/words?lang=fa&limit=${pageSize}&offset=${offset}`;
+   const response=await fetch(url,{headers:{Accept:"application/json"}});
+   if(!response.ok)throw new Error("HTTP "+response.status);
+   const payload=await response.json();
+   const arr=Array.isArray(payload)?payload:(payload.words||payload.data||payload.results||payload.items||[]);
+   if(!Array.isArray(arr)||arr.length===0)break;
+   for(const item of arr){
+    const en=item.english||item.word||item.lemma||item.headword||item.en;
+    let fa=item.persian||item.translation||item.fa||"";
+    if(!fa&&Array.isArray(item.senses))fa=item.senses.map(x=>x.translation||x.persian||x.gloss||"").filter(Boolean).join("؛ ");
+    if(typeof fa==="object")fa=fa.fa||fa.persian||"";
+    if(en&&fa)gathered.push({en:String(en).toLowerCase(),fa:String(fa),example:item.example||"",id:100000+gathered.length,source:"Openjam"});
+   }
+   bar.style.width=Math.min(98,Math.round((offset+arr.length)/target*100))+"%";
+   status.textContent=`دریافت در حال انجام… ${gathered.length.toLocaleString("fa-IR")} واژهٔ ترجمه‌دار`;
+   if(arr.length<pageSize)break;
+  }
+  const unique=new Map(words.map(w=>[w.en,w]));
+  gathered.forEach(w=>{if(!unique.has(w.en))unique.set(w.en,w)});
+  words.splice(0,words.length,...unique.values());
+  try{localStorage.setItem("eq_openjam_words",JSON.stringify(gathered))}catch(e){}
+  bar.style.width="100%";status.textContent=`تمام شد: ${gathered.length.toLocaleString("fa-IR")} واژهٔ ترجمه‌دار از Openjam دریافت شد؛ مجموع بانک فعلی ${words.length.toLocaleString("fa-IR")} واژه است.`;
+  $("wordCount").textContent=words.length.toLocaleString("fa-IR")+" واژه";renderWords();toast("بانک واژگان به‌روزرسانی شد.");
+ }catch(err){
+  status.textContent="دریافت آنلاین موفق نشد. اینترنت، محدودیت شبکه یا پاسخ API ممکن است مانع شده باشد. بازی‌ها و بانک داخلی همچنان قابل استفاده‌اند.";
+  toast("دریافت واژگان آنلاین ناموفق بود.");
+ }finally{btn.disabled=false}
+}
+function startInitial(){
+ try{const cached=JSON.parse(localStorage.getItem("eq_openjam_words")||"[]");if(Array.isArray(cached)&&cached.length){const m=new Map(words.map(w=>[w.en,w]));cached.forEach(w=>{if(w.en&&!m.has(w.en))m.set(w.en,w)});words.splice(0,words.length,...m.values());if($("importStatus"))$("importStatus").textContent=`${cached.length} واژهٔ ترجمه‌دار از Openjam از حافظه بارگذاری شد.`}}catch(e){}
+ updateStats();newWord();renderWords();renderWorlds()
+}
+startInitial();
+</script>
+</body>
+</html>

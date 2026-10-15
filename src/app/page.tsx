@@ -9,7 +9,7 @@ const courses = [
     title: "واژگان انگلیسی",
     subtitle: "لغت، معنی، تلفظ و املا",
     color: "violet",
-    href: "#vocabulary",
+    href: "/english-learning-project/vocabulary/",
   },
   {
     icon: "🧩",
@@ -46,6 +46,13 @@ const courses = [
     color: "cyan",
     href: "#skills",
   },
+  {
+    icon: "🎮",
+    title: "بازی‌ها",
+    subtitle: "تمرین زبان با بازی‌های تعاملی",
+    color: "orange",
+    href: "/english-learning-project/games/",
+  },
 ];
 
 const STORAGE_KEYS = {
@@ -67,7 +74,8 @@ export default function Home() {
 
   const navigation = [
     { name: "خانه", icon: "⌂", href: "#home" },
-    { name: "واژگان", icon: "▤", href: "#vocabulary" },
+    { name: "بازی‌ها", icon: "🎮", href: "/english-learning-project/games/" },
+    { name: "واژگان", icon: "▤", href: "/english-learning-project/vocabulary/" },
     { name: "گرامر", icon: "◈", href: "#grammar" },
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
     { name: "تمرین روزانه", icon: "✓", href: "#practice" },
@@ -452,365 +460,7 @@ export default function Home() {
           </section>
 
           <section className="lower-grid">
-            <div
-              className="section-block vocabulary-panel"
-              id="vocabulary"
-            >
-              <div className="section-heading compact-heading">
-                <div>
-                  <span className="section-kicker">
-                    VOCABULARY NOTEBOOK
-                  </span>
-                  <h2>واژگان منتخب</h2>
-                  <p>
-                    لغات کاربردی برای تقویت دایره واژگان
-                  </p>
-                </div>
-
-                <span className="round-symbol">Aa</span>
-              </div>
-
-              {/* نوار پیشرفت هدف ۵۰۰۰ لغت */}
-              <div
-                style={{
-                  padding: "16px",
-                  marginBottom: "16px",
-                  borderRadius: "14px",
-                  background: "#f5f3ff",
-                  border: "1px solid #e9d5ff",
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: "12px",
-                    flexWrap: "wrap",
-                    marginBottom: "10px",
-                  }}
-                >
-                  <strong style={{ color: "#5b21b6" }}>
-                    مسیر یادگیری ۵۰۰۰ لغت
-                  </strong>
-
-                  <span style={{ color: "#6d28d9", fontSize: "13px" }}>
-                    {learned.length.toLocaleString("fa-IR")} از{" "}
-                    {VOCABULARY_GOAL.toLocaleString("fa-IR")} لغت
-                  </span>
-                </div>
-
-                <div
-                  role="progressbar"
-                  aria-label="پیشرفت یادگیری واژگان"
-                  aria-valuemin={0}
-                  aria-valuemax={VOCABULARY_GOAL}
-                  aria-valuenow={learned.length}
-                  style={{
-                    height: "10px",
-                    borderRadius: "20px",
-                    background: "#ddd6fe",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: `${progressPercent}%`,
-                      height: "100%",
-                      borderRadius: "20px",
-                      background:
-                        "linear-gradient(90deg, #8b5cf6, #6d28d9)",
-                      transition: "width 0.3s ease",
-                    }}
-                  />
-                </div>
-
-                <p
-                  style={{
-                    margin: "9px 0 0",
-                    color: "#6d28d9",
-                    fontSize: "12px",
-                  }}
-                >
-                  {progressPercent.toLocaleString("fa-IR")}٪ از هدف
-                  تکمیل شده است.
-                </p>
-              </div>
-
-              {/* فیلترهای لغات */}
-              <div
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "10px",
-                  margin: "18px 0",
-                }}
-              >
-                <label
-                  style={{
-                    flex: "1 1 130px",
-                    fontSize: "13px",
-                    color: "#64748b",
-                  }}
-                >
-                  سطح زبان
-
-                  <select
-                    value={selectedLevel}
-                    onChange={(event) =>
-                      setSelectedLevel(event.target.value)
-                    }
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      marginTop: "6px",
-                      padding: "11px",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "10px",
-                      background: "#fff",
-                      color: "#334155",
-                    }}
-                  >
-                    <option value="همه">همه سطح‌ها</option>
-                    <option value="A1">A1 ـ مقدماتی</option>
-                    <option value="A2">A2 ـ پایه</option>
-                    <option value="B1">B1 ـ متوسط</option>
-                    <option value="B2">B2 ـ متوسط رو به بالا</option>
-                    <option value="C1">C1 ـ پیشرفته</option>
-                  </select>
-                </label>
-
-                <label
-                  style={{
-                    flex: "1 1 160px",
-                    fontSize: "13px",
-                    color: "#64748b",
-                  }}
-                >
-                  موضوع
-
-                  <select
-                    value={selectedTopic}
-                    onChange={(event) =>
-                      setSelectedTopic(event.target.value)
-                    }
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      marginTop: "6px",
-                      padding: "11px",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "10px",
-                      background: "#fff",
-                      color: "#334155",
-                    }}
-                  >
-                    <option value="همه">همه موضوع‌ها</option>
-
-                    {topics.map((topic) => (
-                      <option value={topic} key={topic}>
-                        {topic}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedLevel("همه");
-                    setSelectedTopic("همه");
-                    setSearch("");
-                  }}
-                  style={{
-                    alignSelf: "end",
-                    padding: "11px 14px",
-                    border: "1px solid #e2e8f0",
-                    borderRadius: "10px",
-                    background: "#f8fafc",
-                    color: "#475569",
-                    cursor: "pointer",
-                  }}
-                >
-                  پاک‌کردن فیلترها
-                </button>
-              </div>
-
-              {/* فهرست لغات */}
-              <div className="word-list">
-                {filteredWords.map((word) => {
-                  const isSaved = saved.includes(word.word);
-                  const isLearned = learned.includes(word.word);
-
-                  return (
-                    <article className="word-card" key={word.word}>
-                      <div className="word-letter">
-                        {word.word.charAt(0)}
-                      </div>
-
-                      <div className="word-main">
-                        <div className="word-title-row">
-                          <strong>{word.word}</strong>
-                          <button
-                            type="button"
-                            onClick={() => speakWord(word.word)}
-                            aria-label={`شنیدن تلفظ ${word.word}`}
-                            title="شنیدن تلفظ انگلیسی"
-                            style={{
-                              border: "1px solid #ddd6fe",
-                              background: "#f5f3ff",
-                              color: "#6d28d9",
-                              borderRadius: "9px",
-                              width: "32px",
-                              height: "32px",
-                              display: "inline-flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              cursor: "pointer",
-                              fontSize: "15px",
-                              flexShrink: 0,
-                            }}
-                          >
-                            🔊
-                          </button>
-                          <span className="word-type">{word.type}</span>
-                        </div>
-
-                        <span className="phonetic">
-                          {word.phonetic}
-                        </span>
-
-                        <p>{word.meaning}</p>
-
-                        <div
-  style={{
-    marginTop: "10px",
-    padding: "12px",
-    borderRadius: "12px",
-    background: "#f8fafc",
-    border: "1px solid #e2e8f0",
-  }}
->
-  <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      gap: "10px",
-      marginBottom: "8px",
-    }}
-  >
-    <span
-      dir="rtl"
-      style={{ fontSize: "12px", color: "#64748b", fontWeight: 600 }}
-    >
-      مثال در جمله
-    </span>
-    <button
-      type="button"
-      onClick={() => speakWord(word.example)}
-      aria-label="شنیدن تلفظ جمله مثال"
-      title="شنیدن تلفظ جمله مثال"
-      style={{
-        border: "1px solid #ddd6fe",
-        background: "#f5f3ff",
-        color: "#6d28d9",
-        borderRadius: "9px",
-        padding: "5px 9px",
-        cursor: "pointer",
-        fontSize: "12px",
-        whiteSpace: "nowrap",
-      }}
-    >
-      🔊 شنیدن جمله
-    </button>
-  </div>
-  <small
-    className="word-example"
-    dir="ltr"
-    style={{ display: "block", textAlign: "left", lineHeight: 1.8 }}
-  >
-    {word.example}
-  </small>
-</div>
-                      </div>
-
-                      <div
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          alignItems: "center",
-                          gap: "6px",
-                        }}
-                      >
-                        <button
-                          type="button"
-                          className={`save-word ${isSaved ? "saved" : ""}`}
-                          onClick={() => toggleSaved(word.word)}
-                          aria-label={
-                            isSaved
-                              ? "حذف از لغات ذخیره‌شده"
-                              : "ذخیره لغت"
-                          }
-                          title={
-                            isSaved
-                              ? "حذف از دفتر لغات"
-                              : "ذخیره در دفتر لغات"
-                          }
-                        >
-                          {isSaved ? "♥" : "♡"}
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => toggleLearned(word.word)}
-                          aria-pressed={isLearned}
-                          style={{
-                            border: "1px solid #bbf7d0",
-                            background: isLearned ? "#dcfce7" : "#fff",
-                            color: "#15803d",
-                            borderRadius: "10px",
-                            padding: "7px 10px",
-                            cursor: "pointer",
-                            whiteSpace: "nowrap",
-                            fontSize: "12px",
-                          }}
-                          title={
-                            isLearned
-                              ? "لغت یاد گرفته شده؛ برای لغو کلیک کن"
-                              : "علامت‌گذاری به‌عنوان یادگرفته‌شده"
-                          }
-                        >
-                          {isLearned ? "✓ یاد گرفتم" : "یاد گرفتم"}
-                        </button>
-                      </div>
-                    </article>
-                  );
-                })}
-
-                {filteredWords.length === 0 && (
-                  <p className="empty-state">
-                    لغتی پیدا نشد. املای کلمه یا معنی فارسی را بررسی کن.
-                  </p>
-                )}
-              </div>
-
-              <div className="panel-footer">
-                <span>
-                  لغات نمایش‌داده‌شده:{" "}
-                  {filteredWords.length.toLocaleString("fa-IR")}
-                </span>
-
-                <span>
-                  ذخیره‌شده‌ها: {saved.length.toLocaleString("fa-IR")}
-                </span>
-
-                <span>
-                  یادگرفته‌شده‌ها:{" "}
-                  {learned.length.toLocaleString("fa-IR")}
-                </span>
-              </div>
-            </div>
+            
 
             {/* تمرین روزانه */}
             <div
@@ -958,6 +608,9 @@ export default function Home() {
     </main>
   );
 }
+
+
+
 
 
 

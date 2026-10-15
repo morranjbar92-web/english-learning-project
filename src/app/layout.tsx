@@ -1,5 +1,6 @@
 ﻿import type { Metadata } from "next";
 import "./globals.css";
+import FixedNavigation from "./components/fixed-navigation";
 
 export const metadata: Metadata = {
   title: "LinguaPro | یادگیری هوشمند زبان انگلیسی",
@@ -11,7 +12,8 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body>{children}</body>
+      <body><FixedNavigation />{children}</body>
     </html>
   );
 }
+

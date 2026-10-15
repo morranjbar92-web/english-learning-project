@@ -130,19 +130,20 @@ export default function VocabularyPage() {
   function speak(text: string) {
     if (typeof window === "undefined") return;
 
-    if (!("speechSynthesis" in window)) {
-      window.alert("مرورگر شما از پخش تلفظ پشتیبانی نمی‌کند.");
+    const synth = window.speechSynthesis;
+
+    if (typeof synth === "undefined" || !synth) {
+      alert("مرورگر شما از پخش تلفظ پشتیبانی نمی‌کند.");
       return;
     }
 
-    window.speechSynthesis.cancel();
+    synth.cancel();
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "en-US";
     utterance.rate = 0.85;
     utterance.pitch = 1;
-
-    window.speechSynthesis.speak(utterance);
+    synth.speak(utterance);
   }
 
   function toggleSaved(word: string) {
@@ -467,3 +468,4 @@ export default function VocabularyPage() {
     </main>
   );
 }
+

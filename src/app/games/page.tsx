@@ -71,9 +71,23 @@ export default function GamesPage() {
             </article>
           ))}
         </div>
-      </div>
+
+        {/* LEXIVERSE ARCADE BUTTON START */}
+        <section className="games-arcade-feature" aria-label="بازی‌های زبان انگلیسی">
+          <div className="games-arcade-symbol" aria-hidden="true">🎮</div>
+          <div className="games-arcade-copy">
+            <span className="games-hub-eyebrow">LEXIVERSE · GAME UNIVERSE</span>
+            <h2>بازی‌ها</h2>
+            <p>وارد دنیای LEXIverse شو؛ واژگان، معماها و چالش‌های سرعتی زبان انگلیسی را بازی کن.</p>
+          </div>
+          <a className="games-primary-link games-arcade-action" href={root + "/games/arcade/"}>
+            ورود به بازی‌ها ←
+          </a>
+        </section>
+        {/* LEXIVERSE ARCADE BUTTON END */}      </div>
     </main>
   );
 }
+
 
 

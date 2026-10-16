@@ -12,6 +12,11 @@ import { RoomEvent } from "livekit-client";
 import "@livekit/components-styles";
 import "./classroom.css";
 
+const CLASSROOM_API_BASE_URL =
+  typeof window !== "undefined" &&
+  window.location.hostname === "morranjbar92-web.github.io"
+    ? "https://english-learning-project.onrender.com"
+    : "";
 type Connection = {
   token: string;
   url: string;
@@ -112,7 +117,7 @@ function ClassroomControls({
 
     try {
       const response = await fetch(
-        "/api/classroom/moderate/",
+        `${CLASSROOM_API_BASE_URL}/api/classroom/moderate/`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -398,7 +403,7 @@ export default function ClassroomClient() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/classroom/token/", {
+      const response = await fetch(`${CLASSROOM_API_BASE_URL}/api/classroom/token/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

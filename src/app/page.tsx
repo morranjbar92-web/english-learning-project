@@ -80,6 +80,7 @@ export default function Home() {
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
     { name: "تمرین روزانه", icon: "✓", href: "#practice" },
     { name: "آزمون‌ها", icon: "▣", href: "#exams" },
+    { name: "ساخت یا ورود به کلاس آنلاین", icon: "🎥", href: "/classroom/" },
   ];
 
   // بازیابی اطلاعات ذخیره‌شده پس از بازشدن صفحه
@@ -214,13 +215,8 @@ export default function Home() {
         </nav>
 
         <div className="side-label side-label-spaced">
-          حساب کاربری
+          امکانات بیشتر
         </div>
-
-        <a className="nav-link" href="#teachers">
-          <span className="nav-icon">♧</span>
-          <span>بخش معلمان</span>
-        </a>
 
         <a className="nav-link" href="#exams">
           <span className="nav-icon">▧</span>
@@ -333,9 +329,14 @@ export default function Home() {
                 از اولین لغت تا مکالمه روان؛ قدم‌به‌قدم در کنار تو هستیم.
               </p>
 
-              <a className="hero-button" href="#courses">
-                کشف مسیر یادگیری <span>←</span>
-              </a>
+              <div className="hero-actions">
+  <a className="hero-button classroom-hero-button" href="/classroom/">
+    ساخت یا ورود به کلاس آنلاین <span>←</span>
+  </a>
+  <a className="hero-button" href="#courses">
+    کشف مسیر یادگیری <span>←</span>
+  </a>
+</div>
             </div>
 
             <div className="hero-art" aria-hidden="true">
@@ -608,6 +609,7 @@ export default function Home() {
     </main>
   );
 }
+
 
 
 

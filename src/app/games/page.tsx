@@ -42,8 +42,8 @@ export default function GamesPage() {
         </a>
 
         <header className="games-hub-hero">
-          <span className="games-hub-eyebrow">LINGUAPRO · GAME CENTER</span>
-          <h1>🎮 مرکز بازی‌های زبان</h1>
+          <span className="games-hub-eyebrow">LINGUAPRO · WARM-UP TESTS</span>
+          <h1>📝 آزمون‌های دست‌گرمی زبان</h1>
           <p>مهارت موردنظرت را انتخاب کن و یادگیری را با بازی ادامه بده.</p>
         </header>
 
@@ -75,3 +75,4 @@ export default function GamesPage() {
     </main>
   );
 }
+

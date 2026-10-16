@@ -1013,3 +1013,27 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 }
 
 
+
+/* classroom-home-navigation */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.hero-button.classroom-hero-button {
+  background: #91e5c2;
+  color: #173c34;
+}
+
+@media (max-width: 640px) {
+  .hero-actions {
+    gap: 8px;
+  }
+
+  .hero-actions .hero-button {
+    white-space: normal;
+    line-height: 1.8;
+  }
+}

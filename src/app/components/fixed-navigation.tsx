@@ -7,6 +7,7 @@ const ROOT = "/english-learning-project";
 
 const items = [
   { label: "خانه", icon: "⌂", href: ROOT + "/#home" },
+  { label: "ساخت یا ورود به کلاس آنلاین", icon: "🎥", href: ROOT + "/classroom/" },
   { label: "واژگان انگلیسی", icon: "📚", href: ROOT + "/vocabulary/" },
   { label: "گرامر", icon: "◈", href: ROOT + "/#grammar" },
   { label: "مهارت‌های زبان", icon: "◎", href: ROOT + "/#skills" },
@@ -99,3 +100,4 @@ export default function FixedNavigation() {
     </>
   );
 }
+

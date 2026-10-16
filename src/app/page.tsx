@@ -80,6 +80,7 @@ export default function Home() {
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
     { name: "تمرین روزانه", icon: "✓", href: "#practice" },
     { name: "آزمون‌ها", icon: "▣", href: "#exams" },
+    { name: "ساخت یا ورود به کلاس آنلاین", icon: "🎥", href: "/english-learning-project/classroom/" },
   ];
 
   // بازیابی اطلاعات ذخیره‌شده پس از بازشدن صفحه
@@ -217,10 +218,6 @@ export default function Home() {
           حساب کاربری
         </div>
 
-        <a className="nav-link" href="#teachers">
-          <span className="nav-icon">♧</span>
-          <span>بخش معلمان</span>
-        </a>
 
         <a className="nav-link" href="#exams">
           <span className="nav-icon">▧</span>
@@ -333,9 +330,14 @@ export default function Home() {
                 از اولین لغت تا مکالمه روان؛ قدم‌به‌قدم در کنار تو هستیم.
               </p>
 
-              <a className="hero-button" href="#courses">
-                کشف مسیر یادگیری <span>←</span>
-              </a>
+              <div className="hero-actions">
+                <a className="hero-button classroom-hero-button" href="/english-learning-project/classroom/">
+                  ساخت یا ورود به کلاس آنلاین <span>←</span>
+                </a>
+                <a className="hero-button" href="#courses">
+                  کشف مسیر یادگیری <span>←</span>
+                </a>
+              </div>
             </div>
 
             <div className="hero-art" aria-hidden="true">
@@ -542,24 +544,6 @@ export default function Home() {
             </div>
           </section>
 
-          {/* بخش معلمان */}
-          <section className="teacher-banner" id="teachers">
-            <div className="teacher-symbol">♧</div>
-
-            <div className="teacher-copy">
-              <span className="section-kicker">FOR TEACHERS</span>
-              <h2>فضایی برای آموزش بهتر</h2>
-              <p>
-                ساخت کلاس، طراحی آزمون و پیگیری پیشرفت زبان‌آموزان؛
-                در مسیر توسعه سامانه.
-              </p>
-            </div>
-
-            <a href="#exams" className="teacher-button">
-              بخش معلمان <span>←</span>
-            </a>
-          </section>
-
           {/* بخش‌های آموزشی آینده */}
           <section className="section-block future-section" id="grammar">
             <div className="section-heading compact-heading">
@@ -608,6 +592,7 @@ export default function Home() {
     </main>
   );
 }
+
 
 
 

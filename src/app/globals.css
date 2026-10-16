@@ -1085,4 +1085,12 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   .warmup-embed-frame { min-height: 800px; }
 }
 /* LINGUAPRO WARMUP AND ARCADE END */
-
+/* LINGUAPRO HOMEPAGE GAMES BUTTON */
+.hero-button.homepage-games-button {
+  background: linear-gradient(135deg, #ffe19b, #ffb45f);
+  color: #4c300c;
+  box-shadow: 0 7px 18px rgba(255, 183, 89, .22);
+}
+.hero-button.homepage-games-button:hover {
+  filter: brightness(1.04);
+}

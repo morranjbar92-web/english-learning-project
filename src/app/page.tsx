@@ -337,6 +337,13 @@ export default function Home() {
                 <a className="hero-button" href="#courses">
                   کشف مسیر یادگیری <span>←</span>
                 </a>
+                <a
+                  className="hero-button homepage-games-button"
+                  href="/english-learning-project/games/arcade/"
+                  aria-label="باز کردن بازی‌های زبان انگلیسی"
+                >
+                  🎮 بازی‌ها <span>←</span>
+                </a>
               </div>
             </div>
 

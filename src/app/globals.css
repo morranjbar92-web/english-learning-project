@@ -933,6 +933,82 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
   .embedded-game-frame { min-height: 800px; }
 }
 
+/* LINGUAPRO ACTUAL SEARCH SIZE FIX */
+.vocabulary-page .vocabulary-shell > .vocab-filter-panel {
+  width: 100%;
+  min-width: 0;
+}
 
+.vocabulary-page .vocabulary-shell > .vocab-filter-panel > .vocab-search-field {
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  width: calc(100% - 84px) !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: 68px !important;
+  min-height: 68px !important;
+  margin: 0 auto 16px !important;
+  padding: 0 18px !important;
+  gap: 13px !important;
+  border: 1px solid #dcd4fb !important;
+  border-radius: 15px !important;
+  background: #fff !important;
+  box-shadow: 0 5px 18px rgba(64, 45, 140, .06);
+}
 
+.vocabulary-page .vocab-search-field > span {
+  flex: 0 0 auto !important;
+  font-size: 30px !important;
+  line-height: 1 !important;
+}
+
+.vocabulary-page .vocab-search-field input {
+  display: block !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 64px !important;
+  box-sizing: border-box !important;
+  padding: 0 4px !important;
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  color: #37334d !important;
+  font: 16px Tahoma, Arial, sans-serif !important;
+}
+
+.vocabulary-page .vocab-search-field input::placeholder {
+  color: #a19db3 !important;
+  font-size: 14px !important;
+  opacity: 1;
+}
+
+.vocabulary-page .vocab-search-field:focus-within {
+  border-color: #9e8af5 !important;
+  box-shadow: 0 0 0 4px #8a75f21a !important;
+}
+
+.vocabulary-page .vocab-search-field button {
+  flex: 0 0 auto !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #77718f !important;
+  font-size: 25px !important;
+  cursor: pointer;
+}
+
+@media (max-width: 650px) {
+  .vocabulary-page .vocabulary-shell > .vocab-filter-panel > .vocab-search-field {
+    width: calc(100% - 56px) !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    padding: 0 13px !important;
+  }
+
+  .vocabulary-page .vocab-search-field input {
+    height: 56px !important;
+    font-size: 14px !important;
+  }
+}
 

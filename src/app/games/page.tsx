@@ -8,7 +8,7 @@ const skills = [
     name: "Listening",
     fa: "مهارت شنیداری",
     description: "شنیدن واژه‌ها، جمله‌ها و مکالمه‌های انگلیسی",
-    ready: false
+    ready: true
   },
   {
     icon: "🎙️",
@@ -61,9 +61,9 @@ export default function GamesPage() {
               {skill.ready ? (
                 <a
                   className="games-primary-link"
-                  href={root + "/games/writing/"}
+                  href={root + (skill.name === "Listening" ? "/games/listening/" : "/games/writing/")}
                 >
-                  ورود به Writing ←
+                  {skill.name === "Listening" ? "ورود به Listening ←" : "ورود به Writing ←"}
                 </a>
               ) : (
                 <span className="games-coming-label">به‌زودی</span>
@@ -75,4 +75,5 @@ export default function GamesPage() {
     </main>
   );
 }
+
 

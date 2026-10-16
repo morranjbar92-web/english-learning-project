@@ -176,7 +176,7 @@ export default function VocabularyPage() {
       <div className="vocabulary-shell">
         <header className="vocab-hero">
           <div className="vocab-breadcrumb">
-            <a href="/english-learning-project/">خانه</a>
+            <a href="/">خانه</a>
             <span>›</span>
             <span>واژگان انگلیسی</span>
           </div>

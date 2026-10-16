@@ -9,7 +9,7 @@ const courses = [
     title: "واژگان انگلیسی",
     subtitle: "لغت، معنی، تلفظ و املا",
     color: "violet",
-    href: "/english-learning-project/vocabulary/",
+    href: "/vocabulary/",
   },
   {
     icon: "🧩",
@@ -51,7 +51,7 @@ const courses = [
     title: "آزمون‌های دست‌گرمی",
     subtitle: "تمرین زبان با آزمون‌های تعاملی",
     color: "orange",
-    href: "/english-learning-project/games/",
+    href: "/games/",
   },
 ];
 
@@ -74,8 +74,8 @@ export default function Home() {
 
   const navigation = [
     { name: "خانه", icon: "⌂", href: "#home" },
-    { name: "آزمون‌های دست‌گرمی", icon: "🎮", href: "/english-learning-project/games/" },
-    { name: "واژگان", icon: "▤", href: "/english-learning-project/vocabulary/" },
+    { name: "آزمون‌های دست‌گرمی", icon: "🎮", href: "/games/" },
+    { name: "واژگان", icon: "▤", href: "/vocabulary/" },
     { name: "گرامر", icon: "◈", href: "#grammar" },
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
     { name: "تمرین روزانه", icon: "✓", href: "#practice" },

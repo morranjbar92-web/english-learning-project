@@ -1,6 +1,6 @@
 ﻿"use client";
 
-const root = "/english-learning-project";
+const root = "";
 
 const skills = [
   {

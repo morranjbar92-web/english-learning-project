@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const ROOT = "/english-learning-project";
+const ROOT = "";
 
 const items = [
   { label: "خانه", icon: "⌂", href: ROOT + "/#home" },

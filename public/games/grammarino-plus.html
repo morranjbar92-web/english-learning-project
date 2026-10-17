@@ -221,19 +221,57 @@ function speakLetter(i){const x=alphabetLetters[i];if(!x)return;speakText("The l
 function speakLetterExample(i){const x=alphabetLetters[i];if(!x)return;speakText(x[2]);}
 // Say the letter names in the combination, then let the learner hear the sound in real example words.
 function speakCombinationName(i){const x=letterPairs[i];if(!x)return;const names={sh:"S H",ch:"C H",th:"T H",ph:"P H",ck:"C K",ng:"N G",ee:"E E",ea:"E A",oo:"O O",ai:"A I",ay:"A Y",oa:"O A",ow:"O W",ou:"O U",wh:"W H",qu:"Q U"};speakText(names[x[0]]||x[0].split("").join(" "));}
+const GRAMMARINO_PHONEME_AUDIO={
+ sh:{local:'/english-learning-project/games/pronunciation/sh.ogg',remote:'https://upload.wikimedia.org/wikipedia/commons/c/cc/Voiceless_palato-alveolar_sibilant.ogg'},
+ ch:{local:'/english-learning-project/games/pronunciation/ch.ogg',remote:'https://upload.wikimedia.org/wikipedia/commons/9/97/Voiceless_palato-alveolar_affricate.ogg'},
+ thVoiceless:{local:'/english-learning-project/games/pronunciation/th-voiceless.ogg',remote:'https://upload.wikimedia.org/wikipedia/commons/8/80/Voiceless_dental_fricative.ogg'},
+ thVoiced:{local:'/english-learning-project/games/pronunciation/th-voiced.ogg',remote:'https://upload.wikimedia.org/wikipedia/commons/6/6a/Voiced_dental_fricative.ogg'}
+};
+function playRecordedPhonemeAudio(items,fallbackWords){
+ const sequence=Array.isArray(items)?items:[items];
+ const token=(window._grammarinoPhonemeToken||0)+1;window._grammarinoPhonemeToken=token;
+ try{
+  if(window._grammarinoActivePhonemeAudio){window._grammarinoActivePhonemeAudio.pause();window._grammarinoActivePhonemeAudio.currentTime=0;}
+  let index=0;
+  const playNextClip=()=>{
+   if(token!==window._grammarinoPhonemeToken||index>=sequence.length)return;
+   const clip=sequence[index];const urls=[clip.local,clip.remote].filter(Boolean);let sourceIndex=0;
+   const attemptSource=()=>{
+    if(token!==window._grammarinoPhonemeToken)return;
+    if(sourceIndex>=urls.length){
+     index++;
+     if(index<sequence.length){window.setTimeout(playNextClip,120);}
+     else if(fallbackWords&&fallbackWords.length){speakText(fallbackWords.join('. '));}
+     else{alert('فایل صدای آوا در دسترس نیست. اتصال اینترنت را بررسی کن.');}
+     return;
+    }
+    const audio=new Audio(urls[sourceIndex++]);window._grammarinoActivePhonemeAudio=audio;audio.preload='auto';
+    let handled=false;
+    const tryNext=()=>{if(handled)return;handled=true;attemptSource();};
+    audio.onerror=tryNext;
+    audio.onended=()=>{if(token!==window._grammarinoPhonemeToken)return;index++;window.setTimeout(playNextClip,120);};
+    const result=audio.play();if(result&&typeof result.catch==='function')result.catch(tryNext);
+   };
+   attemptSource();
+  };
+  playNextClip();
+ }catch(e){console.error('Recorded phoneme audio failed',e);if(fallbackWords&&fallbackWords.length)speakText(fallbackWords.join('. '));else alert('پخش صدای آوا انجام نشد.');}
+}
 function playCombinationCardSound(i){
  const x=letterPairs[i];if(!x)return;
- // Play the sound of the letter combination, not the separate names of its letters.
  const key=String(x[0]).toLowerCase();
- const phonemes={
-  sh:['sh'], ch:['ch'], kh:['kh'],
-  th:['th-voiceless','th-voiced'], ph:['f'], ck:['k'], ng:['ng'],
-  ee:['ee'], ea:['ee','eh'], oo:['oo','book'], ai:['ay'], ay:['ay'],
-  oa:['oh'], ow:['ow','oh'], ou:['ow','uh','oo'], wh:['w'], qu:['kw']
+ const naturalExamples={
+  sh:['ship','she','fish'],ch:['chair','cheese','watch'],th:['think','this','mother'],
+  ph:['phone','photo'],ck:['duck','back'],ng:['sing','ring'],ee:['see','green'],
+  ea:['eat','bread'],oo:['moon','book'],ai:['rain','train'],ay:['day','play'],
+  oa:['boat','road'],ow:['cow','snow'],ou:['house','soup'],wh:['what','who'],qu:['queen','quick']
  };
- const parts=phonemes[key];
- if(!parts){alert('برای این ترکیب هنوز صدای تمرینی تعریف نشده است.');return;}
- playCombinationPhonemes(parts);
+ const fallback=naturalExamples[key]||String(x[2]).split(/\s*\/\s*/).filter(Boolean);
+ if(key==='sh')return playRecordedPhonemeAudio(GRAMMARINO_PHONEME_AUDIO.sh,fallback);
+ if(key==='ch')return playRecordedPhonemeAudio(GRAMMARINO_PHONEME_AUDIO.ch,fallback);
+ if(key==='th')return playRecordedPhonemeAudio([GRAMMARINO_PHONEME_AUDIO.thVoiceless,GRAMMARINO_PHONEME_AUDIO.thVoiced],fallback);
+ if(key==='kh'){alert('ترکیب kh در این کارت راهنمای نوشتاری برای صدای فارسی «خ» است و صدای استاندارد انگلیسی نیست.');return;}
+ speakText(fallback.join('. '));
 }
 async function playShSound(){
  // Play only an isolated synthetic /ʃ/ sound. Never fall back to speaking an example word.
@@ -358,7 +396,7 @@ function speakCombinationExample(i){
 function openFeature(which){
  const box=document.getElementById('featureView'); let html=`<div class="panel-top"><button class="back" onclick="show('home')">→ بازگشت به خانه</button><span class="tag">GRAMMARINO PLUS</span></div>`;
  if(which==='alphabet'){
-  html+=`<div class="feature-head"><h2>🔤 مرحلهٔ صفر: الفبا و صداهای انگلیسی</h2><p>اول نام حروف را یاد بگیر، بعد صدای تقریبی آن‌ها در واژه و سپس حروف ترکیبی را تمرین کن. آوانویسی فارسی فقط راهنمای تقریبی است و صدای انگلیسی همیشه دقیقاً معادل فارسی ندارد.</p></div><h3>۱) نام ۲۶ حرف انگلیسی</h3><p>دو دکمهٔ جدا داری: «فقط نام حرف» نام انگلیسی حرف را می‌خواند و «فقط مثال» واژهٔ نمونه را پخش می‌کند.</p><div class="word-grid">${alphabetLetters.map((x,i)=>`<article class="word-item" style="text-align:center"><div style="font-size:30px;font-weight:900;color:var(--purple);direction:ltr">${x[0]} ${x[0].toLowerCase()}</div><b style="text-align:center;direction:rtl">نام حرف: ${x[1]}</b><div style="direction:ltr;font-weight:bold;margin:6px">${x[2]}</div><div>${x[3]} • صدای تقریبی: ${x[4]}</div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px"><button class="secondary" style="padding:6px 10px" onclick="speakLetter(${i})">🔊 فقط نام حرف</button><button class="secondary" style="padding:6px 10px" onclick="speakLetterExample(${i})">▶️ فقط مثال</button></div></article>`).join('')}</div><div class="explain"><b>یادت باشد:</b> نام حرف با صدای آن در کلمه یکی نیست. مثلاً نام A «اِی» است، اما در apple صدای کوتاه‌تری دارد. C می‌تواند صدای ک یا س بدهد و G هم در واژه‌های مختلف فرق می‌کند.</div><h3>۲) حروف ترکیبی (Letter combinations)</h3><p>دو یا چند حرف کنار هم ممکن است یک صدای تازه یا یک صدای واکه‌ای بسازند. برای هر ترکیب، معادل یا نزدیک‌ترین صدای فارسی را داخل همان کارت می‌بینی. «شنیدن صدای ترکیب» خودِ صدای ترکیب را تمرین می‌دهد و «شنیدن مثال» تلفظ واژهٔ نمونه را پخش می‌کند؛ برای نمونه، sh صدای «ش» دارد، نه نام جداگانهٔ S و H. توجه: بعضی صداهای انگلیسی دقیقاً معادل فارسی ندارند؛ در این موارد، توضیح کارت تفاوت را روشن می‌کند.</p><div class="word-grid">${letterPairs.map((x,i)=>`<article class="word-item"><div style="font-size:25px;font-weight:900;color:var(--purple);direction:ltr">${x[0]}</div><div style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;background:var(--soft-purple, #f0eaff);border:1px solid #d9cafa;border-radius:12px;padding:7px 10px;margin:7px 0"><b>معادل تقریبی فارسی:</b><strong style="font-size:20px;color:var(--purple)">«${x[1]}»</strong></div><p style="direction:ltr;text-align:left;margin:6px 0;font-weight:bold">${x[2]}</p><p style="margin:4px 0">${x[3]}</p><small>${x[4]}</small><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="secondary" style="padding:6px 10px" onclick="playCombinationCardSound(${i})">🔊 شنیدن صدای ترکیب</button><button class="secondary" style="padding:6px 10px" onclick="speakCombinationExample(${i})">▶️ شنیدن مثال</button></div></article>`).join('')}</div><div class="lesson-banner"><b>🎯 ترتیب پیشنهادی برای پایه هفتم</b><p>۱. نام حروف A تا Z را بشناس. ۲. مثال هر حرف را بشنو. ۳. صدای حروف ترکیبی را جداگانه تمرین کن و بعد مثال را گوش بده. ۴. بعد وارد درس اول گرامر شو. تلفظ فارسی تقریبی است؛ برای دقیق‌تر شدن، چند بار به صدای انگلیسی گوش بده.</p></div>`;
+  html+=`<div class="feature-head"><h2>🔤 مرحلهٔ صفر: الفبا و صداهای انگلیسی</h2><p>اول نام حروف را یاد بگیر، بعد صدای تقریبی آن‌ها در واژه و سپس حروف ترکیبی را تمرین کن. آوانویسی فارسی فقط راهنمای تقریبی است و صدای انگلیسی همیشه دقیقاً معادل فارسی ندارد.</p></div><h3>۱) نام ۲۶ حرف انگلیسی</h3><p>دو دکمهٔ جدا داری: «فقط نام حرف» نام انگلیسی حرف را می‌خواند و «فقط مثال» واژهٔ نمونه را پخش می‌کند.</p><div class="word-grid">${alphabetLetters.map((x,i)=>`<article class="word-item" style="text-align:center"><div style="font-size:30px;font-weight:900;color:var(--purple);direction:ltr">${x[0]} ${x[0].toLowerCase()}</div><b style="text-align:center;direction:rtl">نام حرف: ${x[1]}</b><div style="direction:ltr;font-weight:bold;margin:6px">${x[2]}</div><div>${x[3]} • صدای تقریبی: ${x[4]}</div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px"><button class="secondary" style="padding:6px 10px" onclick="speakLetter(${i})">🔊 فقط نام حرف</button><button class="secondary" style="padding:6px 10px" onclick="speakLetterExample(${i})">▶️ فقط مثال</button></div></article>`).join('')}</div><div class="explain"><b>یادت باشد:</b> نام حرف با صدای آن در کلمه یکی نیست. مثلاً نام A «اِی» است، اما در apple صدای کوتاه‌تری دارد. C می‌تواند صدای ک یا س بدهد و G هم در واژه‌های مختلف فرق می‌کند.</div><h3>۲) حروف ترکیبی (Letter combinations)</h3><p>دو یا چند حرف کنار هم ممکن است یک صدای تازه یا یک صدای واکه‌ای بسازند. برای هر ترکیب، معادل یا نزدیک‌ترین صدای فارسی را داخل همان کارت می‌بینی. برای sh، ch و th از نمونه‌های ضبط‌شدهٔ آواشناسی استفاده می‌شود، نه نام حروف و نه نویز مصنوعی. صدای sh را نزدیک به «ش» و ch را نزدیک به «چ» می‌شنوی؛ برای th ابتدا صدای بی‌واک در think و سپس صدای واک‌دارِ نزدیک به «ذ» در this پخش می‌شود. برای بقیهٔ ترکیب‌ها واژه‌های نمونه با صدای انگلیسی مرورگر پخش می‌شوند.</p><div class="word-grid">${letterPairs.map((x,i)=>`<article class="word-item"><div style="font-size:25px;font-weight:900;color:var(--purple);direction:ltr">${x[0]}</div><div style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;background:var(--soft-purple, #f0eaff);border:1px solid #d9cafa;border-radius:12px;padding:7px 10px;margin:7px 0"><b>معادل تقریبی فارسی:</b><strong style="font-size:20px;color:var(--purple)">«${x[1]}»</strong></div><p style="direction:ltr;text-align:left;margin:6px 0;font-weight:bold">${x[2]}</p><p style="margin:4px 0">${x[3]}</p><small>${x[4]}</small><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="secondary" style="padding:6px 10px" onclick="playCombinationCardSound(${i})">🔊 شنیدن آوای واقعی</button><button class="secondary" style="padding:6px 10px" onclick="speakCombinationExample(${i})">▶️ شنیدن یک مثال</button></div></article>`).join('')}</div><p class="video-note" style="margin-top:12px">منبع نمونه‌های ضبط‌شدهٔ آواشناسی: <a href="https://commons.wikimedia.org/wiki/File:Voiceless_palato-alveolar_sibilant.ogg" target="_blank" rel="noopener">صدای sh</a>، <a href="https://commons.wikimedia.org/wiki/File:Voiceless_palato-alveolar_affricate.ogg" target="_blank" rel="noopener">صدای ch</a>، <a href="https://commons.wikimedia.org/wiki/File:Voiceless_dental_fricative.ogg" target="_blank" rel="noopener">th بی‌واک</a> و <a href="https://commons.wikimedia.org/wiki/File:Voiced_dental_fricative.ogg" target="_blank" rel="noopener">th واک‌دار</a>؛ ضبط‌کننده: Peter Isotalo؛ مجوز: CC BY-SA 3.0. فایل‌ها بدون تغییر استفاده شده‌اند.</p><div class="lesson-banner"><b>🎯 ترتیب پیشنهادی برای پایه هفتم</b><p>۱. نام حروف A تا Z را بشناس. ۲. مثال هر حرف را بشنو. ۳. صدای حروف ترکیبی را جداگانه تمرین کن و بعد مثال را گوش بده. ۴. بعد وارد درس اول گرامر شو. تلفظ فارسی تقریبی است؛ برای دقیق‌تر شدن، چند بار به صدای انگلیسی گوش بده.</p></div>`;
  }else if(which==='videos'){
   const topics=[['معرفی و am/is/are','English grammar am is are for beginners'],['حال ساده','present simple tense explanation exercises'],['حال استمراری','present continuous tense explanation'],['گذشته ساده','past simple tense regular irregular verbs'],['آینده با going to','be going to future grammar'],['can و should','can could should modal verbs English grammar'],['مقایسه صفت‌ها','comparative adjectives English grammar'],['some any much many','countable uncountable nouns grammar']];
   html+=`<div class="feature-head"><h2>🎬 مرکز ویدئوهای آموزشی</h2><p>موضوع را انتخاب کن تا جست‌وجوی ویدئوهای همان مبحث باز شود. برای نمایش ویدئوهای آنلاین به اینترنت نیاز است.</p></div><div class="video-layout">${topics.map(t=>`<article class="video-tile"><h3>${t[0]}</h3><p>ویدئوهای آموزشی، مثال و تمرین برای این مبحث</p><button class="action" onclick="window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(${JSON.stringify(t[1])}),'_blank','noopener')">🔎 جست‌وجوی ویدئو</button></article>`).join('')}</div><hr><h3>▶️ پخش ویدئوی آنلاین با لینک</h3><p>لینک ویدئوی YouTube را وارد کن؛ اگر لینک قابل‌تعبیه باشد، در همین صفحه پخش می‌شود.</p><input class="field" id="videoUrl" placeholder="https://www.youtube.com/watch?v=... یا لینک youtu.be"><button class="action" style="margin-top:10px" onclick="playVideoUrl()">پخش ویدئو</button><div id="videoPlayer" style="margin-top:14px"></div><hr><h3>📱 پخش فایل ویدئویی از دستگاه</h3><input class="field" type="file" accept="video/*" onchange="playLocalVideo(this)"><div id="localVideo" style="margin-top:12px"></div><p class="video-note">نکته: ویدئوی انتخاب‌شده از دستگاه فقط در همین مرورگر پخش می‌شود و در سایت بارگذاری نمی‌شود.</p>`;

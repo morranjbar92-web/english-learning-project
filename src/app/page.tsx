@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { vocabularyWords } from "../data/vocabulary";
@@ -334,9 +334,14 @@ export default function Home() {
                 <a className="hero-button classroom-hero-button" href="/english-learning-project/classroom/">
                   ساخت یا ورود به کلاس آنلاین <span>←</span>
                 </a>
+<div className="hero-actions">
+                <a className="hero-button classroom-hero-button" href="/english-learning-project/classroom/">
+                  ساخت یا ورود به کلاس آنلاین <span>←</span>
+                </a>
                 <a className="hero-button" href="#courses">
                   کشف مسیر یادگیری <span>←</span>
                 </a>
+              </div>
                 <a
                   className="hero-button homepage-games-button"
                   href="/english-learning-project/games/arcade/"

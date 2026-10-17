@@ -86,6 +86,7 @@ export default function ClassroomTools({ role }: { role: Role }) {
   const [color, setColor] = useState("#243a7a");
   const [brushSize, setBrushSize] = useState(4);
   const [files, setFiles] = useState<SharedFile[]>([]);
+  const [presentedFileId, setPresentedFileId] = useState("");
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [notice, setNotice] = useState("");
@@ -139,6 +140,7 @@ export default function ClassroomTools({ role }: { role: Role }) {
           allowed?: boolean;
           segment?: Segment;
           enabled?: boolean;
+          fileId?: string;
         };
         const senderRole = participantRole(participant);
 
@@ -147,6 +149,13 @@ export default function ClassroomTools({ role }: { role: Role }) {
           if (!message.enabled) setTab("board");
         }
 
+        if (topic === BOARD_CONTROL_TOPIC && message.type === "file-present" && senderRole === "teacher" && typeof message.fileId === "string") {
+          setPresentedFileId(message.fileId);
+        }
+
+        if (topic === BOARD_CONTROL_TOPIC && message.type === "file-present-stop" && senderRole === "teacher") {
+          setPresentedFileId("");
+        }
         if (topic === BOARD_CONTROL_TOPIC && message.type === "board-request" && role === "teacher" && senderRole !== "teacher") {
           setRequests((old) => old.some((item) => item.identity === participant.identity)
             ? old
@@ -383,14 +392,14 @@ export default function ClassroomTools({ role }: { role: Role }) {
     setUploadProgress(0);
     setNotice("در حال ارسال فایل برای اعضای حاضر در کلاس...");
     try {
-      await room.localParticipant.sendFile(file, {
+      const sentFile = await room.localParticipant.sendFile(file, {
         topic: FILE_TOPIC,
         onProgress: (progress) => setUploadProgress(Math.min(100, Math.round(progress * 100))),
       });
       const url = URL.createObjectURL(file);
       objectUrls.current.push(url);
       setFiles((old) => [...old.slice(-19), {
-        id: `local-${Date.now()}`,
+        id: sentFile.id,
         name: file.name,
         size: file.size,
         mimeType: file.type || "application/octet-stream",
@@ -406,6 +415,29 @@ export default function ClassroomTools({ role }: { role: Role }) {
     }
   }
 
+  async function presentFile(file: SharedFile) {
+    if (role !== "teacher") return;
+    setPresentedFileId(file.id);
+    try {
+      const payload = new TextEncoder().encode(JSON.stringify({ type: "file-present", fileId: file.id }));
+      await room.localParticipant.publishData(payload, { reliable: true, topic: BOARD_CONTROL_TOPIC });
+      setNotice(`در حال نمایش «${file.name}» برای کلاس.`);
+    } catch {
+      setPresentedFileId("");
+      setNotice("شروع نمایش فایل برای کلاس ناموفق بود.");
+    }
+  }
+
+  async function stopPresentingFile() {
+    setPresentedFileId("");
+    if (role !== "teacher") return;
+    try {
+      const payload = new TextEncoder().encode(JSON.stringify({ type: "file-present-stop" }));
+      await room.localParticipant.publishData(payload, { reliable: true, topic: BOARD_CONTROL_TOPIC });
+    } catch {
+      setNotice("پایان نمایش برای همه ارسال نشد.");
+    }
+  }
   const formatSize = (bytes: number) => bytes < 1024 * 1024
     ? `${Math.max(1, Math.round(bytes / 1024))} کیلوبایت`
     : `${(bytes / (1024 * 1024)).toFixed(1)} مگابایت`;
@@ -500,6 +532,11 @@ export default function ClassroomTools({ role }: { role: Role }) {
                         <span>{formatSize(file.size)} · {file.sender}</span>
                       </div>
                       <a href={file.url} download={file.name}>دریافت</a>
+                      {role === "teacher" && (
+                        <button type="button" className="classroom-file-present-button" onClick={() => void presentFile(file)}>
+                          نمایش تمام‌صفحه برای کلاس
+                        </button>
+                      )}
                     </article>
                   ))}
                 </div>
@@ -534,6 +571,38 @@ export default function ClassroomTools({ role }: { role: Role }) {
           {notice && <p className="classroom-tools-notice" role="status">{notice}</p>}
         </section>
       )}
+
+      {files.filter((file) => file.id === presentedFileId).map((file) => (
+        <section className="classroom-file-presentation" key={file.id} role="dialog" aria-label={`نمایش فایل ${file.name}`}>
+          <header className="classroom-file-presentation-header" dir="rtl">
+            <strong>{file.name}</strong>
+            <div>
+              <a href={file.url} download={file.name}>دریافت فایل</a>
+              <button type="button" onClick={() => role === "teacher" ? void stopPresentingFile() : setPresentedFileId("")}>{role === "teacher" ? "پایان نمایش برای همه" : "بستن نمایش من"}</button>
+            </div>
+          </header>
+          <div className="classroom-file-presentation-content">
+            {file.mimeType.startsWith("image/") ? (
+              <img src={file.url} alt={file.name} />
+            ) : (file.mimeType === "application/pdf" || /\.pdf$/i.test(file.name)) ? (
+              <iframe src={file.url} title={file.name} />
+            ) : file.mimeType.startsWith("video/") ? (
+              <video src={file.url} controls autoPlay />
+            ) : file.mimeType.startsWith("audio/") ? (
+              <audio src={file.url} controls autoPlay />
+            ) : (file.mimeType === "text/plain" || file.mimeType === "application/json") ? (
+              <iframe src={file.url} title={file.name} />
+            ) : (
+              <div className="classroom-file-preview-fallback" dir="rtl">
+                <h2>این نوع فایل نمایش مستقیم در مرورگر ندارد.</h2>
+                <p>برای نمایش کامل فایل‌های Word و PowerPoint، آن‌ها را به PDF تبدیل کن و دوباره بفرست.</p>
+                <a href={file.url} download={file.name}>دریافت فایل</a>
+              </div>
+            )}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
+

@@ -1,16 +1,11 @@
-﻿"use client";
+"use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import type { FormEvent } from "react";
 import {
-  LiveKitRoom,
-  VideoConference,
-  useLocalParticipant,
-  useParticipants,
-  useRoomContext,
-  useChat,
-} from "@livekit/components-react";
-import { RoomEvent, AudioPresets, VideoPresets } from "livekit-client";
+  LiveKitRoom, VideoConference, useLocalParticipant, useParticipants, useRoomContext, useChat, useTracks } from "@livekit/components-react";
+import { RoomEvent, AudioPresets, VideoPresets, Track } from "livekit-client";
+import { useKrispNoiseFilter } from "@livekit/components-react/krisp";
 import "@livekit/components-styles";
 import "./classroom.css";
 import ClassroomTools from "./classroom-tools";
@@ -70,7 +65,14 @@ function ClassroomControls({
 }) {
   const room = useRoomContext();
   const participants = useParticipants();
-  const { localParticipant } = useLocalParticipant();
+  const { localParticipant, isMicrophoneEnabled } = useLocalParticipant();
+  const krisp = useKrispNoiseFilter();
+  const krispAutoAttempted = useRef(false);
+  const screenShareTracks = useTracks(
+    [{ source: Track.Source.ScreenShare, withPlaceholder: false }],
+    { onlySubscribed: false }
+  );
+  const isScreenSharing = screenShareTracks.length > 0;
   const { chatMessages, send, isSending } = useChat();
 
   const [handRaised, setHandRaised] = useState(false);
@@ -86,6 +88,16 @@ function ClassroomControls({
   const [draft, setDraft] = useState("");
   const [busyIdentity, setBusyIdentity] = useState("");
   const [notice, setNotice] = useState("");
+
+  // Try enhanced speech denoising when this participant actually turns on a microphone.
+  // The hook gracefully falls back to the browser's standard WebRTC audio processing when unsupported.
+  useEffect(() => {
+    if (!isMicrophoneEnabled || krispAutoAttempted.current || krisp.isNoiseFilterPending) return;
+    krispAutoAttempted.current = true;
+    void krisp.setNoiseFilterEnabled(true).catch(() => {
+      setNotice("بهبود صدای پیشرفته در این مرورگر فعال نشد؛ کاهش نویز معمول مرورگر همچنان فعال است.");
+    });
+  }, [isMicrophoneEnabled, krisp.isNoiseFilterPending, krisp.setNoiseFilterEnabled]);
 
   const publishControl = useCallback(
     async (message: Record<string, unknown>, topic: string) => {
@@ -444,14 +456,29 @@ function ClassroomControls({
             </button>
           )}
 
-          <span className="participant-count">
+          <button
+            type="button"
+            className="classroom-audio-enhancer"
+            disabled={!isMicrophoneEnabled || krisp.isNoiseFilterPending}
+            onClick={() => {
+              void krisp.setNoiseFilterEnabled(!krisp.isNoiseFilterEnabled).catch(() => {
+                setNotice("بهبود صدای پیشرفته در این مرورگر قابل فعال‌سازی نیست.");
+              });
+            }}
+            title="کاهش نویز پیشرفته برای صدای میکروفون ارسالی"
+          >
+            {krisp.isNoiseFilterPending
+              ? "در حال آماده‌سازی صدا..."
+              : krisp.isNoiseFilterEnabled
+                ? "وضوح صدای بهتر: روشن"
+                : "فعال‌کردن بهبود صدا"}
+          </button>          <span className="participant-count">
             {participants.length} نفر در کلاس
           </span>
         </div>
 
         <div
-          className={[
-            "conference-video",
+          className={["conference-video", isScreenSharing ? "has-screen-share" : "",
             connection.role === "student" ? "student-role" : "teacher-role",
             connection.role === "student" && !micAllowed
               ? "student-mic-locked"

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { vocabularyWords } from "../data/vocabulary";
@@ -16,7 +16,7 @@ const courses = [
     title: "گرامر کاربردی",
     subtitle: "یادگیری قدم‌به‌قدم قواعد",
     color: "blue",
-    href: "#grammar",
+    href: "/english-learning-project/games/writing/grammar/",
   },
   {
     icon: "🎧",
@@ -76,7 +76,7 @@ export default function Home() {
     { name: "خانه", icon: "⌂", href: "#home" },
     { name: "آزمون‌های دست‌گرمی", icon: "📝", href: "/english-learning-project/games/" },
     { name: "واژگان", icon: "▤", href: "/english-learning-project/vocabulary/" },
-    { name: "گرامر", icon: "◈", href: "#grammar" },
+    { name: "گرامر", icon: "◈", href: "/english-learning-project/games/writing/grammar/" },
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
     { name: "تمرین روزانه", icon: "✓", href: "#practice" },
     { name: "آزمون‌ها", icon: "▣", href: "#exams" },
@@ -580,14 +580,14 @@ export default function Home() {
                 <span className="future-tag">در مسیر توسعه</span>
               </div>
 
-              <div className="future-card">
-                <span>🧠</span>
-                <div>
-                  <strong>گرامر مرحله‌ای</strong>
-                  <p>آموزش قواعد با مثال و تمرین</p>
-                </div>
-                <span className="future-tag">در مسیر توسعه</span>
-              </div>
+              <a className="future-card" href="/english-learning-project/games/writing/grammar/" aria-label="ورود به گرامرینو PLUS">
+  <span>🧠</span>
+  <div>
+    <strong>گرامر مرحله‌ای</strong>
+    <p>آموزش قواعد با مثال و تمرین</p>
+  </div>
+  <span className="future-tag">ورود به گرامر ←</span>
+</a>
 
               <div className="future-card" id="skills">
                 <span>🎙️</span>

@@ -3,15 +3,15 @@
     <main className="embedded-game-page" dir="rtl">
       <div className="embedded-game-toolbar">
         <a href="/english-learning-project/games/writing/">
-          ← بازگشت به Writing
+          ← بازگشت به مهارت نوشتن
         </a>
-        <strong>Grammar · آکادمی گرامر</strong>
+        <strong>Grammarino PLUS · آموزش گرامر پایه‌های هفتم، هشتم و نهم</strong>
       </div>
       <iframe
         className="embedded-game-frame"
-        src="/english-learning-project/games/grammar.html"
-        title="English Quest Grammar Academy"
-        allow="autoplay"
+        src="/english-learning-project/games/grammarino-plus.html"
+        title="Grammarino PLUS | آموزش گرامر و تلفظ حروف ترکیبی"
+        allow="autoplay; fullscreen"
       />
     </main>
   );

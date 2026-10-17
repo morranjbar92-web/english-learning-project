@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6657e8">
+<title>گرامرینو PLUS | آکادمی انگلیسی پایه‌های هفتم، هشتم و نهم</title>
+<style>
+:root{--bg:#f6f7ff;--ink:#202447;--muted:#707696;--purple:#6657e8;--pink:#f26ca7;--cyan:#40c6d9;--yellow:#ffc857;--green:#24b47e;--card:#fff;--line:#e9eaf6;--shadow:0 12px 35px #37356b12}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 5% 0,#e9e5ff 0,transparent 28%),radial-gradient(circle at 100% 15%,#ddf8ff 0,transparent 25%),var(--bg);font-family:Tahoma,"Segoe UI",sans-serif;color:var(--ink);line-height:1.8}
+button,input{font:inherit}button{cursor:pointer;border:0;transition:.18s transform,.18s filter}button:hover{filter:brightness(1.03);transform:translateY(-2px)}button:focus-visible,input:focus-visible{outline:3px solid #a6a0ff;outline-offset:3px}
+.wrap{max-width:1180px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;color:#fff;font-size:26px;background:linear-gradient(135deg,var(--purple),var(--pink));box-shadow:0 8px 18px #6657e833}.brand h1{font-size:22px;margin:0}.brand p{margin:0;color:var(--muted);font-size:12px}.pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px;color:var(--muted);font-size:13px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#6657e8,#8a69ed 55%,#b56eea);color:#fff;padding:30px;border-radius:28px;box-shadow:0 18px 40px #6657e82b;display:grid;grid-template-columns:1.5fr .7fr;gap:15px;align-items:center}.hero h2{font-size:clamp(24px,4vw,38px);line-height:1.45;margin:8px 0}.hero p{margin:0 0 18px;color:#f0edff;max-width:600px}.hero-art{font-size:94px;text-align:center;filter:drop-shadow(0 12px 8px #2d1e5730)}.primary{background:#fff;color:var(--purple);padding:11px 18px;border-radius:14px;font-weight:bold}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:28px 0 13px}.section-head h2{font-size:20px;margin:0}.section-head small{color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow)}.stat-icon{font-size:25px;background:#f0eeff;border-radius:13px;padding:6px 10px}.stat strong{display:block;font-size:19px}.stat span{font-size:12px;color:var(--muted)}
+.lesson-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.lesson{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px;text-align:right;box-shadow:var(--shadow);min-height:150px;display:flex;flex-direction:column;align-items:flex-start}.lesson .num{font-size:12px;color:var(--muted);background:#f2f1ff;border-radius:9px;padding:3px 9px}.lesson strong{margin:9px 0 2px;font-size:16px}.lesson small{color:var(--muted);font-size:12px}.lesson .go{margin-top:auto;color:var(--purple);font-weight:bold;font-size:13px}
+.practice-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.practice{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 10px;text-align:center;box-shadow:var(--shadow)}.practice span{font-size:29px;display:block}.practice b{font-size:13px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--shadow);margin-top:18px}.hidden{display:none!important}.back{background:#f0eeff;color:var(--purple);padding:8px 13px;border-radius:12px;font-weight:bold}.panel-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.panel h2{margin:8px 0}.explain{background:#f8f7ff;border:1px solid #e8e5ff;border-radius:17px;padding:15px;margin:12px 0}.example{background:#f0fbff;border-right:4px solid var(--cyan);border-radius:12px;padding:10px 13px;margin:8px 0}.en{direction:ltr;text-align:left;font-family:Arial,sans-serif;font-weight:bold;font-size:18px}.tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;background:#e9fbf4;color:#14865d}.action{background:var(--purple);color:#fff;border-radius:13px;padding:11px 16px;font-weight:bold}.secondary{background:#f0efff;color:var(--purple);border-radius:13px;padding:11px 16px;font-weight:bold}.options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:16px 0}.option{background:#fafaff;border:2px solid var(--line);border-radius:14px;padding:12px;text-align:center;direction:ltr}.option.selected{border-color:var(--purple);background:#f0eeff}.option.correct{border-color:var(--green);background:#eafff5}.option.wrong{border-color:#ed6b7a;background:#fff0f1}.feedback{padding:12px;border-radius:12px;margin:12px 0}.good{background:#e9fbf3;color:#147a55}.bad{background:#fff0f1;color:#ad3947}.field{width:100%;padding:12px 14px;border:1px solid #dfe1f1;border-radius:13px;background:#fcfcff}.progress{height:9px;background:#eeeef8;border-radius:99px;overflow:hidden}.progress div{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));width:0;transition:width .3s}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.chip{background:#f1efff;color:#4e43b8;border-radius:12px;padding:8px 12px;direction:ltr}.footer{text-align:center;color:var(--muted);font-size:12px;padding:28px 0 12px}
+@media(max-width:850px){.lesson-grid{grid-template-columns:repeat(2,1fr)}.practice-grid{grid-template-columns:repeat(3,1fr)}.hero{grid-template-columns:1fr}.hero-art{display:none}}
+@media(max-width:480px){.wrap{padding:12px}.top{align-items:flex-start}.brand h1{font-size:18px}.hero{padding:22px}.stats{gap:7px}.stat{padding:10px;gap:7px}.stat-icon{font-size:20px}.stat strong{font-size:16px}.lesson-grid{gap:9px}.lesson{padding:13px;min-height:145px}.practice-grid{grid-template-columns:repeat(2,1fr)}.options{grid-template-columns:1fr}.panel{padding:15px}}
+
+/* Professional visual upgrade */
+body{background:radial-gradient(ellipse at 8% 4%,#d8d4ff 0,transparent 29%),radial-gradient(ellipse at 92% 18%,#c9f4ff 0,transparent 26%),radial-gradient(ellipse at 70% 92%,#ffe1ef 0,transparent 25%),linear-gradient(135deg,#f7f8ff,#f1f7ff 55%,#fff7fb);background-attachment:fixed}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.38;background-image:radial-gradient(#8c83e8 1px,transparent 1px),radial-gradient(#55c7d6 1px,transparent 1px);background-size:34px 34px,51px 51px;background-position:0 0,17px 20px}
+.hero{isolation:isolate;background:linear-gradient(120deg,#4035a7 0%,#6958e9 45%,#b36de6 100%)}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;z-index:-1;filter:blur(1px)}.hero:before{width:230px;height:230px;right:-65px;top:-100px;background:#ffffff18;border:1px solid #ffffff30}.hero:after{width:150px;height:150px;left:32%;bottom:-105px;background:#ffb7df22;border:1px solid #ffffff2b}
+.lesson{position:relative;overflow:hidden;isolation:isolate;min-height:178px;border:1px solid #ffffffb8;background:linear-gradient(145deg,#fff 0%,#f9f8ff 100%);transition:transform .22s,box-shadow .22s,border-color .22s}.lesson:before{content:"";position:absolute;z-index:-1;width:105px;height:105px;border-radius:36px;left:-34px;bottom:-46px;transform:rotate(25deg);background:var(--lesson-glow,#e6e1ff);opacity:.72}.lesson:after{content:"";position:absolute;right:0;top:0;width:5px;height:100%;background:var(--lesson-accent,#7668eb)}.lesson:nth-child(6n+1){--lesson-glow:#dcd7ff;--lesson-accent:#6d5ce7}.lesson:nth-child(6n+2){--lesson-glow:#d2f6ff;--lesson-accent:#18a8bd}.lesson:nth-child(6n+3){--lesson-glow:#ffe0ee;--lesson-accent:#e85f9b}.lesson:nth-child(6n+4){--lesson-glow:#ffedc5;--lesson-accent:#d89a1d}.lesson:nth-child(6n+5){--lesson-glow:#d4f6e8;--lesson-accent:#20a875}.lesson:nth-child(6n){--lesson-glow:#e7dcff;--lesson-accent:#9760d5}.lesson:hover{transform:translateY(-5px);box-shadow:0 18px 36px #37356b20;border-color:#c7c1ff}.lesson .num{background:color-mix(in srgb,var(--lesson-glow) 65%,white);color:var(--lesson-accent);font-weight:800;letter-spacing:.5px}
+.panel{background:linear-gradient(145deg,#fffffffa,#fcfbfffa);backdrop-filter:blur(8px)}.explain{background:linear-gradient(135deg,#f8f7ff,#f2fbff);border-color:#e5e3fb}.example{box-shadow:0 5px 16px #1c9bb20a}.study-notes{margin:18px 0;padding:clamp(15px,3vw,25px);border-radius:24px;background:linear-gradient(145deg,#f7f5ff,#effbff 60%,#fff7fb);border:1px solid #e3e3fa;box-shadow:0 15px 35px #37356b0d}.study-notes h3{margin:0 0 8px;font-size:21px}.study-intro{color:var(--muted);margin:0 0 16px}.notes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.note-line{display:flex;gap:10px;align-items:flex-start;background:#ffffffd9;border:1px solid #e9e9f7;border-radius:14px;padding:11px 12px;min-height:65px}.note-num{flex:0 0 29px;width:29px;height:29px;border-radius:10px;background:linear-gradient(135deg,#6657e8,#9a72e8);color:white;display:grid;place-items:center;font-size:12px;font-weight:bold}.note-content{min-width:0}.note-content strong{display:block;font-size:13px;margin-bottom:3px}.note-content span{display:block;color:#555d7b;font-size:13px;line-height:1.9}.formula-box{background:#24264f;color:#fff;border-radius:17px;padding:15px;margin:12px 0;overflow:auto}.formula-box .en{color:#b9f6ff;font-size:17px}.study-chip{display:inline-block;padding:4px 9px;border-radius:999px;background:#e6fbf5;color:#137957;font-size:12px;font-weight:bold;margin:3px}.lesson-banner{padding:18px;border-radius:20px;color:white;background:linear-gradient(115deg,#34327d,#6657e8 58%,#b86fda);margin:15px 0;position:relative;overflow:hidden}.lesson-banner p{margin:5px 0 0;color:#f0edff}.lesson-banner:after{content:"✦";position:absolute;left:18px;top:-23px;font-size:90px;color:#ffffff19}
+@media(max-width:620px){.notes-grid{grid-template-columns:1fr}.note-line{min-height:unset}.hero-art{font-size:70px}}
+
+
+/* Grammarino Plus feature suite */
+.plus-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0 22px}.plus-card{position:relative;overflow:hidden;text-align:right;padding:17px;border-radius:20px;border:1px solid #ffffffd9;background:linear-gradient(145deg,#fff,#f4f2ff);box-shadow:0 12px 28px #37356b12;min-height:132px}.plus-card:after{content:"✦";position:absolute;left:8px;bottom:-24px;font-size:78px;color:#6657e812}.plus-card span{font-size:28px;display:block}.plus-card b{display:block;margin:5px 0}.plus-card small{color:var(--muted)}.video-layout{display:grid;grid-template-columns:1fr 1fr;gap:14px}.video-tile{border-radius:18px;padding:16px;background:linear-gradient(140deg,#f6f3ff,#eafaff);border:1px solid #e6e4fa}.video-tile h3{margin:0 0 6px}.video-screen{width:100%;aspect-ratio:16/9;border:0;border-radius:16px;background:#171833}.flash-card{min-height:190px;display:grid;place-items:center;text-align:center;padding:25px;border-radius:22px;background:linear-gradient(135deg,#4337a7,#795ee8,#c06fcb);color:white;box-shadow:0 15px 35px #6657e833;cursor:pointer}.flash-card .flash-en{font-size:clamp(23px,4vw,34px);font-weight:800;direction:ltr}.flash-card .flash-fa{font-size:18px}.word-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.word-item{padding:12px;border:1px solid var(--line);border-radius:14px;background:#fff}.word-item b{direction:ltr;display:block;text-align:left}.plan-row{display:flex;gap:10px;align-items:center;padding:10px 12px;background:#f8f7ff;border-radius:12px;margin:7px 0}.plan-row input{width:20px;height:20px;accent-color:var(--purple)}.mini-label{display:block;font-weight:bold;margin:12px 0 5px}.feature-head{padding:22px;border-radius:22px;background:linear-gradient(115deg,#302b72,#6657e8,#a967d7);color:#fff;margin-bottom:16px}.feature-head h2{margin:0}.feature-head p{margin:5px 0;color:#f0edff}.timer-display{font-size:46px;font-weight:900;text-align:center;letter-spacing:2px;color:var(--purple);padding:12px}.note-area{min-height:180px;resize:vertical}.video-note{font-size:12px;color:var(--muted)}
+@media(max-width:800px){.plus-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.video-layout{grid-template-columns:1fr}.word-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:440px){.plus-grid{gap:8px}.plus-card{padding:13px;min-height:120px}.word-grid{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+ <div class="brand"><div class="logo">Aa</div><div><h1>گرامرینو <span id="gradeBadge" style="color:var(--purple)">7</span></h1><p id="subtitle">آکادمی انگلیسی پایه‌های هفتم، هشتم و نهم</p></div></div>
+ <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap"><label for="gradeSelect" style="font-weight:bold;font-size:13px">پایه:</label><select id="gradeSelect" class="field" style="width:auto;min-width:120px" onchange="switchGrade(this.value)"><option value="7">هفتم</option><option value="8">هشتم</option><option value="9">نهم</option></select><div class="pill">⭐ <span id="points">۰</span> امتیاز</div></div>
+</header>
+<main id="home">
+ <section class="hero">
+  <div><span class="tag">LEARN • PRACTICE • GROW</span><h2 id="heroTitle">گرامر انگلیسی رو<br>قدم‌به‌قدم یاد بگیر! 🚀</h2><p id="heroDesc">پایه هفتم یا هشتم را انتخاب کن؛ درس‌ها را بخوان، مثال‌ها را بشنو و با تمرین‌های تعاملی یادگیری‌ات را بسنج.</p><button class="primary" onclick="startLearning()">شروع یادگیری ←</button></div>
+  <div class="hero-art">📚✨</div>
+ </section>
+ <section class="stats">
+  <div class="stat"><div class="stat-icon">📘</div><div><strong id="doneLessons">۰ / ۸</strong><span>درس‌های مطالعه‌شده</span></div></div>
+  <div class="stat"><div class="stat-icon">🎯</div><div><strong id="answered">۰</strong><span>تمرین‌های پاسخ‌داده‌شده</span></div></div>
+  <div class="stat"><div class="stat-icon">🏆</div><div><strong id="best">۰٪</strong><span>بهترین درصد آزمون</span></div></div>
+ </section>
+ <div id="alphabetShortcut" class="explain" style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap"><div><b>🔤 قبل از گرامر: الفبا و صداهای انگلیسی</b><p style="margin:4px 0 0">نام هر حرف، تلفظ تقریبی فارسی، مثال و حروف ترکیبی مثل sh، ch و th را یاد بگیر.</p></div><button class="action" onclick="openFeature('alphabet')">شروع از الفبا ←</button></div><div class="section-head"><h2>📚 انتخاب درس</h2><small>برای ورود روی کارت بزن</small></div>
+ <section class="lesson-grid" id="lessonGrid"></section>
+ <div class="section-head"><h2>🕹️ بخش‌های Practice</h2><small>تمرین کن و امتیاز بگیر</small></div>
+ <section class="practice-grid">
+  <button class="practice" onclick="startPractice('mcq')"><span>☑️</span><b>چهارگزینه‌ای</b></button>
+  <button class="practice" onclick="startPractice('fill')"><span>✍️</span><b>جای خالی</b></button>
+  <button class="practice" onclick="startPractice('order')"><span>🔤</span><b>ترتیب کلمات</b></button>
+  <button class="practice" onclick="startPractice('error')"><span>🕵️</span><b>کشف اشتباه</b></button>
+  <button class="practice" onclick="startPractice('exam')"><span>🏆</span><b>آزمون ترکیبی</b></button>
+ </section>
+ <div class="section-head"><h2>✨ امکانات گرامرینو پلاس</h2><small>یادگیری، مرور و برنامه‌ریزی</small></div>
+ <section class="plus-grid">
+  <button class="plus-card" onclick="openFeature('alphabet')"><span>🔤</span><b>الفبا و حروف ترکیبی</b><small>نام حروف، تلفظ و مثال برای شروع پایه هفتم</small></button>
+  <button class="plus-card" onclick="openFeature('videos')"><span>🎬</span><b>مرکز ویدئو</b><small>ویدئوهای آموزشی و پخش فایل خودت</small></button>
+  <button class="plus-card" onclick="openFeature('cards')"><span>🃏</span><b>فلش‌کارت هوشمند</b><small>مرور جمله‌ها و معنی‌ها</small></button>
+  <button class="plus-card" onclick="openFeature('vocab')"><span>📖</span><b>واژه‌نامه</b><small>جست‌وجوی مثال‌ها و واژه‌ها</small></button>
+  <button class="plus-card" onclick="openFeature('notes')"><span>📝</span><b>دفتر شخصی</b><small>یادداشت‌هایت را ذخیره کن</small></button>
+  <button class="plus-card" onclick="openFeature('planner')"><span>🗓️</span><b>برنامه مطالعه</b><small>چک‌لیست روزانه</small></button>
+  <button class="plus-card" onclick="openFeature('timer')"><span>⏱️</span><b>تمرکز ۲۵ دقیقه‌ای</b><small>تایمر مطالعه و استراحت</small></button>
+  <button class="plus-card" onclick="openFeature('reference')"><span>🧩</span><b>فرمول‌نامه</b><small>قانون‌های مهم گرامر</small></button>
+  <button class="plus-card" onclick="openFeature('progress')"><span>🏅</span><b>گزارش پیشرفت</b><small>امتیاز و درس‌های تکمیل‌شده</small></button>
+ </section>
+ <section class="panel"><div class="panel-top"><h2>💡 نکته امروز</h2><span class="tag">Grammar tip</span></div><p>برای معرفی خودت می‌توانی بگویی:</p><div class="example"><div class="en">I am a student.</div>من دانش‌آموز هستم.</div><p style="margin-bottom:0;color:var(--muted)">در جمله‌های ساده، به فاعل و فعل جمله توجه کن.</p></section>
+</main>
+<section id="lessonView" class="panel hidden"></section>
+<section id="practiceView" class="panel hidden"></section>
+<section id="featureView" class="panel hidden"></section>
+<div class="footer">گرامرینو PLUS • پایه‌های هفتم، هشتم و نهم • پیشرفت هر پایه روی همین دستگاه ذخیره می‌شود.</div>
+</div>
+<script>
+const grade7Lessons=[
+ {title:"My Name",fa:"اسم من",topic:"ضمیرهای فاعلی، am / is / are و پرسیدن نام",desc:"از پایه یاد می‌گیریم چطور خودمان را معرفی کنیم و نام دیگران را بپرسیم.",rule:"ضمیر فاعلی جای اسم شخص را می‌گیرد: I یعنی من؛ You یعنی تو یا شما؛ He یعنی او برای پسر یا مرد؛ She یعنی او برای دختر یا زن؛ It یعنی آن برای چیزها و معمولاً حیوانات؛ We یعنی ما؛ They یعنی آن‌ها. فعل be در زمان حال سه شکل دارد: am، is و are. قانون مهم: I am؛ He / She / It is؛ You / We / They are. عبارت My name is … یعنی «اسم من … است». برای پرسیدن نام می‌گوییم What is your name? یعنی «اسم تو/شما چیست؟».",examples:[["I am Sara.","من سارا هستم."],["My name is Ali.","اسم من علی است."],["What is your name?","اسم تو/شما چیست؟"],["You are my friend.","تو دوست من هستی."],["He is Reza.","او رضا است (درباره پسر)."],["She is Mina.","او مینا است (درباره دختر)."]],tip:"شکل کوتاه: I am = I'm، You are = You're، He is = He's، She is = She's، It is = It's، We are = We're، They are = They're. در نوشتار رسمی شکل کامل هم کاملاً درست است."},
+ {title:"My Classmates",fa:"هم‌کلاسی‌های من",topic:"جمله مثبت، منفی و سؤالی با am / is / are",desc:"یاد می‌گیریم درباره دوست‌ها و هم‌کلاسی‌ها حرف بزنیم.",rule:"جمله مثبت: فاعل + am/is/are + ادامه جمله؛ مثل He is my friend. برای منفی کردن، not را بعد از فعل می‌آوریم: He is not my brother. برای سؤال بله/خیر، فعل را به اول جمله می‌بریم: Are you a student? یعنی «آیا تو دانش‌آموز هستی؟». پاسخ کوتاه: Yes, I am. یا No, I'm not.",examples:[["He is my friend.","او دوست من است."],["They are classmates.","آن‌ها هم‌کلاسی هستند."],["Are you a student?","آیا تو دانش‌آموز هستی؟"],["Is she your sister?","آیا او خواهر توست؟"],["No, she isn't.","نه، او نیست."]],tip:"جمله خبری: You are happy. سؤال: Are you happy? منفی: You are not happy. جای فعل در سؤال تغییر می‌کند."},
+ {title:"My Age",fa:"سن من",topic:"پرسیدن سن با How old",desc:"سن خود و دیگران را بپرس و پاسخ بده.",rule:"برای پرسیدن سن می‌گوییم How old are you? یعنی «چند سال داری؟». پاسخ: I am thirteen years old. یعنی «من سیزده سال دارم». در انگلیسی برای سن از am/is/are استفاده می‌کنیم، نه have. درباره شخص دیگر می‌پرسیم How old is Ali? یعنی «علی چند سال دارد؟» و پاسخ می‌دهیم He is twelve.",examples:[["How old are you?","چند سال داری؟"],["I am thirteen years old.","من سیزده سال دارم."],["How old is Sara?","سارا چند سال دارد؟"],["She is twelve.","او دوازده سال دارد."]],tip:"الگو: How old + am/is/are + فاعل؟ پاسخ: فاعل + am/is/are + عدد. می‌توانی years old را در پاسخ کوتاه حذف کنی: I'm thirteen."},
+ {title:"My Family",fa:"خانواده من",topic:"have / has و واژه‌های مالکیت",desc:"درباره اعضای خانواده و نسبت‌ها صحبت می‌کنیم.",rule:"have و has معنی «داشتن» می‌دهند. با I / You / We / They از have استفاده می‌کنیم؛ با He / She / It از has. واژه‌های مالکیت: my یعنی «ـِ من»، your یعنی «ـِ تو/شما»، his یعنی «ـِ او» برای پسر/مرد و her یعنی «ـِ او» برای دختر/زن.",examples:[["I have one brother.","من یک برادر دارم."],["She has two sisters.","او دو خواهر دارد."],["This is my mother.","این مادر من است."],["His name is Amir.","اسم او (پسر) امیر است."],["Her name is Sara.","اسم او (دختر) سارا است."]],tip:"در جمله مثبت می‌گوییم He has. اما در سؤال با Does، فعل اصلی به have برمی‌گردد: Does he have a brother? یعنی آیا او برادر دارد؟"},
+ {title:"My Appearance",fa:"ظاهر من",topic:"صفت‌ها و توصیف افراد",desc:"با صفت‌های ساده ظاهر افراد را توصیف می‌کنیم.",rule:"صفت ویژگی یک شخص یا چیز را بیان می‌کند: tall=قدبلند، short=کوتاه‌قد، young=جوان، old=پیر/مسن، long=بلند، short=کوتاه، black=مشکی، brown=قهوه‌ای. می‌گوییم He is tall (او قدبلند است) اما برای مو و چشم معمولاً از have/has استفاده می‌کنیم: She has long hair.",examples:[["He is tall.","او قدبلند است."],["She has long hair.","او موهای بلندی دارد."],["I have brown eyes.","من چشم‌های قهوه‌ای دارم."],["He is a young boy.","او پسر جوانی است."]],tip:"برای قد و ویژگی کلی: am/is/are + صفت. برای داشتن مو یا چشم: have/has + اسم."},
+ {title:"My House",fa:"خانه من",topic:"There is / There are",desc:"می‌گوییم چه چیزهایی در خانه یا اتاق وجود دارد.",rule:"There is یعنی «یک ... وجود دارد» و برای اسم مفرد به کار می‌رود. There are یعنی «... وجود دارند» و برای اسم جمع استفاده می‌شود. a table مفرد است؛ two chairs جمع است. برای منفی کردن: There isn't a TV. برای پرسیدن: Is there a bed? / Are there two windows?",examples:[["There is a table.","یک میز وجود دارد."],["There are two chairs.","دو صندلی وجود دارد."],["Is there a bed?","آیا یک تخت وجود دارد؟"],["There aren't three windows.","سه پنجره وجود ندارد."],["The book is on the desk.","کتاب روی میز است."]],tip:"بعد از There is معمولاً a/an یا یک اسم مفرد می‌آید. بعد از There are اسم جمع می‌آید."},
+ {title:"My Address",fa:"نشانی من",topic:"حروف اضافه مکان",desc:"جای اشیا و مکان‌ها را با دقت توضیح می‌دهیم.",rule:"حروف اضافه مکان جای یک چیز را نشان می‌دهند: in=داخل، on=روی سطح، under=زیر، next to=کنار، between=بین دو چیز، behind=پشت، in front of=جلوی. معمولاً حرف اضافه قبل از اسم مکان می‌آید: under the desk.",examples:[["The bag is under the desk.","کیف زیر میز است."],["The school is next to the park.","مدرسه کنار پارک است."],["The pen is in the box.","خودکار داخل جعبه است."],["The ball is between the boxes.","توپ بین جعبه‌هاست."],["The car is in front of the house.","ماشین جلوی خانه است."]],tip:"برای یادگیری، یک وسیله واقعی انتخاب کن و جای آن را با in, on, under و next to توصیف کن."},
+ {title:"My Favorite Food",fa:"غذای مورد علاقه من",topic:"like / likes و سؤال درباره علاقه",desc:"درباره خوراکی‌ها و علاقه‌ها جمله می‌سازیم.",rule:"like یعنی دوست داشتن. در جمله مثبت با I / You / We / They می‌گوییم like؛ با He / She / It می‌گوییم likes. برای سؤال از Do یا Does استفاده می‌کنیم: Do you like apples? Does he like rice? دقت کن بعد از Does، فعل اصلی s نمی‌گیرد.",examples:[["I like apples.","من سیب دوست دارم."],["He likes rice.","او برنج دوست دارد."],["Do you like milk?","آیا شیر دوست داری؟"],["She doesn't like tea.","او چای دوست ندارد."],["Does he like pizza?","آیا او پیتزا دوست دارد؟"]],tip:"مثبت: She likes apples. منفی: She doesn't like apples. سؤال: Does she like apples? بعد از does/doesn't، فعل ساده like می‌آید."}
+];
+const grade7Questions=[
+ {type:"mcq",l:0,q:"کدام جمله یعنی «من دانش‌آموز هستم»؟",opts:["I am a student.","I is a student.","I are student.","Am I student."],a:0,why:"با I از am استفاده می‌کنیم."},
+ {type:"mcq",l:1,q:"جای خالی را کامل کن: She ___ my classmate.",opts:["am","are","is","be"],a:2,why:"برای She از is استفاده می‌کنیم."},
+ {type:"mcq",l:2,q:"How old ___ you?",opts:["is","are","am","be"],a:1,why:"برای you از are استفاده می‌شود."},
+ {type:"mcq",l:3,q:"He ___ two brothers.",opts:["have","has","having","is have"],a:1,why:"برای He از has استفاده می‌کنیم."},
+ {type:"mcq",l:5,q:"There ___ three books on the table.",opts:["is","am","are","be"],a:2,why:"چون three books جمع است، are می‌آید."},
+ {type:"mcq",l:6,q:"The cat is ___ the table. (زیر میز)",opts:["on","under","in","next"],a:1,why:"under یعنی زیر."},
+ {type:"mcq",l:7,q:"My sister ___ apples.",opts:["like","likes","liking","is like"],a:1,why:"برای She/He/It از likes استفاده می‌کنیم."},
+ {type:"fill",l:0,q:"جای خالی را پر کن: My name ___ Reza.",answer:"is",why:"My name مفرد است، پس is می‌آید."},
+ {type:"fill",l:1,q:"جای خالی را پر کن: They ___ my friends.",answer:"are",why:"برای They از are استفاده می‌کنیم."},
+ {type:"fill",l:2,q:"جای خالی را پر کن: I ___ twelve years old.",answer:"am",why:"برای I از am استفاده می‌کنیم."},
+ {type:"fill",l:3,q:"جای خالی را پر کن: Sara ___ a sister.",answer:"has",why:"برای Sara (she) از has استفاده می‌شود."},
+ {type:"fill",l:5,q:"جای خالی را پر کن: There ___ a sofa in the room.",answer:"is",why:"a sofa مفرد است، پس is می‌آید."},
+ {type:"fill",l:7,q:"جای خالی را پر کن: He ___ milk.",answer:"likes",why:"برای He از likes استفاده می‌کنیم."},
+ {type:"order",l:0,q:"کلمات را مرتب کن تا جمله درست شود:",words:["am","I","happy"],answer:"I am happy",why:"ترتیب درست: فاعل + فعل + ادامه جمله."},
+ {type:"order",l:3,q:"کلمات را مرتب کن تا جمله درست شود:",words:["a","has","brother","He"],answer:"He has a brother",why:"He + has + a brother."},
+ {type:"order",l:5,q:"کلمات را مرتب کن تا جمله درست شود:",words:["are","There","chairs","two"],answer:"There are two chairs",why:"There are برای وجود چند چیز به کار می‌رود."},
+ {type:"error",l:1,q:"اشتباه جمله را پیدا کن و جمله درست را بنویس: She are my friend.",answer:"She is my friend.",why:"برای She باید از is استفاده کنیم."},
+ {type:"error",l:3,q:"اشتباه جمله را پیدا کن و جمله درست را بنویس: He have a sister.",answer:"He has a sister.",why:"برای He از has استفاده می‌شود."},
+ {type:"error",l:7,q:"اشتباه جمله را پیدا کن و جمله درست را بنویس: She like bananas.",answer:"She likes bananas.",why:"در جمله مثبت، برای She فعل like به likes تبدیل می‌شود."},
+ {type:"mcq",l:6,q:"کدام عبارت یعنی «کنار»؟",opts:["under","in","next to","on"],a:2,why:"next to یعنی کنار."}
+];
+const grade8Lessons=[
+ {title:"My Daily Life",fa:"زندگی روزمره من",topic:"حال ساده (Present Simple)",desc:"برای عادت‌ها، کارهای روزانه و واقعیت‌های همیشگی از حال ساده استفاده می‌کنیم.",rule:"ساختار مثبت: فاعل + شکل ساده فعل. اما با he/she/it معمولاً به فعل s یا es اضافه می‌کنیم: I play football. / She plays football. برای منفی از don't و doesn't استفاده می‌کنیم: I don't play. / He doesn't play. در سؤال از Do/Does کمک می‌گیریم: Do you study English? Does she study English? بعد از does و doesn't فعل به شکل ساده می‌آید.",examples:[["I go to school every day.","من هر روز به مدرسه می‌روم."],["She reads books.","او کتاب می‌خواند."],["He doesn't play tennis.","او تنیس بازی نمی‌کند."],["Do they speak English?","آیا آن‌ها انگلیسی صحبت می‌کنند؟"],["Does Ali get up early?","آیا علی زود بیدار می‌شود؟"]],tip:"کلمه‌هایی مثل always، usually، often، sometimes و never معمولاً برای بیان تکرار به کار می‌روند."},
+ {title:"Right Now",fa:"همین حالا",topic:"حال استمراری (Present Continuous)",desc:"برای کاری که همین الان در حال انجام است از حال استمراری استفاده می‌کنیم.",rule:"ساختار: فاعل + am/is/are + فعل ingدار. مثال: I am reading. یعنی من دارم مطالعه می‌کنم. منفی: She isn't sleeping. سؤال: Are they playing? معمولاً واژه‌هایی مثل now و at the moment نشانه این زمان‌اند. تفاوت مهم: I read every day یعنی عادت؛ I am reading now یعنی همین حالا مشغول خواندنم.",examples:[["I am doing my homework now.","من الان دارم تکالیفم را انجام می‌دهم."],["He is running.","او دارد می‌دود."],["They aren't watching TV.","آن‌ها تلویزیون تماشا نمی‌کنند (الان)."],["Are you listening?","آیا داری گوش می‌دهی؟"]],tip:"در بیشتر فعل‌ها ing اضافه می‌شود: read→reading. در run حرف آخر دو برابر می‌شود: running."},
+ {title:"Past Simple",fa:"گذشته ساده",topic:"گذشته ساده افعال باقاعده و بی‌قاعده",desc:"درباره کاری که در گذشته تمام شده است صحبت می‌کنیم.",rule:"در جمله مثبت، فعل باقاعده معمولاً ed می‌گیرد: play→played. برخی فعل‌ها بی‌قاعده‌اند: go→went، see→saw، have→had. برای منفی از didn't + شکل ساده فعل استفاده می‌کنیم: I didn't go. برای سؤال: Did you see him? بعد از did و didn't، فعل اصلی به شکل ساده برمی‌گردد.",examples:[["I visited my grandmother yesterday.","من دیروز به دیدن مادربزرگم رفتم."],["We went to the park.","ما به پارک رفتیم."],["She didn't watch the film.","او فیلم را تماشا نکرد."],["Did you finish your homework?","آیا تکلیفت را تمام کردی؟"]],tip:"بعد از did/didn't از went یا played استفاده نکن؛ شکل ساده فعل لازم است: Did you go? نه Did you went?"},
+ {title:"Future Plans",fa:"برنامه‌های آینده",topic:"be going to",desc:"برای برنامه یا قصدی که از قبل داریم از be going to استفاده می‌کنیم.",rule:"ساختار: فاعل + am/is/are + going to + شکل ساده فعل. مثال: I am going to study. یعنی قصد دارم درس بخوانم. برای he/she/it از is و برای you/we/they از are استفاده می‌کنیم. منفی: He isn't going to travel. سؤال: Are you going to join us?",examples:[["I am going to visit my aunt.","قصد دارم به دیدن خاله/عمه‌ام بروم."],["She is going to study tonight.","او قصد دارد امشب درس بخواند."],["Are they going to play?","آیا آن‌ها قصد دارند بازی کنند؟"]],tip:"بعد از going to همیشه شکل ساده فعل می‌آید: going to go، going to study."},
+ {title:"Can and Can't",fa:"توانایی و اجازه",topic:"افعال کمکی can / can't",desc:"برای بیان توانایی یا اجازه از can و can't استفاده می‌کنیم.",rule:"بعد از can و can't فعل ساده می‌آید و برای همه فاعل‌ها یکسان است: I can swim. / She can swim. منفی: can't یعنی نمی‌توانم/نمی‌تواند. سؤال: Can you help me? پاسخ کوتاه: Yes, I can. / No, I can't. به can، s اضافه نمی‌کنیم و بعد از آن to نمی‌آوریم.",examples:[["I can ride a bike.","من می‌توانم دوچرخه‌سواری کنم."],["He can't drive a car.","او نمی‌تواند رانندگی کند."],["Can you speak English?","آیا می‌توانی انگلیسی صحبت کنی؟"],["Birds can fly.","پرندگان می‌توانند پرواز کنند."]],tip:"درست: She can swim. نادرست: She cans swim یا She can to swim."},
+ {title:"Comparatives",fa:"مقایسه کردن",topic:"صفت‌های تفضیلی",desc:"یاد می‌گیریم دو نفر یا دو چیز را با هم مقایسه کنیم.",rule:"برای بسیاری از صفت‌های کوتاه، er اضافه می‌کنیم و بعد از آن than می‌آید: tall→taller than. برای صفت‌های بلند معمولاً more می‌آوریم: more interesting than. برخی شکل‌ها بی‌قاعده‌اند: good→better، bad→worse. مثال: A train is faster than a bus.",examples:[["My bag is heavier than yours.","کیف من از کیف تو سنگین‌تر است."],["English is more interesting than I expected.","انگلیسی از چیزی که انتظار داشتم جالب‌تر است."],["This book is better than that one.","این کتاب از آن یکی بهتر است."],["A cheetah is faster than a cat.","یوزپلنگ از گربه سریع‌تر است."]],tip:"برای مقایسه معمولاً than به معنی «از» می‌آید: taller than Ali = بلندقدتر از علی."},
+ {title:"Countable & Uncountable",fa:"اسم‌های قابل‌شمارش و غیرقابل‌شمارش",topic:"some / any / much / many",desc:"می‌آموزیم درباره تعداد و مقدار چیزها درست سؤال کنیم.",rule:"اسم قابل‌شمارش را می‌توان شمرد: apple/apples، book/books. اسم غیرقابل‌شمارش را معمولاً دانه‌دانه نمی‌شماریم: water، rice، milk. many با اسم جمع قابل‌شمارش می‌آید؛ much با اسم غیرقابل‌شمارش. some بیشتر در جمله مثبت و any بیشتر در سؤال و منفی به کار می‌رود: I have some apples. Do you have any water?",examples:[["How many books do you have?","چند کتاب داری؟"],["How much water do you drink?","چقدر آب می‌نوشی؟"],["There are some apples.","چند سیب وجود دارد."],["We don't have any milk.","ما هیچ شیری نداریم."]],tip:"many books اما much water؛ به قابل‌شمارش بودن اسم توجه کن."},
+ {title:"Should and Must",fa:"توصیه و ضرورت",topic:"should / shouldn't / must / mustn't",desc:"برای توصیه، قانون و ضرورت از این افعال کمکی استفاده می‌کنیم.",rule:"should یعنی بهتر است/بایدِ پیشنهادی؛ shouldn't یعنی بهتر است انجام ندهی. must برای ضرورت قوی و mustn't برای ممنوعیت است. بعد از همه آن‌ها فعل ساده می‌آید: You should rest. / You must wear a seat belt. / You mustn't run here.",examples:[["You should drink enough water.","بهتر است آب کافی بنوشی."],["You shouldn't stay up too late.","بهتر است خیلی دیر بیدار نمانی."],["Students must follow the rules.","دانش‌آموزان باید قوانین را رعایت کنند."],["You mustn't touch that wire.","نباید به آن سیم دست بزنی."]],tip:"mustn't یعنی ممنوع است؛ don't have to یعنی لازم نیست. این دو دقیقاً یک معنی ندارند."}
+];
+const grade9Lessons=[
+ {title:"Personality",fa:"شخصیت و ویژگی‌ها",topic:"صفات شخصیتی و مقایسه افراد",desc:"ویژگی‌های افراد را توصیف می‌کنیم و درباره شباهت و تفاوت حرف می‌زنیم.",rule:"برای توصیف از فاعل + be + صفت استفاده کن: She is kind. برای گفتن «از ... تر» در صفت کوتاه معمولاً er و سپس than می‌آید: Ali is taller than Reza. برای صفت‌های بلند از more استفاده می‌کنیم: more careful than. برای برترین از the و est یا the most استفاده می‌شود: the tallest / the most helpful. شکل‌های بی‌قاعده: good→better→the best و bad→worse→the worst.",examples:[["I am friendly.","من خوش‌برخوردم."],["Mina is more patient than Sara.","مینا از سارا صبورتر است."],["He is the tallest student in the class.","او قدبلندترین دانش‌آموز کلاس است."],["My brother is helpful.","برادرم کمک‌کننده است."],["This is the best answer.","این بهترین پاسخ است."]],tip:"than برای مقایسه دو مورد و the قبل از صفت عالی به کار می‌رود."},
+ {title:"Travel Plans",fa:"برنامه‌های سفر",topic:"آینده با will و be going to",desc:"درباره تصمیم، پیش‌بینی و برنامه آینده صحبت می‌کنیم.",rule:"برای برنامه‌ای که از قبل قصدش را داریم از فاعل + am/is/are + going to + فعل ساده استفاده می‌کنیم: We are going to travel. برای پیش‌بینی یا تصمیم لحظه‌ای می‌توان از will + فعل ساده استفاده کرد: I think it will rain. منفی: won't یا am/is/are not going to. سؤال: Will you come? / Are you going to travel? بعد از will و going to فعل ساده می‌آید.",examples:[["We are going to visit Shiraz.","قصد داریم از شیراز دیدن کنیم."],["I will help you.","به تو کمک خواهم کرد."],["Are they going to travel by bus?","آیا قرار است با اتوبوس سفر کنند؟"],["It won't be cold tomorrow.","فردا سرد نخواهد بود."],["She is going to pack her bag.","او قصد دارد کیفش را ببندد."]],tip:"بعد از will و won't، فعل ساده می‌آید؛ بعد از going to هم فعل ساده استفاده می‌شود."},
+ {title:"Festivals & Ceremonies",fa:"جشن‌ها و مراسم",topic:"حال ساده مجهول‌نما نیست؛ بیان رسم‌ها با حال ساده و قیدهای تکرار",desc:"درباره رسم‌ها و کارهایی که هر سال انجام می‌شوند جمله می‌سازیم.",rule:"برای رسم و عادت از حال ساده استفاده می‌کنیم: People celebrate Nowruz in spring. با he/she/it معمولاً s/es به فعل اضافه می‌شود. قیدهای تکرار مثل always، usually، often، sometimes و never معمولاً قبل از فعل اصلی می‌آیند: We usually visit our relatives. اما با فعل be بعد از am/is/are می‌آیند: She is always happy. برای سؤال از do/does استفاده کن و بعد از does فعل ساده می‌آید.",examples:[["People celebrate Nowruz in spring.","مردم در بهار نوروز را جشن می‌گیرند."],["We usually visit our family.","ما معمولاً به دیدن خانواده‌مان می‌رویم."],["He often helps his mother.","او اغلب به مادرش کمک می‌کند."],["Do you celebrate this festival?","آیا این جشن را برگزار می‌کنی؟"],["She is always cheerful.","او همیشه شاد است."]],tip:"قید تکرار معمولاً قبل از فعل اصلی و بعد از فعل be قرار می‌گیرد."},
+ {title:"Services & Requests",fa:"خدمات و درخواست‌ها",topic:"درخواست مؤدبانه، امر و can/could",desc:"درخواست کمک و راهنمایی را مؤدبانه بیان می‌کنیم.",rule:"برای دستور یا راهنمایی معمولاً از شکل ساده فعل شروع می‌کنیم: Turn left. برای منفی کردن دستور از Don't + فعل ساده استفاده می‌کنیم: Don't run. برای توانایی یا درخواست ساده از can استفاده می‌شود: Can you help me? برای درخواست مؤدبانه‌تر می‌توان گفت Could you help me, please? بعد از can/could فعل ساده می‌آید و to نمی‌گیرد. لطفاً را با please اضافه می‌کنیم.",examples:[["Turn left at the corner.","سرِ گوشه به چپ بپیچ."],["Don't touch the screen.","به صفحه دست نزن."],["Can you show me the way?","می‌توانی راه را به من نشان بدهی؟"],["Could you repeat that, please?","ممکن است لطفاً آن را تکرار کنید؟"],["Please wait here.","لطفاً اینجا منتظر بمان."]],tip:"Could you ...? معمولاً مؤدبانه‌تر از Can you ...? است."},
+ {title:"Media & Messages",fa:"رسانه و پیام‌ها",topic:"حال استمراری و فعل‌های گفتاری",desc:"درباره کارهایی که اکنون انجام می‌شوند و پیام‌های روزمره حرف می‌زنیم.",rule:"حال استمراری برای کاری است که همین حالا در جریان است: فاعل + am/is/are + فعل-ing. منفی: isn't/aren't/am not + فعل-ing. سؤال: Am/Is/Are + فاعل + فعل-ing? معمولاً now و at the moment نشانه‌اند. برای عادت از حال ساده استفاده می‌کنیم: I read news every day؛ برای همین لحظه: I am reading the news now. در املای فعل‌ها: make→making و run→running.",examples:[["I am reading a message now.","من الان دارم پیامی می‌خوانم."],["They are watching the news.","آن‌ها دارند اخبار را تماشا می‌کنند."],["She isn't using her phone.","او از تلفنش استفاده نمی‌کند (در همین لحظه)."],["Are you listening to the radio?","آیا داری به رادیو گوش می‌دهی؟"],["He checks his messages every morning.","او هر صبح پیام‌هایش را بررسی می‌کند."]],tip:"هر روز/معمولاً بیشتر با حال ساده می‌آید؛ now/at the moment بیشتر با حال استمراری."},
+ {title:"Health & Advice",fa:"سلامتی و توصیه",topic:"should / shouldn't و must / mustn't",desc:"توصیه، ضرورت و ممنوعیت را از هم تشخیص می‌دهیم.",rule:"برای توصیه از should + فعل ساده استفاده می‌کنیم: You should rest. برای توصیه منفی: shouldn't + فعل ساده. برای الزام قوی از must استفاده می‌کنیم و برای ممنوعیت mustn't. ساختار این افعال برای همه فاعل‌ها یکسان است و s یا to نمی‌گیرند: He should drink water، نه He shoulds یا should to drink. سؤال: Should I call a doctor? پاسخ کوتاه: Yes, you should / No, you shouldn't.",examples:[["You should drink enough water.","باید به اندازه کافی آب بنوشی (توصیه)."],["You shouldn't stay up late.","بهتر است تا دیروقت بیدار نمانی."],["You must follow the safety rules.","باید قوانین ایمنی را رعایت کنی."],["You mustn't take this medicine without an adult's help.","نباید بدون کمک یک بزرگسال این دارو را مصرف کنی."],["Should I see a doctor?","آیا بهتر است به پزشک مراجعه کنم؟"]],tip:"should توصیه است؛ must الزام و mustn't ممنوعیت را می‌رساند."}
+];
+const grade9Questions=[
+ {type:"mcq",l:0,q:"شکل مقایسه‌ای good چیست؟",opts:["gooder","better","best than","more good"],a:1,why:"good شکل بی‌قاعده better دارد."},
+ {type:"fill",l:0,q:"Complete: Sara is taller ___ Mina.",answer:"than",why:"در مقایسه از than استفاده می‌کنیم."},
+ {type:"mcq",l:1,q:"کدام جمله برای برنامه از قبل درست است؟",opts:["We going to travel.","We are going to travel.","We are go travel.","We going travel."],a:1,why:"ساختار be going to به am/is/are نیاز دارد."},
+ {type:"fill",l:1,q:"Complete: I think it ___ rain tomorrow. (will)",answer:"will",why:"برای پیش‌بینی می‌توان از will استفاده کرد."},
+ {type:"mcq",l:2,q:"قید usually معمولاً کجا می‌آید؟",opts:["بعد از فعل اصلی همیشه","قبل از فعل اصلی","فقط آخر جمله","قبل از اسم همیشه"],a:1,why:"قید تکرار معمولاً قبل از فعل اصلی می‌آید؛ با be بعد از be قرار می‌گیرد."},
+ {type:"error",l:2,q:"جمله را اصلاح کن: He usually go to festivals.",answer:"He usually goes to festivals.",why:"در حال ساده با he فعل go به goes تبدیل می‌شود."},
+ {type:"mcq",l:3,q:"کدام درخواست مؤدبانه‌تر است؟",opts:["Repeat!","Could you repeat that, please?","You repeat now.","Repeats please."],a:1,why:"Could you ... please? درخواست مؤدبانه‌ای است."},
+ {type:"fill",l:3,q:"Complete the negative command: ___ run here. (Don't)",answer:"don't",why:"دستور منفی با Don't + فعل ساده ساخته می‌شود."},
+ {type:"mcq",l:4,q:"کدام جمله درباره همین لحظه است؟",opts:["I read every day.","I am reading now.","I read yesterday.","I will read tomorrow."],a:1,why:"حال استمراری برای کاری در حال انجام است."},
+ {type:"fill",l:4,q:"Complete: They are ___ (watch) TV now.",answer:"watching",why:"watch + ing = watching."},
+ {type:"mcq",l:5,q:"کدام عبارت برای توصیه است؟",opts:["should","mustn't","does","did"],a:0,why:"should برای توصیه به کار می‌رود."},
+ {type:"error",l:5,q:"جمله را اصلاح کن: She should to rest.",answer:"She should rest.",why:"بعد از should فعل ساده بدون to می‌آید."}
+];
+const alphabetLetters=[
+ ['A','اِی','apple','اَپِل','اَ'],['B','بی','book','بوک','ب'],['C','سی','cat','کَت','ک / س'],['D','دی','dog','داگ','د'],['E','ای کوتاه','egg','اِگ','اِ'],['F','اِف','fish','فیش','ف'],['G','جی','go','گو','گ / ج'],['H','اِیچ','hat','هَت','ه'],['I','آی','ice','آیس','آی / اِ'],['J','جِی','jam','جَم','ج'],['K','کِی','kite','کایت','ک'],['L','اِل','lion','لایِن','ل'],['M','اِم','moon','مون','م'],['N','اِن','nose','نوز','ن'],['O','اُو','orange','اُرِنج','اُ / آ'],['P','پی','pen','پِن','پ'],['Q','کیو','queen','کوین','کو / ک'],['R','آر','red','رِد','ر انگلیسی'],['S','اِس','sun','سان','س'],['T','تی','top','تاپ','ت'],['U','یو','up','آپ','اَ / یو'],['V','وی','van','وَن','و با لرزش لب'],['W','دابِل‌یو','water','واتِر','و'],['X','اِکس','box','باکس','کس'],['Y','وای','yes','یِس','ی'],['Z','زِد / زی','zoo','زو','ز']
+];
+const letterPairs=[
+ ['sh','ش','ship','شِپ','مثل sh در ship صدای «ش» می‌دهد.'],['ch','چ','chair','چِر','در chair صدای «چ» دارد.'],['kh','خ','خ (راهنمای فارسی)','خ','ترکیب kh برای صدای فارسی «خ» است و ترکیب رایج انگلیسی نیست.'],['th','ث / ذ','think / this','ثینک / ذیس','صدای th در think بی‌صدا و در this صدادار است؛ دقیقاً معادل یک حرف فارسی نیست.'],['ph','ف','phone','فون','در بسیاری از واژه‌ها ph صدای «ف» دارد.'],['ck','ک','duck','داک','در پایان بسیاری از واژه‌ها صدای «ک» می‌دهد.'],['ng','نگ','sing','سینگ','صدایی بینی‌دار دارد؛ g معمولاً جداگانه شنیده نمی‌شود.'],['ee','ای کشیده','see','سی','معمولاً صدای «ای» کشیده می‌دهد.'],['ea','ای / اِ','eat / bread','ایت / بِرِد','صدایش بسته به واژه فرق می‌کند.'],['oo','او / او کوتاه','moon / book','مون / بوک','در moon کشیده و در book کوتاه‌تر است.'],['ai','اِی','rain','رِین','معمولاً صدای «اِی» می‌دهد.'],['ay','اِی','day','دِی','اغلب در پایان واژه صدای «اِی» دارد.'],['oa','اُو','boat','بُوت','معمولاً صدای «اُو» می‌دهد.'],['ow','آو / اُو','cow / snow','کاو / اسنو','بسته به واژه دو صدای رایج دارد.'],['ou','آو / اَ / او','house / young / soup','هاوس / یانگ / سوپ','این ترکیب چند تلفظ دارد و باید با مثال یاد گرفته شود.'],['wh','و / ه‌و','what / who','وات / هو','در بیشتر واژه‌ها w شنیده می‌شود؛ در who صدای w شنیده نمی‌شود.'],['qu','کْو','queen','کوین','معمولاً صدایی شبیه «کو» ایجاد می‌کند.']
+];
+
+let activeGrade="7";
+let lessons=grade7Lessons;
+let questions=grade7Questions;
+const grade8Questions=[
+ {type:"mcq",l:0,q:"جای خالی: Sara ___ English every day.",opts:["study","studies","studying","is study"],a:1,why:"در حال ساده با Sara (she) فعل studies می‌آید."},
+ {type:"mcq",l:0,q:"کدام جمله درست است؟",opts:["He don't play.","He doesn't plays.","He doesn't play.","He not play."],a:2,why:"بعد از doesn't فعل ساده می‌آید."},
+ {type:"fill",l:0,q:"Complete: ___ you play volleyball every week?",answer:"Do",why:"برای سؤال حال ساده با you از Do استفاده می‌کنیم."},
+ {type:"error",l:0,q:"جمله را اصلاح کن: She go to school by bus.",answer:"She goes to school by bus.",why:"برای she در حال ساده، go به goes تبدیل می‌شود."},
+ {type:"mcq",l:1,q:"جای خالی: They ___ watching TV now.",opts:["is","am","are","be"],a:2,why:"They با are می‌آید: They are watching."},
+ {type:"fill",l:1,q:"Complete: I am ___ (read) a story now.",answer:"reading",why:"برای ساخت حال استمراری، به read پسوند ing اضافه می‌کنیم."},
+ {type:"mcq",l:1,q:"کدام جمله درباره همین لحظه است؟",opts:["I play every day.","I am playing now.","I played yesterday.","I will play tomorrow."],a:1,why:"now معمولاً نشانه حال استمراری است."},
+ {type:"mcq",l:2,q:"گذشته فعل go چیست؟",opts:["goed","went","gone","going"],a:1,why:"go فعل بی‌قاعده است و گذشته ساده آن went است."},
+ {type:"fill",l:2,q:"Complete: Did you ___ the film?",answer:"see",why:"بعد از did شکل ساده فعل می‌آید."},
+ {type:"error",l:2,q:"اصلاح کن: I didn't went to school.",answer:"I didn't go to school.",why:"بعد از didn't از شکل ساده go استفاده می‌کنیم."},
+ {type:"mcq",l:3,q:"ساختار درست be going to کدام است؟",opts:["I going to study.","I am going study.","I am going to study.","I am go to study."],a:2,why:"ساختار درست: فاعل + am/is/are + going to + فعل ساده."},
+ {type:"mcq",l:4,q:"کدام جمله درست است؟",opts:["She can sings.","She cans sing.","She can sing.","She can to sing."],a:2,why:"بعد از can شکل ساده فعل می‌آید."},
+ {type:"fill",l:4,q:"Complete: He can't ___ (swim).",answer:"swim",why:"بعد از can't شکل ساده فعل می‌آید."},
+ {type:"mcq",l:5,q:"شکل تفضیلی good چیست؟",opts:["gooder","more good","better","best than"],a:2,why:"good شکل بی‌قاعده better دارد."},
+ {type:"fill",l:5,q:"Complete: A bike is slower ___ a car.",answer:"than",why:"برای مقایسه از than استفاده می‌کنیم."},
+ {type:"mcq",l:6,q:"کدام عبارت درست است؟",opts:["much books","many books","many water","a few milk"],a:1,why:"many با اسم جمع قابل‌شمارش مثل books می‌آید."},
+ {type:"fill",l:6,q:"Complete: How ___ water do you need?",answer:"much",why:"water غیرقابل‌شمارش است، پس much می‌آید."},
+ {type:"mcq",l:7,q:"You ___ wear a helmet when riding a bike. (توصیه)",opts:["should","should to","shoulds","are should"],a:0,why:"بعد از should فعل ساده می‌آید."},
+ {type:"mcq",l:7,q:"علامت ممنوعیت را با کدام عبارت بیان می‌کنیم؟",opts:["mustn't","should","can","must to"],a:0,why:"mustn't برای ممنوعیت است."}
+];
+let state={points:0,answered:0,done:[],best:0};
+function loadGradeState(){state={points:0,answered:0,done:[],best:0};try{const saved=JSON.parse(localStorage.getItem("grammarino"+activeGrade)||"{}");state={...state,...saved}}catch(e){}}
+loadGradeState();
+const faNum=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
+function save(){try{localStorage.setItem("grammarino"+activeGrade,JSON.stringify(state))}catch(e){};document.getElementById("points").textContent=faNum(state.points);document.getElementById("answered").textContent=faNum(state.answered);document.getElementById("doneLessons").textContent=faNum(state.done.length)+" / "+faNum(lessons.length);document.getElementById("best").textContent=faNum(state.best)+"٪"}
+
+function switchGrade(g){
+ activeGrade=String(g);
+ lessons=activeGrade==="9"?grade9Lessons:(activeGrade==="8"?grade8Lessons:grade7Lessons);
+ questions=activeGrade==="9"?grade9Questions:(activeGrade==="8"?grade8Questions:grade7Questions);
+ loadGradeState();
+ document.getElementById("gradeBadge").textContent=activeGrade;
+ document.getElementById("alphabetShortcut").style.display=activeGrade==="7"?"flex":"none";
+ document.getElementById("subtitle").textContent="آکادمی انگلیسی پایه‌های هفتم، هشتم و نهم";
+ document.getElementById("heroTitle").innerHTML="گرامر انگلیسی پایه "+(activeGrade==="9"?"نهم":(activeGrade==="8"?"هشتم":"هفتم"))+" رو<br>قدم‌به‌قدم یاد بگیر! 🚀";
+ document.getElementById("heroDesc").textContent=activeGrade==="7"?"پیشنهاد: قبل از گرامر، از بخش الفبا و حروف ترکیبی شروع کن؛ بعد درس‌ها را بخوان و تمرین کن.":"درس‌ها را انتخاب کن، توضیح معلم را بخوان، مثال‌ها را بررسی کن و با تمرین‌های تعاملی یادگیری‌ات را بسنج.";
+ document.querySelector(".footer").textContent="گرامرینو PLUS • پایه‌های هفتم، هشتم و نهم • پیشرفت هر پایه روی همین دستگاه ذخیره می‌شود.";
+ show("home");
+ renderLessons();save();
+}
+// PLUS FEATURES: video learning, flashcards, vocabulary, notebook, planner, focus timer, reference, progress
+let flashIndex=0,flashBack=false,focusInterval=null,focusSeconds=25*60;
+const vocabBase=[['student','دانش‌آموز'],['teacher','معلم'],['school','مدرسه'],['friend','دوست'],['family','خانواده'],['book','کتاب'],['water','آب'],['homework','تکلیف'],['usually','معمولاً'],['sometimes','گاهی'],['yesterday','دیروز'],['tomorrow','فردا'],['beautiful','زیبا'],['important','مهم'],['carefully','با دقت'],['practice','تمرین کردن'],['learn','یاد گرفتن'],['speak','صحبت کردن'],['write','نوشتن'],['read','خواندن']];
+function getEnglishVoice(){
+ if(!("speechSynthesis" in window)) return null;
+ const voices=window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
+ return voices.find(v=>/^en-US/i.test(v.lang)) || voices.find(v=>/^en-GB/i.test(v.lang)) || voices.find(v=>/^en/i.test(v.lang)) || null;
+}
+function speakText(text){
+ if(!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance==="undefined"){
+  alert("این مرورگر قابلیت تلفظ صوتی ندارد. در Chrome به تنظیمات تبدیل متن به گفتار (Text-to-speech) گوشی برو و موتور انگلیسی را فعال کن.");return;
+ }
+ try{
+  const synth=window.speechSynthesis;
+  synth.cancel();
+  const u=new SpeechSynthesisUtterance(String(text));
+  u.lang="en-US";u.rate=.78;u.pitch=1;
+  const voice=getEnglishVoice();if(voice)u.voice=voice;
+  u.onerror=function(e){console.warn("Speech synthesis error",e);};
+  // Some Android browsers need a short delay after cancel() before a new utterance.
+  window.setTimeout(()=>{try{synth.speak(u);}catch(err){alert("پخش تلفظ انجام نشد. موتور صدای انگلیسی گوشی را بررسی کن.");}},80);
+ }catch(err){alert("پخش تلفظ در این مرورگر ممکن نشد. یک بار صفحه را تازه‌سازی کن و صدای انگلیسی گوشی را بررسی کن.");}
+}
+function speakLetter(i){const x=alphabetLetters[i];if(!x)return;speakText("The letter "+x[0]+".");}
+function speakLetterExample(i){const x=alphabetLetters[i];if(!x)return;speakText(x[2]);}
+// Say the letter names in the combination, then let the learner hear the sound in real example words.
+function speakCombinationName(i){const x=letterPairs[i];if(!x)return;const names={sh:"S H",ch:"C H",th:"T H",ph:"P H",ck:"C K",ng:"N G",ee:"E E",ea:"E A",oo:"O O",ai:"A I",ay:"A Y",oa:"O A",ow:"O W",ou:"O U",wh:"W H",qu:"Q U"};speakText(names[x[0]]||x[0].split("").join(" "));}
+function playCombinationCardSound(i){
+ const x=letterPairs[i];if(!x)return;
+ // Play the sound of the letter combination, not the separate names of its letters.
+ const key=String(x[0]).toLowerCase();
+ const phonemes={
+  sh:['sh'], ch:['ch'], kh:['kh'],
+  th:['th-voiceless','th-voiced'], ph:['f'], ck:['k'], ng:['ng'],
+  ee:['ee'], ea:['ee','eh'], oo:['oo','book'], ai:['ay'], ay:['ay'],
+  oa:['oh'], ow:['ow','oh'], ou:['ow','uh','oo'], wh:['w'], qu:['kw']
+ };
+ const parts=phonemes[key];
+ if(!parts){alert('برای این ترکیب هنوز صدای تمرینی تعریف نشده است.');return;}
+ playCombinationPhonemes(parts);
+}
+async function playShSound(){
+ // Play only an isolated synthetic /ʃ/ sound. Never fall back to speaking an example word.
+ let ctx;
+ try{
+  const Ctx=window.AudioContext||window.webkitAudioContext;
+  if(!Ctx) throw new Error("Web Audio API is unavailable");
+  ctx=new Ctx();
+  if(ctx.state === "suspended") await ctx.resume();
+  const duration=0.42, sampleRate=ctx.sampleRate, length=Math.floor(sampleRate*duration);
+  const buffer=ctx.createBuffer(1,length,sampleRate), data=buffer.getChannelData(0);
+  // Create broadband noise and shape it toward the high-frequency spectrum of /ʃ/.
+  for(let n=0;n<length;n++){
+   const t=n/sampleRate;
+   const attack=Math.min(1,t/0.045);
+   const release=Math.min(1,(duration-t)/0.09);
+   data[n]=(Math.random()*2-1)*Math.max(0,Math.min(attack,release));
+  }
+  const source=ctx.createBufferSource(); source.buffer=buffer;
+  const high=ctx.createBiquadFilter(); high.type="highpass"; high.frequency.value=1800; high.Q.value=0.65;
+  const peak=ctx.createBiquadFilter(); peak.type="peaking"; peak.frequency.value=3000; peak.Q.value=0.9; peak.gain.value=9;
+  const low=ctx.createBiquadFilter(); low.type="lowpass"; low.frequency.value=6500; low.Q.value=0.7;
+  const gain=ctx.createGain();
+  gain.gain.setValueAtTime(0.0001,ctx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.7,ctx.currentTime+0.045);
+  gain.gain.setValueAtTime(0.7,ctx.currentTime+duration-0.09);
+  gain.gain.linearRampToValueAtTime(0.0001,ctx.currentTime+duration);
+  source.connect(high); high.connect(peak); peak.connect(low); low.connect(gain); gain.connect(ctx.destination);
+  source.onended=()=>{if(ctx && ctx.state!="closed")ctx.close().catch(()=>{});};
+  source.start(); source.stop(ctx.currentTime+duration);
+ }catch(e){
+  if(ctx && ctx.state!="closed") { try{await ctx.close();}catch(_){}}
+  console.error("Could not play isolated sh sound",e);
+  alert("مرورگر نتوانست صدای ترکیب را بسازد. لطفاً صفحه را در Chrome باز کن و پس از لمس دکمه، صدای رسانهٔ گوشی را بررسی کن. در صورت پشتیبانی‌نشدن Web Audio، مثال به‌جای صدا پخش نمی‌شود.");
+ }
+}
+function speakCombinationSound(i){
+ const x=letterPairs[i];if(!x)return;
+ // Use a distinct, short pronunciation cue for every combination. Never play noise or the card's example word.
+ // Some English consonants cannot be produced faithfully in isolation by browser TTS, so consonant cues use a tiny vowel support.
+ const key=String(x[0]).toLowerCase();
+ const cues={
+  sh:[['shuh','en-US']],                 // /ʃ/ + a tiny support vowel
+  ch:[['chuh','en-US']],                 // /tʃ/
+  kh:[['خ','fa-IR']],                    // Persian /x/; not a standard English digraph
+  th:[['thuh','en-US']],                 // approximate TH cue; see voiced/unvoiced distinction in examples
+  ph:[['fff','en-US']],                  // /f/
+  ck:[['kuh','en-US']],                  // /k/
+  ng:[['ng','en-US']],                   // final nasal /ŋ/
+  ee:[['ee','en-US']],                   // /iː/
+  ea:[['ee','en-US'],['eh','en-US']],    // common readings: eat / bread
+  oo:[['oo','en-US'],['uh','en-US']],    // long /uː/ and an approximate short-vowel cue
+  ai:[['ay','en-US']],                   // /eɪ/
+  ay:[['ay','en-US']],                   // /eɪ/
+  oa:[['oh','en-US']],                   // /oʊ/
+  ow:[['ow','en-US'],['oh','en-US']],    // cow / snow
+  ou:[['ow','en-US'],['uh','en-US'],['oo','en-US']], // common readings vary by word
+  wh:[['wuh','en-US']],                  // /w/ in most modern accents
+  qu:[['kwuh','en-US']]                  // /kw/
+ };
+ const sequence=cues[key];
+ if(!sequence){alert('برای این ترکیب هنوز راهنمای صوتی تعریف نشده است.');return;}
+ if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){
+  alert('مرورگر این گوشی قابلیت گفتار ندارد. در Chrome موتور تبدیل متن به گفتار را فعال کن.');return;
+ }
+ try{
+  const synth=window.speechSynthesis;synth.cancel();
+  const voices=synth.getVoices?synth.getVoices():[];
+  const playAt=(index)=>{
+   if(index>=sequence.length)return;
+   const [text,lang]=sequence[index];
+   const u=new SpeechSynthesisUtterance(text);u.lang=lang;u.rate=.68;u.pitch=1;u.volume=.35;
+   const voice=voices.find(v=>v.lang.toLowerCase().startsWith(lang.toLowerCase())) || (lang==='en-US'?voices.find(v=>/^en/i.test(v.lang)):null);
+   if(voice)u.voice=voice;
+   u.onend=()=>{if(index+1<sequence.length)window.setTimeout(()=>playAt(index+1),160);};
+   u.onerror=(e)=>console.warn('Combination cue speech error',key,e);
+   synth.speak(u);
+  };
+  window.setTimeout(()=>playAt(0),80);
+ }catch(e){console.warn('Combination cue failed',e);alert('پخش صدا انجام نشد؛ موتور گفتار گوشی را بررسی کن.');}
+}
+async function playCombinationPhonemes(parts){
+ let ctx;
+ try{
+  const Ctx=window.AudioContext||window.webkitAudioContext;if(!Ctx)throw new Error('Web Audio unavailable');
+  ctx=new Ctx();if(ctx.state==='suspended')await ctx.resume();
+  const now=()=>ctx.currentTime;
+  function noise(kind,at,dur){
+   const sr=ctx.sampleRate,len=Math.max(1,Math.floor(sr*dur)),buf=ctx.createBuffer(1,len,sr),d=buf.getChannelData(0);
+   for(let n=0;n<len;n++){const t=n/sr,a=Math.min(1,t/(kind==='ch'||kind==='k'?0.008:0.025)),r=Math.min(1,(dur-t)/0.035);d[n]=(Math.random()*2-1)*Math.max(0,Math.min(a,r));}
+   const src=ctx.createBufferSource();src.buffer=buf;
+   const hp=ctx.createBiquadFilter();hp.type='highpass';hp.frequency.value=kind==='sh'?1800:kind==='th-voiceless'?900:kind==='ch'?1100:kind==='kh'?350:kind==='k'?700:kind==='f'?1200:kind==='ng'?180:1500;
+   const lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=kind==='sh'?5200:kind==='ch'?4200:kind==='kh'?2800:kind==='th-voiceless'?3800:kind==='f'?4800:kind==='ng'?650:3000;
+   const g=ctx.createGain();const level=kind==='th-voiceless'?0.035:kind==='ng'?0.045:0.055;g.gain.setValueAtTime(0.0001,at);g.gain.linearRampToValueAtTime(level,at+0.035);g.gain.setValueAtTime(level,at+dur-0.045);g.gain.linearRampToValueAtTime(0.0001,at+dur);
+   src.connect(hp);hp.connect(lp);lp.connect(g);g.connect(ctx.destination);src.start(at);src.stop(at+dur);
+  }
+  function vowel(kind,at,dur){
+   const fundamental=kind==='ee'?210:kind==='eh'?185:kind==='oo'||kind==='book'?170:kind==='ay'?195:kind==='oh'?175:kind==='ow'?180:kind==='uh'?165:kind==='w'?155:kind==='kw'?160:150;
+   const formants=kind==='ee'?[300,2300,3000]:kind==='eh'?[550,1800,2600]:kind==='oo'?[350,900,2200]:kind==='book'?[450,1100,2400]:kind==='ay'?[500,1900,2700]:kind==='oh'?[450,900,2400]:kind==='ow'?[650,1200,2500]:kind==='uh'?[650,1400,2500]:[450,1200,2400];
+   const master=ctx.createGain();master.gain.setValueAtTime(0.0001,at);master.gain.linearRampToValueAtTime(0.045,at+0.06);master.gain.setValueAtTime(0.045,at+dur-0.06);master.gain.linearRampToValueAtTime(0.0001,at+dur);master.connect(ctx.destination);
+   formants.forEach((f,j)=>{const o=ctx.createOscillator(),filter=ctx.createBiquadFilter(),g=ctx.createGain();o.type='sawtooth';o.frequency.setValueAtTime(fundamental*(j+1),at);filter.type='bandpass';filter.frequency.value=f;filter.Q.value=5;g.gain.value=[0.22,0.10,0.045][j];o.connect(filter);filter.connect(g);g.connect(master);o.start(at);o.stop(at+dur);});
+  }
+  let t=now()+0.025;
+  for(const part of parts){
+   if(part==='sh'||part==='ch'||part==='kh'||part==='th-voiceless'||part==='f'||part==='k'||part==='ng'){
+    const dur=part==='ch'||part==='k'?0.16:part==='ng'?0.24:0.34;noise(part,t,dur);t+=dur+0.13;
+   }else if(part==='th-voiced'){
+    // A low voiced buzz approximates the voiced TH in this.
+    const o=ctx.createOscillator(),g=ctx.createGain();o.type='sawtooth';o.frequency.value=115;g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(0.035,t+0.04);g.gain.setValueAtTime(0.035,t+0.22);g.gain.linearRampToValueAtTime(0.0001,t+0.27);o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+0.28);noise('th-voiceless',t+0.02,0.26);t+=0.42;
+   }else if(part==='w'||part==='kw'){
+    vowel('w',t,0.22);if(part==='kw')noise('k',t,0.09);t+=0.34;
+   }else{vowel(part,t,0.32);t+=0.43;}
+  }
+  const total=Math.max(0,t-now());window.setTimeout(()=>{if(ctx&&ctx.state!=='closed')ctx.close().catch(()=>{});},Math.ceil(total*1000)+150);
+ }catch(e){if(ctx&&ctx.state!=='closed')try{await ctx.close()}catch(_){};console.error('Combination sound playback failed',e);alert('پخش صدای ترکیب در این مرورگر ممکن نشد. مثال به‌جای صدا پخش نمی‌شود؛ لطفاً Chrome را امتحان کن.');}
+}
+function speakCombinationExample(i){
+ const x=letterPairs[i];if(!x)return;
+ const words=String(x[2]).split(/\s*\/\s*/).filter(Boolean);
+ speakText(words.join(" ... "));
+}
+function openFeature(which){
+ const box=document.getElementById('featureView'); let html=`<div class="panel-top"><button class="back" onclick="show('home')">→ بازگشت به خانه</button><span class="tag">GRAMMARINO PLUS</span></div>`;
+ if(which==='alphabet'){
+  html+=`<div class="feature-head"><h2>🔤 مرحلهٔ صفر: الفبا و صداهای انگلیسی</h2><p>اول نام حروف را یاد بگیر، بعد صدای تقریبی آن‌ها در واژه و سپس حروف ترکیبی را تمرین کن. آوانویسی فارسی فقط راهنمای تقریبی است و صدای انگلیسی همیشه دقیقاً معادل فارسی ندارد.</p></div><h3>۱) نام ۲۶ حرف انگلیسی</h3><p>دو دکمهٔ جدا داری: «فقط نام حرف» نام انگلیسی حرف را می‌خواند و «فقط مثال» واژهٔ نمونه را پخش می‌کند.</p><div class="word-grid">${alphabetLetters.map((x,i)=>`<article class="word-item" style="text-align:center"><div style="font-size:30px;font-weight:900;color:var(--purple);direction:ltr">${x[0]} ${x[0].toLowerCase()}</div><b style="text-align:center;direction:rtl">نام حرف: ${x[1]}</b><div style="direction:ltr;font-weight:bold;margin:6px">${x[2]}</div><div>${x[3]} • صدای تقریبی: ${x[4]}</div><div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:8px"><button class="secondary" style="padding:6px 10px" onclick="speakLetter(${i})">🔊 فقط نام حرف</button><button class="secondary" style="padding:6px 10px" onclick="speakLetterExample(${i})">▶️ فقط مثال</button></div></article>`).join('')}</div><div class="explain"><b>یادت باشد:</b> نام حرف با صدای آن در کلمه یکی نیست. مثلاً نام A «اِی» است، اما در apple صدای کوتاه‌تری دارد. C می‌تواند صدای ک یا س بدهد و G هم در واژه‌های مختلف فرق می‌کند.</div><h3>۲) حروف ترکیبی (Letter combinations)</h3><p>دو یا چند حرف کنار هم ممکن است یک صدای تازه یا یک صدای واکه‌ای بسازند. برای هر ترکیب، معادل یا نزدیک‌ترین صدای فارسی را داخل همان کارت می‌بینی. «شنیدن صدای ترکیب» خودِ صدای ترکیب را تمرین می‌دهد و «شنیدن مثال» تلفظ واژهٔ نمونه را پخش می‌کند؛ برای نمونه، sh صدای «ش» دارد، نه نام جداگانهٔ S و H. توجه: بعضی صداهای انگلیسی دقیقاً معادل فارسی ندارند؛ در این موارد، توضیح کارت تفاوت را روشن می‌کند.</p><div class="word-grid">${letterPairs.map((x,i)=>`<article class="word-item"><div style="font-size:25px;font-weight:900;color:var(--purple);direction:ltr">${x[0]}</div><div style="display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap;background:var(--soft-purple, #f0eaff);border:1px solid #d9cafa;border-radius:12px;padding:7px 10px;margin:7px 0"><b>معادل تقریبی فارسی:</b><strong style="font-size:20px;color:var(--purple)">«${x[1]}»</strong></div><p style="direction:ltr;text-align:left;margin:6px 0;font-weight:bold">${x[2]}</p><p style="margin:4px 0">${x[3]}</p><small>${x[4]}</small><div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button class="secondary" style="padding:6px 10px" onclick="playCombinationCardSound(${i})">🔊 شنیدن صدای ترکیب</button><button class="secondary" style="padding:6px 10px" onclick="speakCombinationExample(${i})">▶️ شنیدن مثال</button></div></article>`).join('')}</div><div class="lesson-banner"><b>🎯 ترتیب پیشنهادی برای پایه هفتم</b><p>۱. نام حروف A تا Z را بشناس. ۲. مثال هر حرف را بشنو. ۳. صدای حروف ترکیبی را جداگانه تمرین کن و بعد مثال را گوش بده. ۴. بعد وارد درس اول گرامر شو. تلفظ فارسی تقریبی است؛ برای دقیق‌تر شدن، چند بار به صدای انگلیسی گوش بده.</p></div>`;
+ }else if(which==='videos'){
+  const topics=[['معرفی و am/is/are','English grammar am is are for beginners'],['حال ساده','present simple tense explanation exercises'],['حال استمراری','present continuous tense explanation'],['گذشته ساده','past simple tense regular irregular verbs'],['آینده با going to','be going to future grammar'],['can و should','can could should modal verbs English grammar'],['مقایسه صفت‌ها','comparative adjectives English grammar'],['some any much many','countable uncountable nouns grammar']];
+  html+=`<div class="feature-head"><h2>🎬 مرکز ویدئوهای آموزشی</h2><p>موضوع را انتخاب کن تا جست‌وجوی ویدئوهای همان مبحث باز شود. برای نمایش ویدئوهای آنلاین به اینترنت نیاز است.</p></div><div class="video-layout">${topics.map(t=>`<article class="video-tile"><h3>${t[0]}</h3><p>ویدئوهای آموزشی، مثال و تمرین برای این مبحث</p><button class="action" onclick="window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(${JSON.stringify(t[1])}),'_blank','noopener')">🔎 جست‌وجوی ویدئو</button></article>`).join('')}</div><hr><h3>▶️ پخش ویدئوی آنلاین با لینک</h3><p>لینک ویدئوی YouTube را وارد کن؛ اگر لینک قابل‌تعبیه باشد، در همین صفحه پخش می‌شود.</p><input class="field" id="videoUrl" placeholder="https://www.youtube.com/watch?v=... یا لینک youtu.be"><button class="action" style="margin-top:10px" onclick="playVideoUrl()">پخش ویدئو</button><div id="videoPlayer" style="margin-top:14px"></div><hr><h3>📱 پخش فایل ویدئویی از دستگاه</h3><input class="field" type="file" accept="video/*" onchange="playLocalVideo(this)"><div id="localVideo" style="margin-top:12px"></div><p class="video-note">نکته: ویدئوی انتخاب‌شده از دستگاه فقط در همین مرورگر پخش می‌شود و در سایت بارگذاری نمی‌شود.</p>`;
+ }else if(which==='cards'){
+  const examples=lessons.flatMap(l=>l.examples.map(e=>({en:e[0],fa:e[1],topic:l.fa}))); window._flashExamples=examples;
+  html+=`<div class="feature-head"><h2>🃏 فلش‌کارت‌های مرور</h2><p>روی کارت بزن تا بین جمله انگلیسی و معنی فارسی جابه‌جا شوی.</p></div><div class="flash-card" onclick="flipFlash()"><div><div class="flash-en" id="flashEn"></div><div class="flash-fa" id="flashFa" style="margin-top:14px"></div><small id="flashTopic"></small></div></div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px"><button class="secondary" onclick="prevFlash()">قبلی</button><button class="action" onclick="flipFlash()">نمایش معنی / جمله</button><button class="secondary" onclick="nextFlash()">بعدی ←</button><button class="secondary" onclick="shuffleFlash()">🔀 مخلوط‌کردن</button></div><p id="flashCount" style="text-align:center;color:var(--muted)"></p>`;
+ }else if(which==='vocab'){
+  html+=`<div class="feature-head"><h2>📖 واژه‌نامهٔ سریع</h2><p>واژه را به انگلیسی یا فارسی جست‌وجو کن؛ می‌توانی تلفظ را هم بشنوی.</p></div><input class="field" id="vocabSearch" placeholder="مثلاً school یا مدرسه" oninput="renderVocab(this.value)"><div id="vocabResults" class="word-grid" style="margin-top:14px"></div>`;
+ }else if(which==='notes'){
+  html+=`<div class="feature-head"><h2>📝 دفتر شخصی یادگیری</h2><p>نکته‌ها و مثال‌های خودت را بنویس؛ در همین مرورگر ذخیره می‌شوند.</p></div><label class="mini-label">عنوان یادداشت</label><input class="field" id="noteTitle" placeholder="مثلاً نکته‌های حال ساده"><label class="mini-label">متن یادداشت</label><textarea class="field note-area" id="noteText" placeholder="قانون، مثال، ترجمه یا سؤال خودت را اینجا بنویس..."></textarea><button class="action" style="margin-top:10px" onclick="savePersonalNote()">💾 ذخیره یادداشت</button><div id="savedNotes" style="margin-top:15px"></div>`;
+ }else if(which==='planner'){
+  const tasks=['مرور یک درس گرامر','نوشتن ۵ جملهٔ انگلیسی','حل ۶ سؤال تمرینی','مرور فلش‌کارت‌ها','تماشای یک ویدئوی آموزشی','بلندخوانی ۵ مثال'];
+  html+=`<div class="feature-head"><h2>🗓️ برنامهٔ مطالعهٔ روزانه</h2><p>کارهای انجام‌شده را علامت بزن؛ وضعیت روی دستگاه ذخیره می‌شود.</p></div><div id="dailyTasks">${tasks.map((t,i)=>`<label class="plan-row"><input type="checkbox" data-task="${i}" onchange="savePlanner()"><span>${t}</span></label>`).join('')}</div><div class="progress"><div id="plannerProgress" style="width:0"></div></div><p id="plannerLabel">۰ از ۶ کار انجام شده</p><button class="secondary" onclick="resetPlanner()">شروع دوبارهٔ برنامه</button>`;
+ }else if(which==='timer'){
+  html+=`<div class="feature-head"><h2>⏱️ تایمر تمرکز</h2><p>۲۵ دقیقه مطالعه و سپس استراحت کوتاه. هنگام تمام‌شدن زمان هشدار داده می‌شود.</p></div><div class="timer-display" id="timerDisplay">25:00</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="action" id="timerStart" onclick="toggleFocusTimer()">▶ شروع</button><button class="secondary" onclick="resetFocusTimer()">↺ شروع مجدد</button><button class="secondary" onclick="setFocusTime(5)">۵ دقیقه</button><button class="secondary" onclick="setFocusTime(25)">۲۵ دقیقه</button></div><p id="timerStatus" style="text-align:center">آماده‌ای؟ یک هدف کوچک انتخاب کن.</p>`;
+ }else if(which==='reference'){
+  html+=`<div class="feature-head"><h2>🧩 فرمول‌نامهٔ گرامر</h2><p>فرمول‌های کلیدی برای مرور سریع پیش از آزمون</p></div><div class="explain"><h3>حال ساده | Present Simple</h3><div class="en">(+): Subject + V1(s/es)</div><div class="en">(-): Subject + don't/doesn't + V1</div><div class="en">(?): Do/Does + subject + V1?</div><p>برای عادت‌ها و واقعیت‌ها؛ بعد از does/doesn't فعل ساده می‌آید.</p></div><div class="explain"><h3>حال استمراری | Present Continuous</h3><div class="en">Subject + am/is/are + V-ing</div><p>برای کاری که اکنون در حال انجام است.</p></div><div class="explain"><h3>گذشته ساده | Past Simple</h3><div class="en">(+): Subject + V2</div><div class="en">(-): Subject + didn't + V1</div><div class="en">(?): Did + subject + V1?</div><p>بعد از did و didn't فعل به شکل ساده می‌آید.</p></div><div class="explain"><h3>آینده با going to</h3><div class="en">Subject + am/is/are + going to + V1</div></div><div class="explain"><h3>افعال کمکی</h3><div class="en">can / should / must + V1</div><p>بعد از این افعال، فعل اصلی ساده می‌آید و to نمی‌گیرد.</p></div><div class="explain"><h3>مقایسه</h3><div class="en">short adjective + er + than</div><div class="en">more + long adjective + than</div><p>مثال: Ali is taller than Reza. / This book is more interesting than that one.</p></div>`;
+ }else if(which==='progress'){
+  html+=`<div class="feature-head"><h2>🏅 گزارش پیشرفت</h2><p>خلاصهٔ وضعیت فعلی پایهٔ انتخاب‌شده</p></div><div class="stats"><div class="stat"><div class="stat-icon">⭐</div><div><strong>${faNum(state.points)}</strong><span>امتیاز</span></div></div><div class="stat"><div class="stat-icon">📘</div><div><strong>${faNum(state.done.length)} / ${faNum(lessons.length)}</strong><span>درس تکمیل‌شده</span></div></div><div class="stat"><div class="stat-icon">🏆</div><div><strong>${faNum(state.best)}٪</strong><span>بهترین آزمون</span></div></div></div><div class="progress" style="margin-top:18px"><div style="width:${lessons.length?state.done.length/lessons.length*100:0}%"></div></div><p>برای بهترشدن نتیجه، درس‌های تکمیل‌نشده را بخوان و آزمون ترکیبی را دوباره انجام بده.</p><button class="secondary" onclick="exportProgress()">⬇ دریافت گزارش متنی</button>`;
+ }
+ box.innerHTML=html;show('feature');
+ if(which==='cards')renderFlash(); if(which==='vocab')renderVocab(''); if(which==='notes')renderSavedNotes(); if(which==='planner')loadPlanner(); if(which==='timer')updateTimerDisplay();
+}
+function playVideoUrl(){const input=document.getElementById('videoUrl');if(!input)return;let u=input.value.trim(),id='';try{const x=new URL(u);if(x.hostname.includes('youtu.be'))id=x.pathname.slice(1);else if(x.hostname.includes('youtube.com'))id=x.searchParams.get('v')||((x.pathname.includes('/embed/'))?x.pathname.split('/embed/')[1].split('/')[0]:'');}catch(e){}const target=document.getElementById('videoPlayer');if(!id){target.innerHTML='<div class="feedback bad">لینک معتبر YouTube وارد کن؛ یا از بخش جست‌وجوی ویدئو استفاده کن.</div>';return}target.innerHTML=`<iframe class="video-screen" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}" title="ویدئوی آموزشی" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`}
+function playLocalVideo(inp){const f=inp.files&&inp.files[0];if(!f)return;const url=URL.createObjectURL(f);document.getElementById('localVideo').innerHTML='';const v=document.createElement('video');v.className='video-screen';v.controls=true;v.src=url;document.getElementById('localVideo').appendChild(v)}
+function renderFlash(){const a=window._flashExamples||[];if(!a.length)return;flashIndex=((flashIndex%a.length)+a.length)%a.length;const x=a[flashIndex];document.getElementById('flashEn').textContent=flashBack?x.fa:x.en;document.getElementById('flashFa').textContent=flashBack?x.en:'برای دیدن معنی کارت را برگردان';document.getElementById('flashTopic').textContent=x.topic;document.getElementById('flashCount').textContent=faNum(flashIndex+1)+' از '+faNum(a.length);}
+function flipFlash(){flashBack=!flashBack;renderFlash()}function nextFlash(){flashIndex++;flashBack=false;renderFlash()}function prevFlash(){flashIndex--;flashBack=false;renderFlash()}function shuffleFlash(){flashIndex=Math.floor(Math.random()*(window._flashExamples||[]).length);flashBack=false;renderFlash()}
+function renderVocab(q){const out=document.getElementById('vocabResults');if(!out)return;const all=[...vocabBase,...lessons.flatMap(l=>l.examples.map(e=>[e[0],e[1]]))];const query=(q||'').trim().toLowerCase();const results=all.filter(x=>x[0].toLowerCase().includes(query)||x[1].toLowerCase().includes(query)).slice(0,70);out.innerHTML=results.map((x,i)=>`<article class="word-item"><b>${x[0]}</b><span>${x[1]}</span><button class="secondary" style="padding:5px 9px;margin-top:7px" onclick="speakWord(${JSON.stringify(x[0]).replace(/'/g,"\\'")})">🔊 شنیدن</button></article>`).join('')||'<p>واژه‌ای پیدا نشد؛ املای دیگری را امتحان کن.</p>'}
+function speakWord(w){if(!('speechSynthesis'in window)){alert('این مرورگر تلفظ صوتی ندارد.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(w);u.lang='en-US';u.rate=.8;speechSynthesis.speak(u)}
+function savePersonalNote(){const title=document.getElementById('noteTitle').value.trim(),text=document.getElementById('noteText').value.trim();if(!title||!text){alert('عنوان و متن یادداشت را کامل کن.');return}let a=[];try{a=JSON.parse(localStorage.getItem('grammarino-notes')||'[]')}catch(e){}a.unshift({title,text,date:new Date().toLocaleDateString('fa-IR')});try{localStorage.setItem('grammarino-notes',JSON.stringify(a))}catch(e){}document.getElementById('noteTitle').value='';document.getElementById('noteText').value='';renderSavedNotes()}
+function renderSavedNotes(){const el=document.getElementById('savedNotes');if(!el)return;let a=[];try{a=JSON.parse(localStorage.getItem('grammarino-notes')||'[]')}catch(e){}el.innerHTML=a.length?a.map((n,i)=>`<article class="explain"><div style="display:flex;justify-content:space-between;gap:8px"><b>${escapeHtml(n.title)}</b><small>${n.date||''}</small></div><p style="white-space:pre-wrap">${escapeHtml(n.text)}</p><button class="secondary" onclick="deletePersonalNote(${i})">حذف یادداشت</button></article>`).join(''):'<p>هنوز یادداشتی ذخیره نکرده‌ای.</p>'}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function deletePersonalNote(i){let a=[];try{a=JSON.parse(localStorage.getItem('grammarino-notes')||'[]')}catch(e){}a.splice(i,1);localStorage.setItem('grammarino-notes',JSON.stringify(a));renderSavedNotes()}
+function loadPlanner(){let a=[];try{a=JSON.parse(localStorage.getItem('grammarino-plan')||'[]')}catch(e){}document.querySelectorAll('[data-task]').forEach(x=>x.checked=!!a[+x.dataset.task]);updatePlanner()}
+function savePlanner(){const a=[...document.querySelectorAll('[data-task]')].map(x=>x.checked);localStorage.setItem('grammarino-plan',JSON.stringify(a));updatePlanner()}function updatePlanner(){const a=[...document.querySelectorAll('[data-task]')];if(!a.length)return;const n=a.filter(x=>x.checked).length;document.getElementById('plannerProgress').style.width=(n/a.length*100)+'%';document.getElementById('plannerLabel').textContent=faNum(n)+' از '+faNum(a.length)+' کار انجام شده'}function resetPlanner(){localStorage.removeItem('grammarino-plan');loadPlanner()}
+function updateTimerDisplay(){const el=document.getElementById('timerDisplay');if(el)el.textContent=String(Math.floor(focusSeconds/60)).padStart(2,'0')+':'+String(focusSeconds%60).padStart(2,'0')}function toggleFocusTimer(){const b=document.getElementById('timerStart');if(focusInterval){clearInterval(focusInterval);focusInterval=null;if(b)b.textContent='▶ ادامه';return}if(b)b.textContent='Ⅱ مکث';document.getElementById('timerStatus').textContent='تمرکز کن؛ فقط یک کار را انجام بده.';focusInterval=setInterval(()=>{focusSeconds--;updateTimerDisplay();if(focusSeconds<=0){clearInterval(focusInterval);focusInterval=null;if(b)b.textContent='▶ شروع';document.getElementById('timerStatus').textContent='آفرین! زمان تمام شد؛ کمی استراحت کن. 🎉';try{new AudioContext().close()}catch(e){}alert('زمان مطالعه تمام شد! کمی استراحت کن.')}},1000)}function resetFocusTimer(){if(focusInterval)clearInterval(focusInterval);focusInterval=null;focusSeconds=25*60;updateTimerDisplay();const b=document.getElementById('timerStart');if(b)b.textContent='▶ شروع'}function setFocusTime(n){if(focusInterval)clearInterval(focusInterval);focusInterval=null;focusSeconds=n*60;updateTimerDisplay();const b=document.getElementById('timerStart');if(b)b.textContent='▶ شروع'}
+function exportProgress(){const txt='گزارش گرامرینو\nپایه: '+activeGrade+'\nامتیاز: '+state.points+'\nدرس‌های تکمیل‌شده: '+state.done.length+' از '+lessons.length+'\nبهترین آزمون: '+state.best+'٪';const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='grammarino-progress.txt';a.click();URL.revokeObjectURL(a.href)}
+
+function renderLessons(){document.getElementById("lessonGrid").innerHTML=lessons.map((l,i)=>`<button class="lesson" onclick="openLesson(${i})"><span class="num">LESSON ${i+1}</span><strong>${l.title}</strong><small>${l.fa} • ${l.topic}</small><span class="go">${state.done.includes(i)?"✓ مطالعه شده":"ورود به درس ←"}</span></button>`).join("")}
+function show(which){document.getElementById("home").classList.toggle("hidden",which!=="home");document.getElementById("lessonView").classList.toggle("hidden",which!=="lesson");document.getElementById("practiceView").classList.toggle("hidden",which!=="practice");document.getElementById("featureView").classList.toggle("hidden",which!=="feature");window.scrollTo({top:0,behavior:"smooth"})}
+function startLearning(){if(activeGrade==="7")openFeature("alphabet");else openLesson(0)}
+function lessonFormula(l,i){
+ const g=String(activeGrade);
+ if(g==="9"){const f=["صفت کوتاه + er + than؛ more + صفت بلند + than؛ good → better → the best","فاعل + am/is/are + going to + فعل ساده | فاعل + will + فعل ساده","فاعل + قید تکرار + فعل اصلی | فاعل + am/is/are + قید تکرار + صفت","فعل ساده برای دستور | Don't + فعل ساده | Could you + فعل ساده, please?","فاعل + am/is/are + فعل-ing | منفی: be + not + ing","فاعل + should/must + فعل ساده | shouldn't = توصیه منفی | mustn't = ممنوعیت"];return f[i]||l.topic;}
+ const formulas=g==="7"?[
+  "I + am | He/She/It + is | You/We/They + are",
+  "مثبت: فاعل + am/is/are | منفی: فاعل + be + not | سؤال: Am/Is/Are + فاعل؟",
+  "How old + am/is/are + فاعل؟ | فاعل + am/is/are + عدد (+ years old)",
+  "I/You/We/They + have | He/She/It + has",
+  "فاعل + am/is/are + صفت | فاعل + have/has + ویژگی یا عضو بدن",
+  "There is + اسم مفرد | There are + اسم جمع",
+  "فاعل + be + حرف اضافه مکان + اسم مکان",
+  "I/You/We/They + like | He/She/It + likes; سؤال: Do/Does + فاعل + like؟"
+ ]:[
+  "مثبت: فاعل + فعل (برای he/she/it معمولاً s/es) | منفی: don't/doesn't + فعل ساده | سؤال: Do/Does + فاعل + فعل ساده؟",
+  "فاعل + am/is/are + فعل-ing",
+  "مثبت: فعل گذشته | منفی: didn't + فعل ساده | سؤال: Did + فاعل + فعل ساده؟",
+  "فاعل + am/is/are + going to + فعل ساده",
+  "فاعل + can/can't + فعل ساده؛ بدون to و بدون s",
+  "صفت کوتاه + er + than | more + صفت بلند + than؛ good → better",
+  "many + اسم جمع قابل‌شمارش | much + اسم غیرقابل‌شمارش | some/any بسته به جمله",
+  "فاعل + should/must + فعل ساده؛ shouldn't = توصیه منفی؛ mustn't = ممنوعیت"
+ ];
+ return formulas[i]||("قانون درس: "+(l.topic||"ساختار جمله"));
+}
+function buildStudyNotes(l,i){
+ const examples=(l.examples||[]).slice(0,5);
+ const topic=l.topic||"ساختار جمله";
+ const rule=l.rule||"قانون اصلی این درس را با مثال تمرین کن.";
+ const first=examples[0]||["I study English.","من انگلیسی می‌خوانم."];
+ const second=examples[1]||["She is a student.","او دانش‌آموز است."];
+ const third=examples[2]||["Do you understand?","آیا متوجه می‌شوی؟"];
+ const notes=[
+ ["موضوع درس",`${topic}؛ ابتدا معنی و کاربرد را بفهم، سپس ساخت جمله را تمرین کن.`],
+ ["قانون اصلی",rule],
+ ["فرمول و ساختار کلیدی",lessonFormula(l,i)+"؛ مثال: "+first[0]],
+ ["نمونه اول",`${first[0]} — ${first[1]}`],
+ ["نمونه دوم",`${second[0]} — ${second[1]}`],
+ ["نمونه سوم",`${third[0]} — ${third[1]}`],
+ ["به فاعل توجه کن","اول مشخص کن چه کسی یا چه چیزی کار را انجام می‌دهد: I, you, he, she, it, we, they یا یک اسم."],
+ ["معنی جمله را کامل بخوان","تنها یک کلمه را ترجمه نکن؛ معنی فعل و بقیه جمله را کنار هم بررسی کن."],
+ ["فرمول منفی","در جمله منفی، جای not یا شکل منفی فعل کمکی را طبق قانون همین درس مشخص کن."],
+ ["فرمول پرسشی","برای سؤال، ترتیب کلمات یا فعل کمکی را مطابق قانون درس تغییر بده؛ علامت سؤال را فراموش نکن."],
+ ["سؤال بله/خیر","برای پرسش‌هایی که پاسخ Yes یا No دارند، از الگوی پرسشی همین مبحث استفاده کن."],
+ ["پاسخ کوتاه","در پاسخ کوتاه، از فعل کمکی مناسب استفاده کن؛ لازم نیست همیشه کل جمله را تکرار کنی."],
+ ["کلمه‌های راهنما","قیدها و عبارت‌های زمانی می‌توانند به تشخیص زمان یا کاربرد جمله کمک کنند؛ اما فقط به یک کلمه تکیه نکن."],
+ ["ترتیب جمله","ترتیب معمول انگلیسی فاعل، فعل و سپس مفعول یا اطلاعات تکمیلی است؛ ترتیب فارسی را مستقیم کپی نکن."],
+ ["املای فعل","هنگام افزودن پسوند یا تغییر شکل فعل، املای آن را بررسی کن؛ همه فعل‌ها دقیقاً یکسان تغییر نمی‌کنند."],
+ ["تطبیق فعل و فاعل","فعل باید با فاعل و ساختار زمانی جمله هماهنگ باشد؛ به مفرد و جمع بودن توجه کن."],
+ ["اشتباه رایج اول","ساختارهای شبیه به هم را با یکدیگر قاطی نکن؛ قانون درس را قبل از انتخاب پاسخ مرور کن."],
+ ["اشتباه رایج دوم","اگر فعل کمکی در جمله وجود دارد، بررسی کن که بعد از آن شکل درست فعل آمده باشد."],
+ ["مثال را تغییر بده","در نمونه اول، فاعل را عوض کن و ببین آیا لازم است شکل فعل یا بخش دیگری تغییر کند."],
+ ["مثال منفی بساز",`${first[0]} را به جمله منفی تبدیل کن و معنی تازه را با صدای بلند بخوان.`],
+ ["مثال پرسشی بساز",`${second[0]} را به سؤال تبدیل کن؛ سپس یک پاسخ کوتاه مناسب بنویس.`],
+ ["ترجمه معکوس","یک جمله فارسی درباره خودت بنویس و با استفاده از قانون درس آن را به انگلیسی تبدیل کن."],
+ ["تمرین نوشتاری","سه جمله تازه بساز: یک جمله درباره خودت، یک جمله درباره خانواده یا دوستت و یک جمله پرسشی."],
+ ["مرور نهایی",`${l.tip||"پس از مطالعه، قانون را بدون نگاه کردن توضیح بده."} بعد از مرور، تمرین همین درس را حل کن.`]
+ ];
+ return `<section class="study-notes"><h3>🧠 دفتر خلاصهٔ کامل درس</h3><p class="study-intro">این بخش مثل جزوهٔ معلم طراحی شده است: قانون، فرمول، مثال، نکته و تمرین. هر کارت یک نکتهٔ مستقل دارد؛ با دقت بخوان و مثال‌ها را با صدای بلند تمرین کن.</p><div class="formula-box"><div style="font-weight:bold;margin-bottom:7px">📐 الگوی اصلی این درس</div><div class="en">${first[0]}</div><div style="margin-top:7px;color:#e6e4ff">${first[1]}</div></div><div class="notes-grid">${notes.map((n,k)=>`<article class="note-line"><span class="note-num">${faNum(k+1)}</span><div class="note-content"><strong>${n[0]}</strong><span>${n[1]}</span></div></article>`).join("")}</div><div class="lesson-banner"><b>🎯 مأموریت یادگیری</b><p>بدون نگاه کردن به جزوه، قانون درس را در دو جمله توضیح بده؛ سپس سه مثال انگلیسی جدید بنویس و یکی از آن‌ها را منفی و یکی را پرسشی کن.</p></div><div><span class="study-chip">۲۴ نکتهٔ آموزشی</span><span class="study-chip">فرمول و مثال</span><span class="study-chip">اشتباهات رایج</span><span class="study-chip">تمرین خودسنجی</span></div></section>`;
+}
+function openLesson(i){const l=lessons[i];document.getElementById("lessonView").innerHTML=`<div class="panel-top"><button class="back" onclick="show('home')">→ بازگشت به خانه</button><span class="tag">LESSON ${i+1} / ${lessons.length}</span></div><div class="lesson-banner"><span class="tag">GRAMMARINO • GRADE ${activeGrade}</span><h2>${l.title} — ${l.fa}</h2><p>${l.desc}</p></div><div class="explain"><b>🎯 هدف یادگیری:</b> در پایان این درس باید بتوانی قانون را توضیح بدهی، مثال را معنی کنی و جملهٔ درست بسازی.</div><div class="explain"><h3>📖 توضیح معلم: ${l.topic}</h3><p>${l.rule}</p></div>${i===0&&activeGrade==="7"?`<div class="explain"><h3>جدول ضمیرها و فعل be</h3><div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:center"><thead><tr style="background:#eeeaff"><th style="padding:9px">ضمیر</th><th style="padding:9px">معنی</th><th style="padding:9px">فعل</th><th style="padding:9px">مثال</th></tr></thead><tbody>${[["I","من","am","I am Ali."],["You","تو / شما","are","You are kind."],["He","او (مذکر)","is","He is Reza."],["She","او (مونث)","is","She is Mina."],["It","آن","is","It is a book."],["We","ما","are","We are friends."],["They","آن‌ها","are","They are students."]].map(r=>`<tr style="border-bottom:1px solid var(--line)">${r.map(c=>`<td style="padding:8px">${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p><b>My name is Armin.</b> یعنی «اسم من آرمین است». برای پرسیدن نام می‌گوییم <b>What is your name?</b> یعنی «اسم تو/شما چیست؟».</p></div>`:""}${buildStudyNotes(l,i)}<h3>🌟 مثال‌های درس</h3>${l.examples.map((e,j)=>`<div class="example"><div style="display:flex;gap:8px;align-items:center;justify-content:space-between"><div class="en">${e[0]}</div><button class="secondary" style="padding:5px 9px;font-size:12px" onclick="speakExample(${i},${j})">🔊 تلفظ</button></div><span>${e[1]}</span></div>`).join("")}<div class="explain"><b>💡 نکتهٔ مهم معلم</b><p>${l.tip}</p></div><div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px"><button class="action" onclick="markDone(${i})">✓ درس را یاد گرفتم</button><button class="secondary" onclick="startPractice('mcq',${i})">تمرین همین درس ←</button><button class="secondary" onclick="openLesson(${(i+1)%lessons.length})">درس بعدی ⟵</button></div><div id="lessonMsg"></div>`;show("lesson")}
+function speakExample(i,j){const sentence=lessons[i].examples[j][0];if(!("speechSynthesis" in window)){alert("مرورگر از تلفظ صوتی پشتیبانی نمی‌کند.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(sentence);u.lang="en-US";u.rate=.82;speechSynthesis.speak(u)}
+function markDone(i){if(!state.done.includes(i)){state.done.push(i);state.points+=10;save();renderLessons()}document.getElementById("lessonMsg").innerHTML='<div class="feedback good">آفرین! درس ثبت شد و ۱۰ امتیاز گرفتی 🎉</div>'}
+let session={list:[],idx:0,score:0,mode:"mcq",selected:null,answered:false,order:[]};
+function startPractice(mode,lessonIndex=null){let list=questions.filter(q=>(mode==="exam"||q.type===mode)&&(lessonIndex===null||q.l===lessonIndex));if(mode==="exam")list=[...questions];list=list.sort(()=>Math.random()-.5).slice(0,mode==="exam"?10:6);session={list,idx:0,score:0,mode,selected:null,answered:false,order:[]};show("practice");renderQuestion()}
+function renderQuestion(){const box=document.getElementById("practiceView");if(session.idx>=session.list.length){const pct=Math.round(session.score/session.list.length*100);state.answered+=session.list.length;state.points+=session.score*5;if(session.mode==="exam")state.best=Math.max(state.best,pct);save();box.innerHTML=`<div class="panel-top"><button class="back" onclick="show('home')">→ خانه</button><span class="tag">پایان تمرین</span></div><h2>🎉 تمرین تمام شد!</h2><p>نتیجه تو: <b>${faNum(session.score)} از ${faNum(session.list.length)}</b></p><div class="progress"><div style="width:${pct}%"></div></div><h2 style="color:var(--purple)">${faNum(pct)}٪</h2><p>${pct>=80?"عالی بود! همین‌طور ادامه بده 🌟":pct>=50?"خوب بود؛ با مرور درس‌ها بهتر هم می‌شوی 💪":"اشکالی ندارد؛ درس را مرور کن و دوباره امتحان بده 📚"}</p><button class="action" onclick="startPractice('${session.mode}')">تمرین دوباره</button> <button class="secondary" onclick="show('home')">بازگشت به خانه</button>`;return}
+ const q=session.list[session.idx];session.selected=null;session.answered=false;session.order=[];let content="";
+ if(q.type==="mcq"){content=`<div class="options">${q.opts.map((o,i)=>`<button class="option" onclick="chooseOption(${i})" id="opt${i}">${o}</button>`).join("")}</div>`}
+ else if(q.type==="fill"){content=`<input class="field" id="answerField" placeholder="پاسخت را به انگلیسی بنویس..." autocomplete="off">`}
+ else if(q.type==="order"){content=`<p>کلمات را به ترتیب انتخاب کن:</p><div class="chips" id="wordChips">${[...q.words].sort(()=>Math.random()-.5).map((w,i)=>`<button class="chip" onclick="addWord(${i},'${w.replace(/'/g,"\\'")}')" id="word${i}">${w}</button>`).join("")}</div><div class="explain"><b>جمله تو:</b><div class="en" id="builtSentence">...</div><button class="secondary" onclick="resetWords()">از نو</button></div>`}
+ else content=`<p>جمله درست را بنویس:</p><input class="field" id="answerField" placeholder="جمله صحیح را بنویس..." autocomplete="off">`;
+ box.innerHTML=`<div class="panel-top"><button class="back" onclick="show('home')">→ خروج از تمرین</button><span class="tag">${q.type==="mcq"?"چهارگزینه‌ای":q.type==="fill"?"جای خالی":q.type==="order"?"ترتیب کلمات":q.type==="error"?"کشف اشتباه":"آزمون ترکیبی"}</span></div><div class="section-head"><h2>تمرین ${faNum(session.idx+1)}</h2><small>${faNum(session.idx+1)} از ${faNum(session.list.length)}</small></div><div class="progress"><div style="width:${session.idx/session.list.length*100}%"></div></div><h3 style="margin-top:22px">${q.q}</h3>${content}<div id="feedback"></div><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px"><button class="action" id="checkBtn" onclick="checkAnswer()">بررسی پاسخ ✓</button><button class="secondary hidden" id="nextBtn" onclick="nextQuestion()">سؤال بعدی ←</button></div>`;
+}
+function chooseOption(i){if(session.answered)return;session.selected=i;document.querySelectorAll(".option").forEach((b,j)=>b.classList.toggle("selected",j===i))}
+function addWord(i,w){if(session.answered)return;const btn=document.getElementById("word"+i);if(btn.disabled)return;btn.disabled=true;btn.style.opacity=".35";session.order.push({i,w});document.getElementById("builtSentence").textContent=session.order.map(x=>x.w).join(" ")}
+function resetWords(){session.order=[];document.querySelectorAll("#wordChips button").forEach(b=>{b.disabled=false;b.style.opacity="1"});document.getElementById("builtSentence").textContent="..."}
+function normalize(s){return (s||"").trim().toLowerCase().replace(/[.!?،,]/g,"").replace(/\s+/g," ")}
+function checkAnswer(){if(session.answered)return;const q=session.list[session.idx];let correct=false,provided="";if(q.type==="mcq"){if(session.selected===null){document.getElementById("feedback").innerHTML='<div class="feedback bad">اول یک گزینه انتخاب کن.</div>';return}correct=session.selected===q.a;document.getElementById("opt"+q.a).classList.add("correct");if(!correct)document.getElementById("opt"+session.selected).classList.add("wrong");provided=q.opts[session.selected]}
+else{provided=q.type==="order"?session.order.map(x=>x.w).join(" "):document.getElementById("answerField").value;correct=normalize(provided)===normalize(q.answer);if(!provided.trim()){document.getElementById("feedback").innerHTML='<div class="feedback bad">پاسخت را وارد کن.</div>';return}}
+session.answered=true;if(correct)session.score++;document.getElementById("feedback").innerHTML=`<div class="feedback ${correct?"good":"bad"}">${correct?"آفرین! پاسخ درست است 🎉":"هنوز درست نیست؛ پاسخ درست را مرور کن."}<br><b>پاسخ صحیح:</b> <span dir="ltr">${q.type==="mcq"?q.opts[q.a]:q.answer}</span><br>${q.why}</div>`;document.getElementById("checkBtn").classList.add("hidden");document.getElementById("nextBtn").classList.remove("hidden")}
+function nextQuestion(){session.idx++;renderQuestion()}
+switchGrade("7");
+</script>
+</body>
+</html>

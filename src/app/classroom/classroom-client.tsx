@@ -10,7 +10,7 @@ import {
   useRoomContext,
   useChat,
 } from "@livekit/components-react";
-import { RoomEvent } from "livekit-client";
+import { RoomEvent, AudioPresets, VideoPresets } from "livekit-client";
 import "@livekit/components-styles";
 import "./classroom.css";
 import ClassroomTools from "./classroom-tools";
@@ -916,6 +916,18 @@ export default function ClassroomClient() {
               dynacast: true,
               audioCaptureDefaults: AUDIO_CAPTURE_OPTIONS,
               videoCaptureDefaults: VIDEO_CAPTURE_OPTIONS,
+              publishDefaults: {
+                audioPreset: AudioPresets.speech,
+                red: true,
+                dtx: true,
+                forceStereo: false,
+                simulcast: true,
+                videoSimulcastLayers: [
+                  VideoPresets.h180,
+                  VideoPresets.h360,
+                  VideoPresets.h720,
+                ],
+              },
             }}
             token={connection.token}
             serverUrl={connection.url}
@@ -1103,5 +1115,6 @@ export default function ClassroomClient() {
     </main>
   );
 }
+
 
 

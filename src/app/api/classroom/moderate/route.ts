@@ -142,7 +142,6 @@ export async function POST(request: Request) {
       await roomService.removeParticipant(roomName, participantIdentity);
     } else {
       const canUseMicrophone = action === "allow-mic";
-
       await roomService.updateParticipant(roomName, participantIdentity, {
         permission: {
           canSubscribe: true,
@@ -153,6 +152,11 @@ export async function POST(request: Request) {
             : [TrackSource.CAMERA],
         },
       });
+
+      const microphoneTrack = target.tracks?.find((track) => track.source === TrackSource.MICROPHONE);
+      if (microphoneTrack?.sid) {
+        await roomService.mutePublishedTrack(roomName, participantIdentity, microphoneTrack.sid, !canUseMicrophone);
+      }
     }
 
     return corsJson(request, {
@@ -167,3 +171,4 @@ export async function POST(request: Request) {
     );
   }
 }
+

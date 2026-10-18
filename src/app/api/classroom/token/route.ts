@@ -121,10 +121,7 @@ export async function POST(request: Request) {
       ...(isTeacher
         ? {}
         : {
-            canPublishSources: [
-              TrackSource.CAMERA,
-              TrackSource.MICROPHONE,
-            ],
+            canPublishSources: [TrackSource.CAMERA],
           }),
     });
 
@@ -142,3 +139,4 @@ export async function POST(request: Request) {
     );
   }
 }
+

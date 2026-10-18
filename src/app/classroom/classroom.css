@@ -1,4 +1,4 @@
-.classroom-page {
+﻿.classroom-page {
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -1500,4 +1500,13 @@
   .classroom-file-presentation-header > div { justify-content: flex-end; }
   .classroom-file-presentation-header button,
   .classroom-file-presentation-header a { font-size: .78rem; padding: 7px 8px; }
+}
+/* classroom-light-entry-v1 */
+.classroom-component-loading {
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: var(--lk-fg, #475569);
+  text-align: center;
 }

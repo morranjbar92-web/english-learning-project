@@ -1,15 +1,25 @@
-"use client";
+﻿"use client";
 
-import { useCallback, useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState, lazy, Suspense } from "react";
 import type { FormEvent } from "react";
 import {
-  LiveKitRoom, VideoConference, useLocalParticipant, useParticipants, useRoomContext, useChat, useTracks } from "@livekit/components-react";
+  LiveKitRoom,
+  useLocalParticipant,
+  useParticipants,
+  useRoomContext,
+  useChat,
+  useTracks
+} from "@livekit/components-react";
 import { RoomEvent, AudioPresets, VideoPresets, Track } from "livekit-client";
-import { useKrispNoiseFilter } from "@livekit/components-react/krisp";
 import "@livekit/components-styles";
 import "./classroom.css";
 import ClassroomTools from "./classroom-tools";
 
+const LazyVideoConference = lazy(() =>
+  import("@livekit/components-react").then(({ VideoConference }) => ({
+    default: VideoConference,
+  }))
+);
 const CLASSROOM_API_BASE_URL =
   typeof window !== "undefined" &&
   window.location.hostname === "morranjbar92-web.github.io"
@@ -27,7 +37,7 @@ const AUDIO_CAPTURE_OPTIONS = {
 const VIDEO_CAPTURE_OPTIONS = {
   facingMode: "user" as const,
   frameRate: 24,
-  resolution: { width: 1280, height: 720, frameRate: 24 },
+  resolution: { width: 640, height: 360, frameRate: 20 },
 };
 
 type Connection = {
@@ -65,10 +75,8 @@ function ClassroomControls({
 }) {
   const room = useRoomContext();
   const participants = useParticipants();
-  const { localParticipant, isMicrophoneEnabled } = useLocalParticipant();
-  const krisp = useKrispNoiseFilter();
-  const krispAutoAttempted = useRef(false);
-  const screenShareTracks = useTracks(
+  const { localParticipant } = useLocalParticipant();
+const screenShareTracks = useTracks(
     [{ source: Track.Source.ScreenShare, withPlaceholder: false }],
     { onlySubscribed: false }
   );
@@ -88,18 +96,7 @@ function ClassroomControls({
   const [draft, setDraft] = useState("");
   const [busyIdentity, setBusyIdentity] = useState("");
   const [notice, setNotice] = useState("");
-
-  // Try enhanced speech denoising when this participant actually turns on a microphone.
-  // The hook gracefully falls back to the browser's standard WebRTC audio processing when unsupported.
-  useEffect(() => {
-    if (!isMicrophoneEnabled || krispAutoAttempted.current || krisp.isNoiseFilterPending) return;
-    krispAutoAttempted.current = true;
-    void krisp.setNoiseFilterEnabled(true).catch(() => {
-      setNotice("بهبود صدای پیشرفته در این مرورگر فعال نشد؛ کاهش نویز معمول مرورگر همچنان فعال است.");
-    });
-  }, [isMicrophoneEnabled, krisp.isNoiseFilterPending, krisp.setNoiseFilterEnabled]);
-
-  const publishControl = useCallback(
+const publishControl = useCallback(
     async (message: Record<string, unknown>, topic: string) => {
       const payload = new TextEncoder().encode(JSON.stringify(message));
 
@@ -455,24 +452,7 @@ function ClassroomControls({
               {chatEnabled ? "بستن چت برای همه" : "بازکردن چت برای همه"}
             </button>
           )}
-
-          <button
-            type="button"
-            className="classroom-audio-enhancer"
-            disabled={!isMicrophoneEnabled || krisp.isNoiseFilterPending}
-            onClick={() => {
-              void krisp.setNoiseFilterEnabled(!krisp.isNoiseFilterEnabled).catch(() => {
-                setNotice("بهبود صدای پیشرفته در این مرورگر قابل فعال‌سازی نیست.");
-              });
-            }}
-            title="کاهش نویز پیشرفته برای صدای میکروفون ارسالی"
-          >
-            {krisp.isNoiseFilterPending
-              ? "در حال آماده‌سازی صدا..."
-              : krisp.isNoiseFilterEnabled
-                ? "وضوح صدای بهتر: روشن"
-                : "فعال‌کردن بهبود صدا"}
-          </button>          <span className="participant-count">
+<span className="participant-count">
             {participants.length} نفر در کلاس
           </span>
         </div>
@@ -486,7 +466,9 @@ function ClassroomControls({
           ].join(" ")}
           dir="ltr"
         >
-          <VideoConference />
+          <Suspense fallback={<div className="classroom-component-loading" role="status">در حال آماده‌سازی کلاس...</div>}>
+            <LazyVideoConference />
+          </Suspense>
         </div>
       </section>
 
@@ -949,11 +931,7 @@ export default function ClassroomClient() {
                 dtx: true,
                 forceStereo: false,
                 simulcast: true,
-                videoSimulcastLayers: [
-                  VideoPresets.h180,
-                  VideoPresets.h360,
-                  VideoPresets.h720,
-                ],
+                videoSimulcastLayers: [VideoPresets.h180],
               },
             }}
             token={connection.token}
@@ -1142,6 +1120,7 @@ export default function ClassroomClient() {
     </main>
   );
 }
+
 
 
 

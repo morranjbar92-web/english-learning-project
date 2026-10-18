@@ -29,7 +29,7 @@ const CLASSROOM_API_BASE_URL =
 const AUDIO_CAPTURE_OPTIONS = {
   echoCancellation: true,
   noiseSuppression: true,
-  autoGainControl: true,
+  autoGainControl: false,
   channelCount: 1,
   voiceIsolation: false,
 };
@@ -160,13 +160,31 @@ const publishControl = useCallback(
           isTeacherSender(participant) &&
           message.identity === localParticipant.identity
         ) {
-          setMicAllowed(Boolean(message.allowed));
+          const allowed = Boolean(message.allowed);
+          setMicAllowed(allowed);
           setMicRequestSent(false);
-          setNotice(
-            message.allowed
-              ? "معلم اجازهٔ استفاده از میکروفون را داد."
-              : "اجازهٔ میکروفون شما لغو شد."
-          );
+
+          if (allowed) {
+            setNotice("معلم اجازه داد؛ در حال فعال‌کردن میکروفون...");
+            void (async () => {
+              try {
+                try {
+                  await room.localParticipant.setMicrophoneEnabled(true, AUDIO_CAPTURE_OPTIONS, { audioPreset: AudioPresets.speech, red: true, dtx: true });
+                } catch {
+                  await new Promise((resolve) => setTimeout(resolve, 400));
+                  await room.localParticipant.setMicrophoneEnabled(true, AUDIO_CAPTURE_OPTIONS, { audioPreset: AudioPresets.speech, red: true, dtx: true });
+                }
+                setMicAllowed(true);
+                setNotice("میکروفون فعال شد؛ می‌توانی صحبت کنی.");
+              } catch (error) {
+                setMicAllowed(true);
+                setNotice(error instanceof Error ? `اجازه صادر شد، اما میکروفون فعال نشد: ${error.message}` : "اجازه صادر شد؛ میکروفون را از کنترل کلاس روشن کن و مجوز مرورگر را بررسی کن.");
+              }
+            })();
+          } else {
+            void room.localParticipant.setMicrophoneEnabled(false).catch(() => undefined);
+            setNotice("اجازهٔ میکروفون شما لغو شد.");
+          }
         }
 
         if (
@@ -1120,6 +1138,7 @@ export default function ClassroomClient() {
     </main>
   );
 }
+
 
 
 

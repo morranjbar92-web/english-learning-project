@@ -37,7 +37,7 @@ const courses = [
     title: "درک مطلب",
     subtitle: "متن‌خوانی و پاسخ به سؤال",
     color: "pink",
-    href: "#skills",
+    href: "/reading-comprehension/",
   },
   {
     icon: "✍️",
@@ -81,7 +81,8 @@ export default function Home() {
     { name: "تمرین روزانه", icon: "✓", href: "#practice" },
     { name: "آزمون‌ها", icon: "▣", href: "#exams" },
     { name: "ساخت یا ورود به کلاس آنلاین", icon: "🎥", href: "/classroom/" },
-  ];
+      { name: "درک مطلب", icon: "📖", href: "/reading-comprehension/" },
+];
 
   // بازیابی اطلاعات ذخیره‌شده پس از بازشدن صفحه
   useEffect(() => {

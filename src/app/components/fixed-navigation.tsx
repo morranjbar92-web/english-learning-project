@@ -13,6 +13,7 @@ const items = [
   { label: "مهارت‌های زبان", icon: "◎", href: ROOT + "/#skills" },
   { label: "تمرین روزانه", icon: "✓", href: ROOT + "/#practice" },
   { label: "آزمون‌ها", icon: "▣", href: ROOT + "/#exams" },
+  { label: "درک مطلب", icon: "📖", href: ROOT + "/reading-comprehension/" },
 ];
 
 export default function FixedNavigation() {

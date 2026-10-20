@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -10,6 +10,7 @@ const items = [
   { label: "ساخت یا ورود به کلاس آنلاین", icon: "🎥", href: ROOT + "/classroom/" },
   { label: "واژگان انگلیسی", icon: "📚", href: ROOT + "/vocabulary/" },
   { label: "گرامر", icon: "◈", href: ROOT + "/#grammar" },
+  { label: "مکالمه انگلیسی", icon: "💬", href: ROOT + "/conversation/" },
   { label: "مهارت‌های زبان", icon: "◎", href: ROOT + "/#skills" },
   { label: "تمرین روزانه", icon: "✓", href: ROOT + "/#practice" },
   { label: "آزمون‌ها", icon: "▣", href: ROOT + "/#exams" },

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { vocabularyWords } from "../data/vocabulary";
@@ -30,7 +30,7 @@ const courses = [
     title: "مکالمه انگلیسی",
     subtitle: "تمرین صحبت کردن",
     color: "green",
-    href: "#skills",
+    href: "/conversation/",
   },
   {
     icon: "📖",
@@ -77,6 +77,7 @@ export default function Home() {
     { name: "آزمون‌های دست‌گرمی", icon: "🎮", href: "/games/" },
     { name: "واژگان", icon: "▤", href: "/vocabulary/" },
     { name: "گرامر", icon: "◈", href: "#grammar" },
+    { name: "مکالمه انگلیسی", icon: "💬", href: "/conversation/" },
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
     { name: "تمرین روزانه", icon: "✓", href: "#practice" },
     { name: "آزمون‌ها", icon: "▣", href: "#exams" },

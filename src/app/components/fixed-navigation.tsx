@@ -1,15 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 const ROOT = "/english-learning-project";
 
 const items = [
   { label: "خانه", icon: "⌂", href: ROOT + "/#home" },
   { label: "ساخت یا ورود به کلاس آنلاین", icon: "🎥", href: ROOT + "/classroom/" },
   { label: "واژگان انگلیسی", icon: "📚", href: ROOT + "/vocabulary/" },
-  { label: "گرامر", icon: "◈", href: ROOT + "/#grammar" },
+  { label: "گرامر", icon: "◈", href: ROOT + "/grammar/" },
+    { label: "بازی‌ها", icon: "🎮", href: ROOT + "/games/" },
   { label: "مکالمه انگلیسی", icon: "💬", href: ROOT + "/conversation/" },
   { label: "مهارت‌های زبان", icon: "◎", href: ROOT + "/#skills" },
   { label: "مهارت نوشتن", icon: "✍️", href: ROOT + "/writing/" },
@@ -23,25 +23,22 @@ export default function FixedNavigation() {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
   const cleanPath = pathname.replace(/\/+$/, "");
-  const isVocabulary = cleanPath.endsWith("/vocabulary");
+  const isHome = cleanPath === "" || cleanPath === "/" || cleanPath === "/english-learning-project";
+  const [showHomeBack, setShowHomeBack] = useState(false);
+  useEffect(() => {
+    if (isHome) { setShowHomeBack(false); return; }
+    const elements = Array.from(document.querySelectorAll("a, button, [role=\"button\"]"));
+    const hasBackControl = elements.some((element) => {
+      if (element.classList.contains("fixed-back-button")) return false;
+      const value = [element.textContent || "", element.getAttribute("aria-label") || "", element.getAttribute("title") || ""].join(" ");
+      return /بازگشت|برگشت|\bback\b|go back/i.test(value);
+    });
+    setShowHomeBack(!hasBackControl);
+  }, [pathname, isHome]);
 
   function goBack() {
-    const sameSiteReferrer = (() => {
-      if (!document.referrer) return false;
-      try {
-        return new URL(document.referrer).origin === window.location.origin;
-      } catch {
-        return false;
-      }
-    })();
-
-    if (sameSiteReferrer && window.history.length > 1) {
-      window.history.back();
-    } else {
-      window.location.href = ROOT + "/";
-    }
+    window.location.href = ROOT + "/";
   }
-
   return (
     <>
       {open && (
@@ -90,13 +87,13 @@ export default function FixedNavigation() {
         </button>
       </div>
 
-      {isVocabulary && (
+      {showHomeBack && (
         <button
           type="button"
           className="fixed-back-button"
           onClick={goBack}
-          aria-label="بازگشت به صفحه قبلی"
-          title="بازگشت"
+          aria-label="بازگشت به صفحه اصلی"
+          title="بازگشت به صفحه اصلی"
         >
           ←
         </button>

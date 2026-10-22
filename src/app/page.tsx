@@ -16,7 +16,7 @@ const courses = [
     title: "گرامر کاربردی",
     subtitle: "یادگیری قدم‌به‌قدم قواعد",
     color: "blue",
-    href: "/english-learning-project/games/writing/grammar/",
+    href: "/english-learning-project/grammar/",
   },
   {
     icon: "🎧",
@@ -53,6 +53,13 @@ const courses = [
     color: "orange",
     href: "/english-learning-project/games/",
   },
+    {
+      icon: "🎮",
+      title: "بازی‌های زبان انگلیسی",
+      subtitle: "یادگیری با بازی و چالش‌های تعاملی",
+      color: "violet",
+      href: "/english-learning-project/games/",
+    },
 ];
 
 const STORAGE_KEYS = {
@@ -76,7 +83,8 @@ export default function Home() {
     { name: "خانه", icon: "⌂", href: "#home" },
     { name: "آزمون‌های دست‌گرمی", icon: "📝", href: "/english-learning-project/games/" },
     { name: "واژگان", icon: "▤", href: "/english-learning-project/vocabulary/" },
-    { name: "گرامر", icon: "◈", href: "/english-learning-project/games/writing/grammar/" },
+    { name: "گرامر", icon: "◈", href: "/english-learning-project/grammar/" },
+    { name: "بازی‌ها", icon: "🎮", href: "/english-learning-project/games/" },
     { name: "مکالمه انگلیسی", icon: "💬", href: "/english-learning-project/conversation/" },
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
     { name: "مهارت نوشتن", icon: "✍️", href: "/english-learning-project/writing/" },

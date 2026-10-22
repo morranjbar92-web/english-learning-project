@@ -1,9 +1,9 @@
-﻿export default function GrammarGamePage() {
+export default function GrammarGamePage() {
   return (
     <main className="embedded-game-page" dir="rtl">
       <div className="embedded-game-toolbar">
-        <a href="/english-learning-project/games/writing/">
-          ← بازگشت به مهارت نوشتن
+        <a href="/english-learning-project/">
+          ← بازگشت به صفحه اصلی
         </a>
         <strong>Grammarino PLUS · آموزش گرامر پایه‌های هفتم، هشتم و نهم</strong>
       </div>

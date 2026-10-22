@@ -233,5 +233,15 @@ function init(){
 init();
 })();
 </script>
+<script id="linguapro-home-return-script">
+(function(){
+ if(document.getElementById("linguapro-home-return"))return;
+ var home=window.location.pathname.indexOf("/english-learning-project/")===0?"/english-learning-project/":"/";
+ var a=document.createElement("a");a.id="linguapro-home-return";a.href=home;
+ a.setAttribute("aria-label","بازگشت به صفحه اصلی");a.textContent="⌂  بازگشت به صفحه اصلی";
+ a.style.cssText="position:fixed;top:14px;left:14px;z-index:2147483647;padding:10px 14px;border-radius:999px;background:#fff;color:#4338ca;border:1px solid #c7d2fe;box-shadow:0 6px 20px rgba(15,23,42,.18);font:600 13px Tahoma,Arial,sans-serif;text-decoration:none;direction:rtl;";
+ document.body.appendChild(a);
+})();
+</script>
 </body>
 </html>

@@ -12,6 +12,7 @@ const items = [
   { label: "گرامر", icon: "◈", href: ROOT + "/#grammar" },
   { label: "مکالمه انگلیسی", icon: "💬", href: ROOT + "/conversation/" },
   { label: "مهارت‌های زبان", icon: "◎", href: ROOT + "/#skills" },
+  { label: "مهارت نوشتن", icon: "✍️", href: ROOT + "/writing/" },
   { label: "مهارت شنیداری", icon: "🎧", href: ROOT + "/listening/" },
   { label: "تمرین روزانه", icon: "✓", href: ROOT + "/#practice" },
   { label: "آزمون‌ها", icon: "▣", href: ROOT + "/#exams" },

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 const root = "/english-learning-project";
 
@@ -61,9 +61,9 @@ export default function GamesPage() {
               {skill.ready ? (
                 <a
                   className="games-primary-link"
-                  href={root + (skill.name === "Listening" ? "/games/listening/" : "/games/writing/")}
+                  href={root + (skill.name === "Listening" ? "/games/listening/" : skill.name === "Writing" ? "/writing/" : "/games/writing/")}
                 >
-                  {skill.name === "Listening" ? "ورود به Listening ←" : "ورود به Writing ←"}
+                  {skill.name === "Listening" ? "ورود به Listening ←" : skill.name === "Writing" ? "ورود به مهارت نوشتن ←" : "ورود به Writing ←"}
                 </a>
               ) : (
                 <span className="games-coming-label">به‌زودی</span>

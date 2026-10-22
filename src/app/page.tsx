@@ -44,7 +44,7 @@ const courses = [
     title: "مهارت نوشتن",
     subtitle: "از جمله تا متن انگلیسی",
     color: "cyan",
-    href: "#skills",
+    href: "/english-learning-project/writing/",
   },
   {
     icon: "📝",
@@ -79,6 +79,7 @@ export default function Home() {
     { name: "گرامر", icon: "◈", href: "/english-learning-project/games/writing/grammar/" },
     { name: "مکالمه انگلیسی", icon: "💬", href: "/english-learning-project/conversation/" },
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
+    { name: "مهارت نوشتن", icon: "✍️", href: "/english-learning-project/writing/" },
     { name: "مهارت شنیداری", icon: "🎧", href: "/english-learning-project/listening/" },
     { name: "تمرین روزانه", icon: "✓", href: "#practice" },
     { name: "آزمون‌ها", icon: "▣", href: "#exams" },

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { WritingLesson } from "./writing-data";
 import { writingLessons } from "./writing-data";
+import { writingTeaching } from "./writing-teaching";
 
 type Props = { lesson: WritingLesson; root: string };
 const STORAGE_KEY = "linguapro-writing-completed-v1";
@@ -32,6 +33,7 @@ export default function WritingLessonClient({ lesson, root }: Props) {
     } catch { /* storage is optional */ }
   }, [lesson.slug]);
 
+  const teaching = writingTeaching[lesson.slug];
   const sameGrade = useMemo(() => writingLessons.filter(l => l.grade === lesson.grade), [lesson.grade]);
   const currentIndex = sameGrade.findIndex(l => l.slug === lesson.slug);
   const prevLesson = currentIndex > 0 ? sameGrade[currentIndex - 1] : null;
@@ -62,6 +64,17 @@ export default function WritingLessonClient({ lesson, root }: Props) {
     <header className="writing-topbar"><a className="writing-brand" href={root+"/writing/"}><span className="writing-brand-icon">✍</span><span><strong>LinguaPro</strong><small>آزمایشگاه مهارت نوشتن</small></span></a><span className="writing-grade-badge">پایهٔ {lesson.grade===7?"هفتم":lesson.grade===8?"هشتم":"نهم"}</span></header>
     <a className="writing-back-link" href={root+"/writing/"}>← بازگشت به دسته‌بندی‌ها</a>
     <section className="writing-lesson-hero"><span className="writing-eyebrow">WRITING LESSON · {lesson.level.toUpperCase()}</span><h1>{lesson.title}</h1><p>{lesson.goal}</p><div className="writing-lesson-meta"><span>🧭 راهنمای مرحله‌ای</span><span>📘 {faNum(lesson.vocabulary.length)} واژهٔ کلیدی</span><span>✅ تمرین پایانی اجباری</span></div></section>
+
+    {teaching && <section className="writing-card writing-teaching-panel">
+      <div className="writing-section-head writing-card-head"><div><span className="writing-kicker">LEARN BEFORE YOU WRITE</span><h2>آموزش این درس</h2><p>اول الگوها را یاد بگیر؛ بعد با کلمات خودت یک متن تازه بساز.</p></div><span className="writing-teaching-badge">🎓 آموزش کاربردی</span></div>
+      <p className="writing-teaching-intro">{teaching.intro}</p>
+      <div className="writing-teaching-block"><h3>۱. چطور متن را بسازم؟</h3><div className="writing-teach-steps">{teaching.steps.map((step,i)=><article className="writing-teach-step" key={step.title}><span className="writing-teach-number">{faNum(i+1)}</span><div><h4>{step.title}</h4><p>{step.detail}</p></div></article>)}</div></div>
+      <div className="writing-teaching-block"><h3>۲. الگوهای جمله‌سازی</h3><div className="writing-teach-frames">{teaching.frames.map((frame,i)=><article className="writing-teach-frame" key={frame.en}><div className="writing-teach-frame-top"><span>{frame.note}</span><b>{faNum(i+1)}</b></div><p className="writing-teach-en" dir="ltr">{frame.en}</p><p className="writing-teach-fa">{frame.fa}</p></article>)}</div></div>
+      <div className="writing-teaching-bottom-grid">
+        <div className="writing-teaching-block"><h3>۳. عبارت‌های پیونددهنده</h3><div className="writing-teach-connectors">{teaching.connectors.map(item=><div className="writing-teach-connector" key={item.en}><b dir="ltr">{item.en}</b><span>{item.fa}</span></div>)}</div></div>
+        <div className="writing-teaching-block"><h3>۴. اشتباه‌های رایج</h3><div className="writing-teach-mistakes">{teaching.mistakes.map(item=><article className="writing-teach-mistake" key={item.wrong}><div className="writing-teach-wrong"><span>نادرست</span><b dir="ltr">{item.wrong}</b></div><div className="writing-teach-right"><span>درست</span><b dir="ltr">{item.right}</b></div><p>{item.reason}</p></article>)}</div></div>
+      </div>
+    </section>}
 
     <section className="writing-card"><div className="writing-section-head writing-card-head"><div><span className="writing-kicker">YOUR WRITING TASK</span><h2>موضوع نوشته</h2></div><span className="writing-grade-badge">حداقل {faNum(lesson.minWords)} واژه</span></div><p className="writing-prompt">{lesson.prompt}</p><div className="writing-steps"><h3>مراحل پیشنهادی</h3><ol>{lesson.steps.map((s,i)=><li key={i}>{s}</li>)}</ol></div></section>
 

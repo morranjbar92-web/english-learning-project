@@ -64,3 +64,34 @@
 .writing-back-button,.writing-secondary-button,.writing-text-toggle,.writing-small-action{background:#ecf8f5;color:#236b69}
 .writing-lesson-hero{background:linear-gradient(120deg,#174b5d,#217d8b 65%,#42b69b)}
 .writing-grade-badge{background:#e4f8f4;color:#1d7f77}
+
+/* Lesson-specific teaching before the writing task */
+.writing-teaching-panel{border:1px solid #dcd9ff;background:linear-gradient(155deg,#fff 0%,#fbfaff 62%,#f4fbff 100%);box-shadow:0 13px 36px #39327d0d}
+.writing-teaching-badge{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;background:#eeeaff;color:#5548b7;font-size:11px;font-weight:800;white-space:nowrap}
+.writing-teaching-intro{margin:4px 0 23px;padding:15px 17px;background:#f1efff;border-right:4px solid #7869e7;border-radius:13px;color:#38345f;font-size:14px;line-height:2}
+.writing-teaching-block{min-width:0;margin-top:22px}
+.writing-teaching-block>h3{margin:0 0 12px;font-size:16px;color:#35316d}
+.writing-teach-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.writing-teach-step{display:flex;gap:10px;align-items:flex-start;padding:14px 13px;border:1px solid #e7e5f8;border-radius:15px;background:#fff}
+.writing-teach-number{width:30px;height:30px;flex:0 0 30px;display:grid;place-items:center;border-radius:10px;background:#eae7ff;color:#5548bb;font-size:13px;font-weight:800}
+.writing-teach-step h4{font-size:13px;color:#33315f;margin:1px 0 5px}
+.writing-teach-step p{font-size:12px;color:#70758d;line-height:1.9;margin:0}
+.writing-teach-frames{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.writing-teach-frame{min-width:0;padding:14px;border:1px solid #e1e8f6;border-radius:15px;background:linear-gradient(145deg,#fff,#f8fbff)}
+.writing-teach-frame-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px;color:#6557cb;font-size:11px}
+.writing-teach-frame-top b{display:grid;place-items:center;width:23px;height:23px;border-radius:8px;background:#efedff}
+.writing-teach-en{margin:0;padding:11px 10px;border-radius:10px;background:#eeefff;color:#2e3261;font-size:13px;font-weight:700;line-height:1.8;text-align:left;overflow-wrap:anywhere}
+.writing-teach-fa{margin:9px 0 0;color:#535975;font-size:12px;line-height:1.9}
+.writing-teaching-bottom-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:17px;align-items:start}
+.writing-teach-connectors{display:grid;gap:8px}
+.writing-teach-connector{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 12px;border:1px solid #e4e6f3;border-radius:11px;background:#fff;font-size:12px}
+.writing-teach-connector b{color:#4e46a6;text-align:left;overflow-wrap:anywhere}
+.writing-teach-connector span{color:#6f748b;text-align:right}
+.writing-teach-mistakes{display:grid;gap:9px}
+.writing-teach-mistake{padding:12px;border:1px solid #ebe7f1;border-radius:12px;background:#fff}
+.writing-teach-wrong,.writing-teach-right{display:flex;gap:9px;align-items:flex-start;margin-bottom:6px;flex-wrap:wrap}
+.writing-teach-wrong span,.writing-teach-right span{font-size:10px;border-radius:6px;padding:2px 6px;white-space:nowrap}
+.writing-teach-wrong span{background:#fff0ef;color:#bd4747}.writing-teach-right span{background:#e7f8ee;color:#18794f}
+.writing-teach-wrong b,.writing-teach-right b{direction:ltr;text-align:left;overflow-wrap:anywhere;font:700 12px/1.8 Tahoma,Arial;color:#434861}
+.writing-teach-mistake p{margin:4px 0 0;color:#757990;font-size:11px;line-height:1.8}
+@media(max-width:760px){.writing-teach-steps,.writing-teach-frames{grid-template-columns:1fr}.writing-teaching-bottom-grid{grid-template-columns:1fr}.writing-teaching-intro{font-size:13px}.writing-teaching-block>h3{font-size:15px}.writing-teaching-badge{display:none}}

@@ -51,7 +51,7 @@ const courses = [
     title: "آزمون‌های دست‌گرمی",
     subtitle: "تمرین زبان با آزمون‌های تعاملی",
     color: "orange",
-    href: "/english-learning-project/games/",
+    href: "/english-learning-project/#exams",
   },
     {
       icon: "🎮",
@@ -81,7 +81,7 @@ export default function Home() {
 
   const navigation = [
     { name: "خانه", icon: "⌂", href: "#home" },
-    { name: "آزمون‌های دست‌گرمی", icon: "📝", href: "/english-learning-project/games/" },
+    { name: "آزمون‌های دست‌گرمی", icon: "📝", href: "/english-learning-project/#exams" },
     { name: "واژگان", icon: "▤", href: "/english-learning-project/vocabulary/" },
     { name: "گرامر", icon: "◈", href: "/english-learning-project/grammar/" },
     { name: "بازی‌ها", icon: "🎮", href: "/english-learning-project/games/" },

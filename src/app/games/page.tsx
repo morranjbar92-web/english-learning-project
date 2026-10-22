@@ -1,18 +1,13 @@
 // LINGUAPRO_GAMES_ARCADE_ROOT_V1
-const root = "/english-learning-project";
 export default function GamesPage() {
   return (
-    <main className="warmup-embed-page" dir="rtl">
-      <div className="warmup-embed-toolbar">
-        <a href={root + "/"}>← بازگشت به صفحه اصلی</a>
+    <main className="embedded-game-page" dir="rtl">
+      <meta httpEquiv="refresh" content="0;url=/english-learning-project/games/arcade/" />
+      <div className="embedded-game-toolbar">
+        <a href="/english-learning-project/games/arcade/"><span>← ورود به بازی‌ها</span></a>
         <strong>LEXIverse · بازی‌های زبان انگلیسی</strong>
       </div>
-      <iframe
-        className="warmup-embed-frame"
-        src={root + "/games/lexiverse.html"}
-        title="LEXIverse English Game Universe"
-        allow="autoplay; fullscreen"
-      />
+      <p style={{ textAlign: "center", padding: "2rem" }}>در حال انتقال به بخش بازی‌ها هستید. اگر انتقال انجام نشد، روی «ورود به بازی‌ها» بزنید.</p>
     </main>
   );
 }

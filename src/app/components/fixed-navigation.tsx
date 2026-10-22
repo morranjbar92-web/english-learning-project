@@ -15,7 +15,7 @@ const items = [
   { label: "مهارت نوشتن", icon: "✍️", href: ROOT + "/writing/" },
   { label: "مهارت شنیداری", icon: "🎧", href: ROOT + "/listening/" },
   { label: "تمرین روزانه", icon: "✓", href: ROOT + "/#practice" },
-  { label: "آزمون‌ها", icon: "▣", href: ROOT + "/#exams" },
+  { label: "آزمون‌های دست‌گرمی", icon: "▣", href: ROOT + "/warmup-tests/" },
   { label: "درک مطلب", icon: "📖", href: ROOT + "/reading-comprehension/" },
 ];
 

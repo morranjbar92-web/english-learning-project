@@ -51,7 +51,7 @@ const courses = [
     title: "آزمون‌های دست‌گرمی",
     subtitle: "تمرین زبان با آزمون‌های تعاملی",
     color: "orange",
-    href: "/#exams",
+    href: "/warmup-tests/",
   },
     {
       icon: "🎮",
@@ -81,7 +81,7 @@ export default function Home() {
 
   const navigation = [
     { name: "خانه", icon: "⌂", href: "#home" },
-    { name: "آزمون‌های دست‌گرمی", icon: "🎮", href: "/#exams" },
+    { name: "آزمون‌های دست‌گرمی", icon: "🎮", href: "/warmup-tests/" },
     { name: "واژگان", icon: "▤", href: "/vocabulary/" },
     { name: "گرامر", icon: "◈", href: "/grammar/" },
     { name: "بازی‌ها", icon: "🎮", href: "/games/" },

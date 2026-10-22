@@ -208,7 +208,7 @@ export default function ReadingPractice({ root }: { root: string }) {
   return (
     <main className="reading-practice-page" dir="rtl">
       <div className="reading-practice-shell">
-        <a className="rp-back-link" href={root + "/games/"}>← بازگشت به آزمون‌های دست‌گرمی</a>
+        <a className="rp-back-link" href={root + "/warmup-tests/"}>← بازگشت به آزمون‌های دست‌گرمی</a>
 
         <header className="rp-hero">
           <div className="rp-hero-copy">

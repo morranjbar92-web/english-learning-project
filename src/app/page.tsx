@@ -23,7 +23,7 @@ const courses = [
     title: "مهارت شنیداری",
     subtitle: "درک مکالمه و فایل صوتی",
     color: "orange",
-    href: "#skills",
+    href: "/listening/",
   },
   {
     icon: "💬",
@@ -79,6 +79,7 @@ export default function Home() {
     { name: "گرامر", icon: "◈", href: "#grammar" },
     { name: "مکالمه انگلیسی", icon: "💬", href: "/conversation/" },
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
+    { name: "مهارت شنیداری", icon: "🎧", href: "/listening/" },
     { name: "تمرین روزانه", icon: "✓", href: "#practice" },
     { name: "آزمون‌ها", icon: "▣", href: "#exams" },
     { name: "ساخت یا ورود به کلاس آنلاین", icon: "🎥", href: "/classroom/" },

@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { readingLessons, type ReadingLesson } from "./reading-data";
+import { readingQuestions } from "./reading-questions";
 import "./reading.css";
 
 type RecognitionAlternative = { transcript: string; confidence?: number };
@@ -61,6 +62,9 @@ export default function ReadingPractice({ root }: { root: string }) {
   const [recognizing, setRecognizing] = useState(false);
   const [recognizedText, setRecognizedText] = useState("");
   const [selectedSentence, setSelectedSentence] = useState<number | null>(null);
+  const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({});
+  const [quizSubmitted, setQuizSubmitted] = useState(false);
+  const [quizNotice, setQuizNotice] = useState("");
   const recognitionRef = useRef<RecognitionInstance | null>(null);
 
   useEffect(() => {
@@ -85,6 +89,9 @@ export default function ReadingPractice({ root }: { root: string }) {
   const sentences = useMemo(() => sentencesOf(lesson.text), [lesson.text]);
   const completedInGrade = gradeLessons.filter((item) => completed.includes(item.id)).length;
   const readingScore = recognizedText ? matchPercent(lesson.text, recognizedText) : null;
+  const lessonQuestions = readingQuestions[lesson.id] ?? [];
+  const quizAnsweredCount = lessonQuestions.filter((question) => quizAnswers[question.id] !== undefined).length;
+  const quizCorrectCount = lessonQuestions.filter((question) => quizAnswers[question.id] === question.correctIndex).length;
 
   function chooseGrade(value: string) {
     const nextGrade = Number(value) as 7 | 8 | 9;
@@ -95,6 +102,9 @@ export default function ReadingPractice({ root }: { root: string }) {
     setRecognizedText("");
     setSpeechStatus("یک متن انتخاب کن و با صدای بلند بخوان.");
     setSelectedSentence(null);
+    setQuizAnswers({});
+    setQuizSubmitted(false);
+    setQuizNotice("");
   }
 
   function speak(text: string, speed = rate) {
@@ -175,6 +185,24 @@ export default function ReadingPractice({ root }: { root: string }) {
     setRecognizedText("");
     setSpeechStatus("برای شروع، نمونه را گوش کن یا خودت متن را بخوان.");
     setSelectedSentence(null);
+    setQuizAnswers({});
+    setQuizSubmitted(false);
+    setQuizNotice("");
+  }
+
+  function submitQuiz() {
+    if (quizAnsweredCount !== lessonQuestions.length) {
+      setQuizNotice(`به همهٔ سؤال‌ها پاسخ بده. تا اینجا ${faNumber(quizAnsweredCount)} از ${faNumber(lessonQuestions.length)} سؤال پاسخ داده شده است.`);
+      return;
+    }
+    setQuizSubmitted(true);
+    setQuizNotice(`نتیجه: ${faNumber(quizCorrectCount)} پاسخ درست از ${faNumber(lessonQuestions.length)} سؤال.`);
+  }
+
+  function resetQuiz() {
+    setQuizAnswers({});
+    setQuizSubmitted(false);
+    setQuizNotice("");
   }
 
   return (
@@ -226,7 +254,12 @@ export default function ReadingPractice({ root }: { root: string }) {
             </section>
 
             <section className="rp-text-card">
-              <div className="rp-text-card-head"><div><strong>۲. خودت بخوان</strong><small>برای شنیدن و تمرین یک جمله، روی همان جمله بزن.</small></div><button type="button" className="rp-text-toggle" onClick={() => setShowTranslation((value) => !value)}>{showTranslation ? "پنهان کردن ترجمه" : "نمایش ترجمهٔ فارسی"}</button></div>
+              <div className="rp-text-card-head"><div><strong>۲. متن کامل که باید بخوانی</strong><small>اول این متن انگلیسی را از ابتدا تا انتها بخوان؛ بعد می‌توانی جمله‌ها را جداگانه پخش کنی.</small></div><button type="button" className="rp-text-toggle" onClick={() => setShowTranslation((value) => !value)}>{showTranslation ? "پنهان کردن ترجمه" : "نمایش ترجمهٔ فارسی"}</button></div>
+              <article className="rp-full-passage" dir="ltr" aria-label="متن اصلی برای تمرین خواندن">
+                <div className="rp-passage-label">READ THIS PASSAGE</div>
+                <p>{lesson.text}</p>
+              </article>
+              <div className="rp-sentence-practice-head"><strong>تمرین جمله‌به‌جمله</strong><small>روی هر جمله بزن تا همان جمله پخش شود.</small></div>
               <div className="rp-sentences" dir="ltr">
                 {sentences.map((sentence, index) => <button key={`${lesson.id}-${index}`} type="button" className={`rp-sentence ${selectedSentence === index ? "selected" : ""}`} onClick={() => { setSelectedSentence(index); speak(sentence); }}><span>{index + 1}</span>{sentence}<b aria-hidden="true">🔊</b></button>)}
               </div>
@@ -240,7 +273,40 @@ export default function ReadingPractice({ root }: { root: string }) {
               <div className="rp-check-tip">نکته: اگر میکروفن یا ارزیابی خودکار در دسترس نبود، نمونه را گوش کن و هر جمله را چند بار با صدای بلند تکرار کن.</div>
             </section>
 
-            <footer className="rp-reading-footer"><span>{completed.includes(lesson.id) ? "✓ این متن را تمرین کرده‌ای." : "پس از خواندن متن، تمرین را ثبت کن."}</span><button type="button" className={completed.includes(lesson.id) ? "rp-completed-button" : "rp-primary-button"} onClick={markCompleted} disabled={completed.includes(lesson.id)}>{completed.includes(lesson.id) ? "✓ ثبت شده" : "✓ ثبت تمرین"}</button></footer>
+            <section className="rp-quiz-section">
+              <div className="rp-quiz-header">
+                <div><span className="rp-section-kicker">READING CHALLENGE</span><h3>۴. چالش درک متن — {faNumber(lessonQuestions.length)} سؤال</h3><p>بعد از اینکه متن بالا را خواندی، به سؤال‌های انگلیسی پاسخ بده. سؤال‌ها از جزئیات، دلیل و نتیجه، معنی واژه‌ها و برداشت کلی متن هستند.</p></div>
+                <span className="rp-quiz-icon">🧠</span>
+              </div>
+              <div className="rp-quiz-summary"><span>سطح دشواری: {grade === 7 ? "متوسط رو به سخت" : grade === 8 ? "سخت" : "پیشرفته"}</span><strong>{faNumber(quizAnsweredCount)} از {faNumber(lessonQuestions.length)} پاسخ داده شده</strong></div>
+              <div className="rp-quiz-progress"><span style={{ width: `${lessonQuestions.length ? quizAnsweredCount / lessonQuestions.length * 100 : 0}%` }} /></div>
+              <div className="rp-questions-list">
+                {lessonQuestions.map((question, index) => {
+                  const selected = quizAnswers[question.id];
+                  return <fieldset className="rp-question-card" key={question.id}>
+                    <legend><span>{faNumber(index + 1)}</span>{question.prompt}</legend>
+                    <div className="rp-answer-options">
+                      {question.choices.map((choice, choiceIndex) => {
+                        const isCorrect = choiceIndex === question.correctIndex;
+                        const isSelected = selected === choiceIndex;
+                        const answerClass = quizSubmitted && isCorrect ? "correct" : quizSubmitted && isSelected && !isCorrect ? "incorrect" : isSelected ? "selected" : "";
+                        return <button key={choice} type="button" className={`rp-answer-option ${answerClass}`} onClick={() => { if (!quizSubmitted) { setQuizAnswers((current) => ({ ...current, [question.id]: choiceIndex })); setQuizNotice(""); } }} disabled={quizSubmitted} aria-pressed={isSelected}>
+                          <span className="rp-option-letter">{String.fromCharCode(65 + choiceIndex)}</span><span>{choice}</span>
+                          {quizSubmitted && isCorrect && <b>✓</b>}
+                        </button>;
+                      })}
+                    </div>
+                    {quizSubmitted && <div className="rp-answer-explanation"><strong>{selected === question.correctIndex ? "پاسخ درست" : `پاسخ درست: ${question.choices[question.correctIndex]}`}</strong><p>{question.explanation}</p></div>}
+                  </fieldset>;
+                })}
+              </div>
+              <div className="rp-quiz-actions">
+                {!quizSubmitted ? <button type="button" className="rp-primary-button" onClick={submitQuiz}>بررسی پاسخ‌ها</button> : <><div className={`rp-quiz-score ${quizCorrectCount >= lessonQuestions.length * 0.75 ? "high" : ""}`}><strong>{faNumber(quizCorrectCount)} / {faNumber(lessonQuestions.length)}</strong><span>پاسخ درست</span></div><button type="button" className="rp-secondary-button" onClick={resetQuiz}>تلاش دوباره</button></>}
+                <span className="rp-quiz-notice" role="status">{quizNotice || (quizSubmitted ? "پاسخ‌های درست و توضیح آن‌ها نمایش داده شده‌اند." : "برای دیدن نتیجه، به همهٔ سؤال‌ها پاسخ بده.")}</span>
+              </div>
+            </section>
+
+            <footer className="rp-reading-footer"><span>{completed.includes(lesson.id) ? "✓ این متن را تمرین کرده‌ای." : "پس از بلندخوانی و پاسخ به سؤال‌ها، تمرین را ثبت کن."}</span><button type="button" className={completed.includes(lesson.id) ? "rp-completed-button" : "rp-primary-button"} onClick={markCompleted} disabled={completed.includes(lesson.id)}>{completed.includes(lesson.id) ? "✓ ثبت شده" : "✓ ثبت تمرین"}</button></footer>
           </section>
         </div>
         <footer className="rp-site-footer"><a href={root + "/games/"}>← آزمون‌های دست‌گرمی</a><a href={root + "/"}>صفحهٔ اصلی LinguaPro</a></footer>

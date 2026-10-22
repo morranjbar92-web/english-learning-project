@@ -21,8 +21,8 @@ const skills = [
     icon: "📖",
     name: "Reading",
     fa: "مهارت خواندن",
-    description: "خواندن متن و درک معنی",
-    ready: false
+    description: "تمرین بلندخوانی و خواندن متن با صدای بلند",
+    ready: true
   },
   {
     icon: "✍️",
@@ -61,9 +61,9 @@ export default function GamesPage() {
               {skill.ready ? (
                 <a
                   className="games-primary-link"
-                  href={root + (skill.name === "Listening" ? "/games/listening/" : skill.name === "Writing" ? "/writing/" : "/games/writing/")}
+                  href={root + (skill.name === "Listening" ? "/games/listening/" : skill.name === "Reading" ? "/games/reading/" : skill.name === "Writing" ? "/writing/" : "/games/writing/")}
                 >
-                  {skill.name === "Listening" ? "ورود به Listening ←" : skill.name === "Writing" ? "ورود به مهارت نوشتن ←" : "ورود به Writing ←"}
+                  {skill.name === "Listening" ? "ورود به Listening ←" : skill.name === "Reading" ? "شروع تمرین بلندخوانی ←" : skill.name === "Writing" ? "ورود به مهارت نوشتن ←" : "ورود به Writing ←"}
                 </a>
               ) : (
                 <span className="games-coming-label">به‌زودی</span>

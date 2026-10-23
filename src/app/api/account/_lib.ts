@@ -183,32 +183,35 @@ export async function verifyPassword(password: string, encoded: string): Promise
 }
 
 export async function sendLoginCode(email: string, code: string): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM;
-  if (!apiKey || !from) {
-    throw new Error("ارسال کد ایمیل هنوز تنظیم نشده است؛ مدیر سایت باید RESEND_API_KEY و EMAIL_FROM را در تنظیمات محرمانهٔ Render قرار دهد.");
+  // Email59 sends from @email59.com, so LinguaPro does not need to own a domain.
+  const apiKey = process.env.EMAIL59_API_KEY;
+  if (!apiKey) {
+    throw new Error("ارسال کد ورود تنظیم نشده است؛ مدیر سایت باید EMAIL59_API_KEY را در تنظیمات محرمانهٔ Render قرار دهد.");
   }
-
-  const response = await fetch("https://api.resend.com/emails", {
+  const response = await fetch("https://email59.com/v1/send", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from,
-      to: [email],
+      from: "linguapro",
+      to: email,
       subject: "کد ورود LinguaPro",
-      text: `کد ورود شما: ${code}\nاین کد ۱۰ دقیقه اعتبار دارد. اگر این درخواست را انجام نداده‌ای، این ایمیل را نادیده بگیر.`,
-      html: `<div style="font-family:Tahoma,Arial,sans-serif;direction:rtl;max-width:520px;margin:auto;padding:24px;color:#242345"><h2>ورود به LinguaPro</h2><p>برای ورود این کد را در سایت وارد کن:</p><div style="direction:ltr;text-align:center;font-size:32px;letter-spacing:8px;font-weight:bold;padding:18px;background:#f3f1ff;border-radius:12px;color:#5144bb">${code}</div><p>کد تا ۱۰ دقیقه معتبر است. این کد را به کسی نده.</p><small>اگر این درخواست را انجام نداده‌ای، ایمیل را نادیده بگیر.</small></div>`,
+      template: "code",
+      code,
+      text: `کد ورود LinguaPro: ${code}. این کد ۱۰ دقیقه اعتبار دارد. اگر این درخواست را انجام نداده‌ای، این ایمیل را نادیده بگیر. هرگز کد را با کسی به اشتراک نگذار.`,
     }),
     signal: AbortSignal.timeout(12_000),
   });
-
   if (!response.ok) {
     const detail = await response.json().catch(() => ({})) as Record<string, unknown>;
-    const providerMessage = typeof detail.message === "string" ? detail.message : typeof detail.error === "string" ? detail.error : `HTTP ${response.status}`;
-    throw new Error(`ارسال ایمیل از سرویس Resend ناموفق بود: ${providerMessage}`);
+    const providerMessage = typeof detail.error === "string"
+      ? detail.error
+      : typeof detail.message === "string"
+        ? detail.message
+        : JSON.stringify(detail) || `HTTP ${response.status}`;
+    throw new Error(`ارسال ایمیل از Email59 ناموفق بود: ${providerMessage}`);
   }
 }
 

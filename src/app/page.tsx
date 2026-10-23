@@ -359,6 +359,19 @@ export default function Home() {
                 <a className="hero-button" href="#courses">
                   کشف مسیر یادگیری <span>←</span>
                 </a>
+                <a
+                  className="hero-button graphic-game-home-button"
+                  href="/english-learning-project/games/arcade/"
+                  aria-label="ورود مستقیم به بازی گرافیکی"
+                  style={{
+                    background: "linear-gradient(135deg, #f7d4ff 0%, #9be7ff 100%)",
+                    color: "#24133f",
+                    border: "1px solid rgba(255,255,255,.65)",
+                    boxShadow: "0 10px 26px rgba(99,102,241,.24)",
+                  }}
+                >
+                  🎮 بازی گرافیکی <span>←</span>
+                </a>
               </div>
                 <a
                   className="hero-button homepage-games-button"

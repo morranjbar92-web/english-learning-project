@@ -5,7 +5,7 @@ export default function LexiverseArcadePage() {
   return (
     <main className="warmup-embed-page" dir="rtl">
       <div className="warmup-embed-toolbar">
-        <a href={root + "/"}>← بازگشت به صفحه اصلی</a>
+        <a className="graphic-game-back-button" href={root + "/"} style={{ display: "inline-flex", alignItems: "center", gap: ".45rem", padding: ".7rem 1rem", borderRadius: "999px", background: "linear-gradient(135deg, #7c3aed, #4f46e5)", color: "#fff", textDecoration: "none", fontWeight: 700, boxShadow: "0 8px 22px rgba(79,70,229,.25)" }}>⌂ بازگشت به صفحهٔ اصلی</a>
         <strong>LEXIverse · بازی‌های زبان انگلیسی</strong>
       </div>
       <iframe

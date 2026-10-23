@@ -79,6 +79,110 @@ const STORAGE_KEYS = {
 
 const VOCABULARY_GOAL = 5000;
 
+const DAILY_QUESTIONS = [
+  {
+    type: "واژگان",
+    difficulty: "آسان",
+    question: "معنی کلمهٔ Beautiful چیست؟",
+    options: ["بزرگ", "زیبا", "سریع", "خسته"],
+    correctIndex: 1,
+    explanation: "Beautiful یعنی زیبا یا قشنگ."
+  },
+  {
+    type: "واژگان",
+    difficulty: "آسان",
+    question: "معنی کلمهٔ Quickly چیست؟",
+    options: ["آهسته", "دیروز", "به‌سرعت", "همیشه"],
+    correctIndex: 2,
+    explanation: "Quickly یعنی به‌سرعت."
+  },
+  {
+    type: "واژگان",
+    difficulty: "آسان",
+    question: "معنی کلمهٔ Hungry چیست؟",
+    options: ["گرسنه", "تشنه", "شاد", "خواب‌آلود"],
+    correctIndex: 0,
+    explanation: "Hungry یعنی گرسنه."
+  },
+  {
+    type: "واژگان",
+    difficulty: "متوسط",
+    question: "کدام واژه به معنی «تصمیم گرفتن» است؟",
+    options: ["Discover", "Decide", "Describe", "Deliver"],
+    correctIndex: 1,
+    explanation: "Decide یعنی تصمیم گرفتن."
+  },
+  {
+    type: "گرامر",
+    difficulty: "آسان",
+    question: "جای خالی را کامل کن: She ___ a student.",
+    options: ["am", "are", "is", "be"],
+    correctIndex: 2,
+    explanation: "برای She در زمان حال ساده از is استفاده می‌کنیم."
+  },
+  {
+    type: "گرامر",
+    difficulty: "آسان",
+    question: "جای خالی را کامل کن: They ___ football every day.",
+    options: ["plays", "play", "playing", "is play"],
+    correctIndex: 1,
+    explanation: "با فاعل They فعل در زمان حال ساده بدون s می‌آید."
+  },
+  {
+    type: "گرامر",
+    difficulty: "متوسط",
+    question: "گذشتهٔ فعل Go کدام است؟",
+    options: ["Goed", "Gone", "Went", "Going"],
+    correctIndex: 2,
+    explanation: "گذشتهٔ سادهٔ فعل بی‌قاعدهٔ Go برابر Went است."
+  },
+  {
+    type: "واژگان",
+    difficulty: "متوسط",
+    question: "متضاد کلمهٔ Difficult چیست؟",
+    options: ["Hard", "Easy", "Strong", "Heavy"],
+    correctIndex: 1,
+    explanation: "Easy یعنی آسان و متضاد Difficult است."
+  },
+  {
+    type: "واژگان",
+    difficulty: "آسان",
+    question: "معنی کلمهٔ Environment چیست؟",
+    options: ["محیط زیست", "آزادی", "مسافرت", "تجربه"],
+    correctIndex: 0,
+    explanation: "Environment یعنی محیط یا محیط زیست."
+  },
+  {
+    type: "گرامر",
+    difficulty: "متوسط",
+    question: "کدام جمله درست است؟",
+    options: [
+      "He don't like tea.",
+      "He doesn't likes tea.",
+      "He doesn't like tea.",
+      "He not like tea."
+    ],
+    correctIndex: 2,
+    explanation: "ساختار درست منفی برای He برابر doesn't + شکل سادهٔ فعل است."
+  },
+  {
+    type: "واژگان",
+    difficulty: "آسان",
+    question: "معنی کلمهٔ Carefully چیست؟",
+    options: ["با دقت", "با عصبانیت", "به‌ندرت", "ناگهان"],
+    correctIndex: 0,
+    explanation: "Carefully یعنی با دقت و مراقبت."
+  },
+  {
+    type: "گرامر",
+    difficulty: "متوسط",
+    question: "جای خالی را کامل کن: I have lived here ___ 2020.",
+    options: ["for", "since", "during", "from"],
+    correctIndex: 1,
+    explanation: "برای اشاره به زمان شروع مشخص از Since استفاده می‌کنیم."
+  }
+] as const;
+
 export default function Home() {
   const [active, setActive] = useState("خانه");
   const [search, setSearch] = useState("");
@@ -86,6 +190,9 @@ export default function Home() {
   const [learned, setLearned] = useState<string[]>([]);
   const [storageReady, setStorageReady] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const currentQuestion = DAILY_QUESTIONS[questionIndex];
   const [selectedLevel, setSelectedLevel] = useState("همه");
   const [selectedTopic, setSelectedTopic] = useState("همه");
 
@@ -516,81 +623,133 @@ export default function Home() {
             
 
             {/* تمرین روزانه */}
-            <div
-              className="section-block practice-panel"
-              id="practice"
-            >
+            <div className="section-block practice-panel" id="practice">
               <div className="section-heading compact-heading">
                 <div>
                   <span className="section-kicker">DAILY PRACTICE</span>
                   <h2>تمرین امروز</h2>
-                  <p>با یک تمرین کوتاه شروع کن.</p>
+                  <p>هر بار یک سؤال تازه تمرین کن و پاسخ خودت را بررسی کن.</p>
                 </div>
-
                 <span className="practice-emoji">✍️</span>
               </div>
 
               <div className="practice-box">
                 <div className="practice-label">
-                  <span>تمرین واژگان</span>
-                  <span className="difficulty">آسان</span>
+                  <span>تمرین {currentQuestion.type}</span>
+                  <span className="difficulty">{currentQuestion.difficulty}</span>
                 </div>
 
-                <h3>
-                  معنی کلمهٔ <span dir="ltr">Beautiful</span> چیست؟
-                </h3>
+                <div className="practice-label">
+                  <span>سؤال {questionIndex + 1} از {DAILY_QUESTIONS.length}</span>
+                  <span>{Math.round(((questionIndex + 1) / DAILY_QUESTIONS.length) * 100)}٪</span>
+                </div>
 
+                <div
+                  style={{
+                    height: "6px",
+                    background: "var(--border-color, #e9e7f2)",
+                    borderRadius: "99px",
+                    overflow: "hidden",
+                    margin: "10px 0 20px"
+                  }}
+                >
+                  <div
+                    style={{
+                      width: `${((questionIndex + 1) / DAILY_QUESTIONS.length) * 100}%`,
+                      height: "100%",
+                      background: "var(--primary, #7957d5)",
+                      borderRadius: "99px",
+                      transition: "width .25s ease"
+                    }}
+                  />
+                </div>
+
+                <h3>{currentQuestion.question}</h3>
                 <p className="practice-hint">
-                  گزینهٔ درست را انتخاب کن.
+                  یک گزینه انتخاب کن، سپس «بررسی پاسخ» را بزن.
                 </p>
 
                 <div className="answer-list">
-                  <button
-                    type="button"
-                    className={`answer-option ${
-                      checked ? "incorrect" : ""
-                    }`}
-                    onClick={() => setChecked(false)}
-                  >
-                    <span className="answer-letter">A</span> بزرگ
-                  </button>
-
-                  <button
-                    type="button"
-                    className={`answer-option ${
-                      checked ? "correct" : ""
-                    }`}
-                    onClick={() => setChecked(true)}
-                  >
-                    <span className="answer-letter">B</span> زیبا
-                    <span className="answer-check">
-                      {checked ? "✓" : ""}
-                    </span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className="answer-option"
-                    onClick={() => setChecked(false)}
-                  >
-                    <span className="answer-letter">C</span> سریع
-                  </button>
+                  {currentQuestion.options.map((option, index) => (
+                    <button
+                      key={`${questionIndex}-${index}`}
+                      type="button"
+                      disabled={checked}
+                      aria-pressed={selectedAnswer === index}
+                      className={`answer-option ${
+                        checked && index === currentQuestion.correctIndex
+                          ? "correct"
+                          : checked && selectedAnswer === index
+                            ? "incorrect"
+                            : selectedAnswer === index
+                              ? "selected"
+                              : ""
+                      }`}
+                      onClick={() => {
+                        setSelectedAnswer(index);
+                        setChecked(false);
+                      }}
+                    >
+                      <span className="answer-letter">
+                        {String.fromCharCode(65 + index)}
+                      </span>
+                      {option}
+                      {checked && index === currentQuestion.correctIndex && (
+                        <span className="answer-check">✓</span>
+                      )}
+                      {checked &&
+                        selectedAnswer === index &&
+                        index !== currentQuestion.correctIndex && (
+                          <span className="answer-check">✕</span>
+                        )}
+                    </button>
+                  ))}
                 </div>
 
                 {checked && (
-                  <p className="feedback-success">
-                    آفرین! پاسخ درست است. Beautiful یعنی «زیبا».
+                  <p
+                    className={
+                      selectedAnswer === currentQuestion.correctIndex
+                        ? "feedback-success"
+                        : "feedback-error"
+                    }
+                    role="status"
+                  >
+                    {selectedAnswer === currentQuestion.correctIndex
+                      ? "آفرین! پاسخ تو درست است. "
+                      : "این پاسخ درست نیست. پاسخ صحیح مشخص شده است. "}
+                    {currentQuestion.explanation}
                   </p>
                 )}
 
-                <button
-                  type="button"
-                  className="check-answer"
-                  onClick={() => setChecked(true)}
-                >
-                  {checked ? "پاسخ بررسی شد ✓" : "بررسی پاسخ"}
-                  <span>←</span>
-                </button>
+                <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "16px" }}>
+                  {!checked ? (
+                    <button
+                      type="button"
+                      className="check-answer"
+                      disabled={selectedAnswer === null}
+                      onClick={() => {
+                        if (selectedAnswer !== null) {
+                          setChecked(true);
+                        }
+                      }}
+                    >
+                      بررسی پاسخ <span>←</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="check-answer"
+                      onClick={() => {
+                        setQuestionIndex((previous) => (previous + 1) % DAILY_QUESTIONS.length);
+                        setSelectedAnswer(null);
+                        setChecked(false);
+                      }}
+                    >
+                      سؤال بعدی <span>←</span>
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </section>
@@ -627,15 +786,6 @@ export default function Home() {
   </div>
   <span className="future-tag">ورود به گرامر ←</span>
 </a>
-
-              <div className="future-card" id="skills">
-                <span>🎙️</span>
-                <div>
-                  <strong>مکالمه و شنیدار</strong>
-                  <p>تمرین مهارت‌های ارتباطی</p>
-                </div>
-                <span className="future-tag">در مسیر توسعه</span>
-              </div>
             </div>
           </section>
         </div>

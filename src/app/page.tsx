@@ -56,10 +56,17 @@ const courses = [
   },
     {
       icon: "🎮",
-      title: "بازی‌های زبان انگلیسی",
+      title: "بازی تعاملی",
       subtitle: "یادگیری با بازی و چالش‌های تعاملی",
       color: "violet",
       href: "/english-learning-project/games/",
+    },
+    {
+      icon: "🕹️",
+      title: "بازی گرافیکی",
+      subtitle: "ورود به بازی گرافیکی مستقل",
+      color: "blue",
+      href: "/english-learning-project/gamsgrafic/",
     },
   
   
@@ -89,7 +96,8 @@ export default function Home() {
     { name: "سکه‌ها و لیگ روزانه", icon: "🏆", href: "/english-learning-project/league/" },
     { name: "واژگان", icon: "▤", href: "/english-learning-project/vocabulary/" },
     { name: "گرامر", icon: "◈", href: "/english-learning-project/grammar/" },
-    { name: "بازی‌ها", icon: "🎮", href: "/english-learning-project/games/" },
+    { name: "بازی تعاملی", icon: "🎮", href: "/english-learning-project/games/" },
+    { name: "بازی گرافیکی", icon: "🕹️", href: "/english-learning-project/gamsgrafic/" },
     { name: "مکالمه انگلیسی", icon: "💬", href: "/english-learning-project/conversation/" },
     { name: "مهارت‌های زبان", icon: "◎", href: "#skills" },
     { name: "مهارت نوشتن", icon: "✍️", href: "/english-learning-project/writing/" },
@@ -361,7 +369,7 @@ export default function Home() {
                 </a>
                 <a
                   className="hero-button graphic-game-home-button"
-                  href="/english-learning-project/games/arcade/"
+                  href="/english-learning-project/gamsgrafic/"
                   aria-label="ورود مستقیم به بازی گرافیکی"
                   style={{
                     background: "linear-gradient(135deg, #f7d4ff 0%, #9be7ff 100%)",

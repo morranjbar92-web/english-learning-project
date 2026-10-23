@@ -1,4 +1,5 @@
 "use client";
+import { awardActivity } from "../../../lib/linguapro-rewards";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { readingLessons, type ReadingLesson } from "./reading-data";
@@ -174,6 +175,7 @@ export default function ReadingPractice({ root }: { root: string }) {
   }
 
   function markCompleted() {
+    if (!completed.includes(lesson.id)) void awardActivity("reading_completed", lesson.id);
     setCompleted((current) => current.includes(lesson.id) ? current : [...current, lesson.id]);
   }
 
@@ -196,6 +198,7 @@ export default function ReadingPractice({ root }: { root: string }) {
       return;
     }
     setQuizSubmitted(true);
+    if (lessonQuestions.length > 0 && quizCorrectCount >= Math.ceil(lessonQuestions.length * 0.6)) void awardActivity("reading_quiz_completed", lesson.id);
     setQuizNotice(`نتیجه: ${faNumber(quizCorrectCount)} پاسخ درست از ${faNumber(lessonQuestions.length)} سؤال.`);
   }
 

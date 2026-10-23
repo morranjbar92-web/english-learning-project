@@ -1,4 +1,5 @@
 "use client";
+import { awardActivity } from "../../lib/linguapro-rewards";
 
 import { useEffect, useMemo, useState } from "react";
 import type { ListeningLesson } from "./listening-data";
@@ -57,6 +58,7 @@ export default function ListeningLessonClient({ lesson, root }: Props) {
   function checkAnswers() { setChecked(true); }
   function completeLesson() {
     if (!canFinish) return;
+    if (!isComplete) void awardActivity("listening_completed", lesson.slug);
     const next = Array.from(new Set([...completed, lesson.slug]));
     setCompleted(next);
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)); } catch { /* local progress is optional */ }

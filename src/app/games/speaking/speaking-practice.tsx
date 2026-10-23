@@ -1,4 +1,5 @@
 "use client";
+import { awardActivity } from "../../../lib/linguapro-rewards";
 
 // LINGUAPRO_SPEAKING_PRACTICE_COMPONENT_V1
 
@@ -267,6 +268,7 @@ export default function SpeakingPractice({ backHref }: { backHref: string }) {
     }
     const score = values.reduce((sum, value) => sum + Number(value), 0);
     setProgress((previous) => ({ ...previous, [activePrompt.id]: { score, at: new Date().toISOString(), seconds: elapsed, words: transcriptWords } }));
+    void awardActivity("speaking_completed", activePrompt.id);
     setRecordingError("");
   }
 

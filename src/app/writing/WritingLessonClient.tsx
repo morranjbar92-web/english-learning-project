@@ -1,4 +1,5 @@
 "use client";
+import { awardActivity } from "../../lib/linguapro-rewards";
 
 import { useEffect, useMemo, useState } from "react";
 import type { WritingLesson } from "./writing-data";
@@ -56,6 +57,7 @@ export default function WritingLessonClient({ lesson, root }: Props) {
   function evaluate() { setChecked(true); }
   function finish() {
     if(!canFinish)return;
+    if (!completed.includes(lesson.slug)) void awardActivity("writing_completed", lesson.slug);
     const next=Array.from(new Set([...completed,lesson.slug]));setCompleted(next);
     try{localStorage.setItem(STORAGE_KEY,JSON.stringify(next));}catch{}
   }

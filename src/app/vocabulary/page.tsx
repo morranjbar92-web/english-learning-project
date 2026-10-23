@@ -1,4 +1,5 @@
 ﻿"use client";
+import { awardActivity } from "../../lib/linguapro-rewards";
 
 import { useEffect, useMemo, useState } from "react";
 import { vocabularyWords } from "../../data/vocabulary";
@@ -155,6 +156,7 @@ export default function VocabularyPage() {
   }
 
   function toggleLearned(word: string) {
+    if (!learned.includes(word)) void awardActivity("vocabulary_learned", word);
     setLearned((current) =>
       current.includes(word)
         ? current.filter((item) => item !== word)

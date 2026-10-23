@@ -16,6 +16,8 @@ const items = [
   { label: "مهارت شنیداری", icon: "🎧", href: ROOT + "/listening/" },
   { label: "تمرین روزانه", icon: "✓", href: ROOT + "/#practice" },
   { label: "آزمون‌های دست‌گرمی", icon: "▣", href: ROOT + "/warmup-tests/" },
+  { label: "حساب کاربری", icon: "👤", href: ROOT + "/account/" },
+  { label: "سکه‌ها و لیگ روزانه", icon: "🏆", href: ROOT + "/league/" },
   { label: "درک مطلب", icon: "📖", href: ROOT + "/reading-comprehension/" },
 ];
 

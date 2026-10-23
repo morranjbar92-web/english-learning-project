@@ -61,8 +61,8 @@ const courses = [
       color: "violet",
       href: "/english-learning-project/games/",
     },
-  { icon: "👤", title: "حساب کاربری اختیاری", subtitle: "ذخیرهٔ پیشرفت بین دو دستگاه", color: "blue", href: "/english-learning-project/account/" },
-  { icon: "🏆", title: "سکه‌ها و لیگ روزانه", subtitle: "سکه بگیر و رتبهٔ امروزت را ببین", color: "orange", href: "/english-learning-project/league/" },
+  
+  
 ];
 
 const STORAGE_KEYS = {

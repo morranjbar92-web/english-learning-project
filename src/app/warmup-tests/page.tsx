@@ -16,8 +16,8 @@ const skills = [
     icon: "🎙️",
     name: "Speaking",
     fa: "مهارت گفتاری",
-    description: "تمرین مکالمه و بیان جمله‌ها",
-    ready: false
+    description: "تمرین صحبت آزاد؛ بدون متن آماده، با ضبط و بازبینی صدا",
+    ready: true
   },
   {
     icon: "📖",
@@ -63,9 +63,9 @@ export default function GamesPage() {
               {skill.ready ? (
                 <a
                   className="games-primary-link"
-                  href={root + (skill.name === "Listening" ? "/warmup-tests/listening/" : skill.name === "Reading" ? "/warmup-tests/reading/" : skill.name === "Writing" ? "/writing/" : "/games/writing/")}
+                  href={root + (skill.name === "Listening" ? "/warmup-tests/listening/" : skill.name === "Speaking" ? "/warmup-tests/speaking/" : skill.name === "Reading" ? "/warmup-tests/reading/" : skill.name === "Writing" ? "/writing/" : "/games/writing/")}
                 >
-                  {skill.name === "Listening" ? "ورود به Listening ←" : skill.name === "Reading" ? "شروع تمرین بلندخوانی ←" : skill.name === "Writing" ? "ورود به مهارت نوشتن ←" : "ورود به Writing ←"}
+                  {skill.name === "Listening" ? "ورود به Listening ←" : skill.name === "Speaking" ? "شروع تمرین اسپیکینگ ←" : skill.name === "Reading" ? "شروع تمرین بلندخوانی ←" : skill.name === "Writing" ? "ورود به مهارت نوشتن ←" : "ورود به Writing ←"}
                 </a>
               ) : (
                 <span className="games-coming-label">به‌زودی</span>

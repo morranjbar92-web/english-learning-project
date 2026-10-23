@@ -1,4 +1,4 @@
-import { createHash, createHmac, randomBytes, randomInt, randomUUID, timingSafeEqual } from "node:crypto";
+import { createHash, createHmac, randomBytes, randomInt, randomUUID, timingSafeEqual, scrypt as scryptCallback } from "node:crypto";
 import { Pool } from "pg";
 import { NextResponse } from "next/server";
 
@@ -33,8 +33,10 @@ export async function ensureSchema(): Promise<void> {
         email TEXT NOT NULL UNIQUE,
         display_name TEXT NOT NULL DEFAULT '',
         total_coins INTEGER NOT NULL DEFAULT 0 CHECK (total_coins >= 0),
+        password_hash TEXT,
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       );
+      ALTER TABLE lp_users ADD COLUMN IF NOT EXISTS password_hash TEXT;
       CREATE TABLE IF NOT EXISTS lp_email_codes (
         email TEXT PRIMARY KEY,
         code_hash TEXT NOT NULL,
@@ -49,9 +51,17 @@ export async function ensureSchema(): Promise<void> {
         token_hash TEXT PRIMARY KEY,
         user_id TEXT NOT NULL REFERENCES lp_users(id) ON DELETE CASCADE,
         expires_at TIMESTAMPTZ NOT NULL,
+        auth_method TEXT NOT NULL DEFAULT 'email_code',
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       );
+      ALTER TABLE lp_sessions ADD COLUMN IF NOT EXISTS auth_method TEXT NOT NULL DEFAULT 'email_code';
       CREATE INDEX IF NOT EXISTS lp_sessions_user_idx ON lp_sessions(user_id);
+      CREATE TABLE IF NOT EXISTS lp_password_attempts (
+        email TEXT PRIMARY KEY,
+        failed_attempts INTEGER NOT NULL DEFAULT 0,
+        window_started_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        locked_until TIMESTAMPTZ
+      );
       CREATE TABLE IF NOT EXISTS lp_progress (
         user_id TEXT PRIMARY KEY REFERENCES lp_users(id) ON DELETE CASCADE,
         data JSONB NOT NULL DEFAULT '{}'::jsonb,
@@ -143,6 +153,34 @@ export function otpMatches(email: string, code: string, storedHash: string): boo
 export function hashToken(token: string): string { return createHash("sha256").update(token).digest("hex"); }
 export function createOtp(): string { return String(randomInt(0, 1_000_000)).padStart(6, "0"); }
 export function createSessionToken(): string { return randomBytes(32).toString("hex"); }
+
+const PASSWORD_HASH_SCHEME = "scrypt";
+const PASSWORD_HASH_LENGTH = 64;
+// Valid-format dummy hash keeps unknown accounts on the same expensive verification path.
+export const DUMMY_PASSWORD_HASH = `scrypt$00000000000000000000000000000000$${"00".repeat(PASSWORD_HASH_LENGTH)}`;
+
+function derivePasswordKey(password: string, salt: string): Promise<Buffer> {
+  return new Promise((resolve, reject) => {
+    scryptCallback(password, salt, PASSWORD_HASH_LENGTH, (error, derivedKey) => {
+      if (error) reject(error);
+      else resolve(derivedKey as Buffer);
+    });
+  });
+}
+
+export async function hashPassword(password: string): Promise<string> {
+  const salt = randomBytes(16).toString("hex");
+  const key = await derivePasswordKey(password, salt);
+  return `${PASSWORD_HASH_SCHEME}$${salt}$${key.toString("hex")}`;
+}
+
+export async function verifyPassword(password: string, encoded: string): Promise<boolean> {
+  const [scheme, salt, keyHex, extra] = encoded.split("$");
+  if (scheme !== PASSWORD_HASH_SCHEME || extra !== undefined || !/^[a-f0-9]{32}$/i.test(salt || "") || !/^[a-f0-9]{128}$/i.test(keyHex || "")) return false;
+  const derived = await derivePasswordKey(password, salt);
+  const expected = Buffer.from(keyHex, "hex");
+  return derived.length === expected.length && timingSafeEqual(derived, expected);
+}
 
 export async function sendLoginCode(email: string, code: string): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;

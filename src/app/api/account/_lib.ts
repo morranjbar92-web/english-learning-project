@@ -1,8 +1,8 @@
-import { createHash, createHmac, randomBytes, randomInt, randomUUID, timingSafeEqual, scrypt as scryptCallback } from "node:crypto";
+import { createHash, createHmac, randomBytes, randomInt, randomUUID, scryptSync, timingSafeEqual } from "node:crypto";
 import { Pool } from "pg";
 import { NextResponse } from "next/server";
 
-export type AccountUser = { [column: string]: any; id: string; email: string; display_name: string; total_coins: number };
+export type AccountUser = { [column: string]: any; id: string; email: string; display_name: string; total_coins: number; grade: number; password_configured: boolean; auth_method: string };
 
 type Globals = typeof globalThis & { __linguaproPool?: Pool; __linguaproSchema?: Promise<void> };
 const globals = globalThis as Globals;
@@ -33,9 +33,11 @@ export async function ensureSchema(): Promise<void> {
         email TEXT NOT NULL UNIQUE,
         display_name TEXT NOT NULL DEFAULT '',
         total_coins INTEGER NOT NULL DEFAULT 0 CHECK (total_coins >= 0),
+        grade SMALLINT NOT NULL DEFAULT 7 CHECK (grade IN (7,8,9)),
         password_hash TEXT,
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       );
+      ALTER TABLE lp_users ADD COLUMN IF NOT EXISTS grade SMALLINT NOT NULL DEFAULT 7;
       ALTER TABLE lp_users ADD COLUMN IF NOT EXISTS password_hash TEXT;
       CREATE TABLE IF NOT EXISTS lp_email_codes (
         email TEXT PRIMARY KEY,
@@ -58,9 +60,9 @@ export async function ensureSchema(): Promise<void> {
       CREATE INDEX IF NOT EXISTS lp_sessions_user_idx ON lp_sessions(user_id);
       CREATE TABLE IF NOT EXISTS lp_password_attempts (
         email TEXT PRIMARY KEY,
-        failed_attempts INTEGER NOT NULL DEFAULT 0,
+        attempts INTEGER NOT NULL DEFAULT 0,
         window_started_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-        locked_until TIMESTAMPTZ
+        blocked_until TIMESTAMPTZ
       );
       CREATE TABLE IF NOT EXISTS lp_progress (
         user_id TEXT PRIMARY KEY REFERENCES lp_users(id) ON DELETE CASCADE,
@@ -154,64 +156,49 @@ export function hashToken(token: string): string { return createHash("sha256").u
 export function createOtp(): string { return String(randomInt(0, 1_000_000)).padStart(6, "0"); }
 export function createSessionToken(): string { return randomBytes(32).toString("hex"); }
 
-const PASSWORD_HASH_SCHEME = "scrypt";
-const PASSWORD_HASH_LENGTH = 64;
-// Valid-format dummy hash keeps unknown accounts on the same expensive verification path.
-export const DUMMY_PASSWORD_HASH = `scrypt$00000000000000000000000000000000$${"00".repeat(PASSWORD_HASH_LENGTH)}`;
-
-function derivePasswordKey(password: string, salt: string): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    scryptCallback(password, salt, PASSWORD_HASH_LENGTH, (error, derivedKey) => {
-      if (error) reject(error);
-      else resolve(derivedKey as Buffer);
-    });
-  });
-}
-
-export async function hashPassword(password: string): Promise<string> {
+// Scrypt with a fresh salt for each password. The raw password is never stored.
+export function hashPassword(password: string): string {
   const salt = randomBytes(16).toString("hex");
-  const key = await derivePasswordKey(password, salt);
-  return `${PASSWORD_HASH_SCHEME}$${salt}$${key.toString("hex")}`;
+  const hash = scryptSync(password, salt, 64, { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 }).toString("hex");
+  return `scrypt$${salt}$${hash}`;
 }
 
-export async function verifyPassword(password: string, encoded: string): Promise<boolean> {
-  const [scheme, salt, keyHex, extra] = encoded.split("$");
-  if (scheme !== PASSWORD_HASH_SCHEME || extra !== undefined || !/^[a-f0-9]{32}$/i.test(salt || "") || !/^[a-f0-9]{128}$/i.test(keyHex || "")) return false;
-  const derived = await derivePasswordKey(password, salt);
-  const expected = Buffer.from(keyHex, "hex");
-  return derived.length === expected.length && timingSafeEqual(derived, expected);
+export function verifyPassword(password: string, encoded: string | null | undefined): boolean {
+  if (!encoded) return false;
+  const parts = encoded.split("$");
+  if (parts.length !== 3 || parts[0] !== "scrypt" || !/^[a-f0-9]{32}$/i.test(parts[1]) || !/^[a-f0-9]{128}$/i.test(parts[2])) return false;
+  const candidate = scryptSync(password, parts[1], 64, { N: 16384, r: 8, p: 1, maxmem: 64 * 1024 * 1024 });
+  const expected = Buffer.from(parts[2], "hex");
+  return candidate.length === expected.length && timingSafeEqual(candidate, expected);
 }
 
 export async function sendLoginCode(email: string, code: string): Promise<void> {
-  // Email59 sends from @email59.com, so LinguaPro does not need to own a domain.
-  const apiKey = process.env.EMAIL59_API_KEY;
-  if (!apiKey) {
-    throw new Error("ارسال کد ورود تنظیم نشده است؛ مدیر سایت باید EMAIL59_API_KEY را در تنظیمات محرمانهٔ Render قرار دهد.");
+  const apiKey = process.env.RESEND_API_KEY;
+  const from = process.env.EMAIL_FROM;
+  if (!apiKey || !from) {
+    throw new Error("ارسال کد ایمیل هنوز تنظیم نشده است؛ مدیر سایت باید RESEND_API_KEY و EMAIL_FROM را در تنظیمات محرمانهٔ Render قرار دهد.");
   }
-  const response = await fetch("https://email59.com/v1/send", {
+
+  const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "linguapro",
-      to: email,
+      from,
+      to: [email],
       subject: "کد ورود LinguaPro",
-      template: "code",
-      code,
-      text: `کد ورود LinguaPro: ${code}. این کد ۱۰ دقیقه اعتبار دارد. اگر این درخواست را انجام نداده‌ای، این ایمیل را نادیده بگیر. هرگز کد را با کسی به اشتراک نگذار.`,
+      text: `کد ورود شما: ${code}\nاین کد ۱۰ دقیقه اعتبار دارد. اگر این درخواست را انجام نداده‌ای، این ایمیل را نادیده بگیر.`,
+      html: `<div style="font-family:Tahoma,Arial,sans-serif;direction:rtl;max-width:520px;margin:auto;padding:24px;color:#242345"><h2>ورود به LinguaPro</h2><p>برای ورود این کد را در سایت وارد کن:</p><div style="direction:ltr;text-align:center;font-size:32px;letter-spacing:8px;font-weight:bold;padding:18px;background:#f3f1ff;border-radius:12px;color:#5144bb">${code}</div><p>کد تا ۱۰ دقیقه معتبر است. این کد را به کسی نده.</p><small>اگر این درخواست را انجام نداده‌ای، ایمیل را نادیده بگیر.</small></div>`,
     }),
     signal: AbortSignal.timeout(12_000),
   });
+
   if (!response.ok) {
     const detail = await response.json().catch(() => ({})) as Record<string, unknown>;
-    const providerMessage = typeof detail.error === "string"
-      ? detail.error
-      : typeof detail.message === "string"
-        ? detail.message
-        : JSON.stringify(detail) || `HTTP ${response.status}`;
-    throw new Error(`ارسال ایمیل از Email59 ناموفق بود: ${providerMessage}`);
+    const providerMessage = typeof detail.message === "string" ? detail.message : typeof detail.error === "string" ? detail.error : `HTTP ${response.status}`;
+    throw new Error(`ارسال ایمیل از سرویس Resend ناموفق بود: ${providerMessage}`);
   }
 }
 
@@ -221,7 +208,8 @@ export async function getAuthenticatedUser(request: Request): Promise<AccountUse
   if (!match) return null;
   await ensureSchema();
   const result = await pool().query<AccountUser>(`
-    SELECT u.id, u.email, u.display_name, u.total_coins
+    SELECT u.id, u.email, u.display_name, u.total_coins, u.grade,
+      (u.password_hash IS NOT NULL) AS password_configured, s.auth_method
     FROM lp_sessions s JOIN lp_users u ON u.id=s.user_id
     WHERE s.token_hash=$1 AND s.expires_at > NOW() LIMIT 1
   `, [hashToken(match[1])]);

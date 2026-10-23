@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     const user = await getAuthenticatedUser(request);
     if (!user) return apiJson(request, { error: "نشست معتبر نیست؛ دوباره وارد شو." }, { status: 401 });
     const stats = await getUserStats(user.id, tehranDayKey());
-    return apiJson(request, { profile: { id: user.id, email: user.email, displayName: user.display_name, ...stats } });
+    return apiJson(request, { profile: { id: user.id, email: user.email, displayName: user.display_name, grade: Number(user.grade || 7), passwordConfigured: Boolean(user.password_configured), authMethod: user.auth_method || "email_code", ...stats } });
   } catch (error) {
     return apiJson(request, { error: error instanceof Error ? error.message : "دریافت حساب ناموفق بود." }, { status: 503 });
   }

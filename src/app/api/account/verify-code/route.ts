@@ -31,19 +31,19 @@ export async function POST(request: Request) {
     }
     const displayName = cleanDisplayName(body?.displayName) || cleanDisplayName(row.display_name);
     const id = randomUUID();
-    const userResult = await poolQuery<{ id: string; email: string; display_name: string; total_coins: number }>(`
+    const userResult = await poolQuery<{ id: string; email: string; display_name: string; total_coins: number; grade: number; password_configured: boolean }>(`
       INSERT INTO lp_users(id,email,display_name) VALUES($1,$2,$3)
       ON CONFLICT(email) DO UPDATE SET display_name=CASE WHEN EXCLUDED.display_name<>'' THEN EXCLUDED.display_name ELSE lp_users.display_name END
-      RETURNING id,email,display_name,total_coins
+      RETURNING id,email,display_name,total_coins,grade,(password_hash IS NOT NULL) AS password_configured
     `, [id, email, displayName]);
     const user = userResult.rows[0];
     await poolQuery("DELETE FROM lp_email_codes WHERE email=$1", [email]);
     // Expired sessions are pruned, but existing sessions on other devices stay valid.
     await poolQuery("DELETE FROM lp_sessions WHERE expires_at <= NOW()");
     const token = createSessionToken();
-    await poolQuery("INSERT INTO lp_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '30 days')", [hashToken(token), user.id]);
+    await poolQuery("INSERT INTO lp_sessions(token_hash,user_id,expires_at,auth_method) VALUES($1,$2,NOW()+INTERVAL '30 days','email_code')", [hashToken(token), user.id]);
     const stats = await getUserStats(user.id, tehranDayKey());
-    return apiJson(request, { ok: true, token, profile: { id: user.id, email: user.email, displayName: user.display_name, totalCoins: stats.totalCoins, todayCoins: stats.todayCoins, rank: stats.rank } });
+    return apiJson(request, { ok: true, token, profile: { id: user.id, email: user.email, displayName: user.display_name, grade: Number(user.grade || 7), passwordConfigured: Boolean(user.password_configured), authMethod: "email_code", totalCoins: stats.totalCoins, todayCoins: stats.todayCoins, rank: stats.rank } });
   } catch (error) {
     const message = error instanceof Error ? error.message : "تأیید کد انجام نشد.";
     return apiJson(request, { error: message }, { status: 503 });

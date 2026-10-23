@@ -14,7 +14,7 @@ export default function LexiverseArcadePage() {
         title="LEXIverse English Game Universe"
         allow="autoplay; fullscreen"
       />
-      <ActivityRewardButton type="game_completed" activityId="lexiverse-arcade" label="بازی را تمام کردم؛ دریافت ۸ سکه" />
+      <p style={{ textAlign: "center", padding: "0.75rem", lineHeight: 1.8 }}>پس از پایان یک دور یا تکمیل چالش روزانه، پاداش لیگ خودکار ثبت می‌شود. برای قرارگرفتن در رتبه‌بندی، <a href={root + "/account/"}>وارد حساب ایمیلی</a> شو.</p>
     </main>
   );
 }

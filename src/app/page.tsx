@@ -1,4 +1,5 @@
 "use client";
+import { awardActivity } from "../lib/linguapro-rewards";
 
 import { useEffect, useState } from "react";
 import { vocabularyWords } from "../data/vocabulary";
@@ -60,6 +61,8 @@ const courses = [
       color: "violet",
       href: "/english-learning-project/games/",
     },
+  { icon: "👤", title: "حساب کاربری اختیاری", subtitle: "ذخیرهٔ پیشرفت بین دو دستگاه", color: "blue", href: "/english-learning-project/account/" },
+  { icon: "🏆", title: "سکه‌ها و لیگ روزانه", subtitle: "سکه بگیر و رتبهٔ امروزت را ببین", color: "orange", href: "/english-learning-project/league/" },
 ];
 
 const STORAGE_KEYS = {
@@ -82,6 +85,8 @@ export default function Home() {
   const navigation = [
     { name: "خانه", icon: "⌂", href: "#home" },
     { name: "آزمون‌های دست‌گرمی", icon: "📝", href: "/english-learning-project/warmup-tests/" },
+    { name: "حساب کاربری", icon: "👤", href: "/english-learning-project/account/" },
+    { name: "سکه‌ها و لیگ روزانه", icon: "🏆", href: "/english-learning-project/league/" },
     { name: "واژگان", icon: "▤", href: "/english-learning-project/vocabulary/" },
     { name: "گرامر", icon: "◈", href: "/english-learning-project/grammar/" },
     { name: "بازی‌ها", icon: "🎮", href: "/english-learning-project/games/" },
@@ -187,6 +192,7 @@ export default function Home() {
   };
 
   const toggleLearned = (word: string) => {
+    if (!learned.includes(word)) void awardActivity("vocabulary_learned", word);
     setLearned((previous) =>
       previous.includes(word)
         ? previous.filter((item) => item !== word)

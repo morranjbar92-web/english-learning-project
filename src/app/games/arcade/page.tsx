@@ -1,3 +1,4 @@
+import ActivityRewardButton from "../../components/activity-reward-button";
 const root = "/english-learning-project";
 
 export default function LexiverseArcadePage() {
@@ -13,6 +14,7 @@ export default function LexiverseArcadePage() {
         title="LEXIverse English Game Universe"
         allow="autoplay; fullscreen"
       />
+      <ActivityRewardButton type="game_completed" activityId="lexiverse-arcade" label="بازی را تمام کردم؛ دریافت ۸ سکه" />
     </main>
   );
 }

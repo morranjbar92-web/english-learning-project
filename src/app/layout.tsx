@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next";
+﻿import AccountCloudSync from "./components/account-cloud-sync";
+import type { Metadata } from "next";
 import "./globals.css";
 import FixedNavigation from "./components/fixed-navigation";
 
@@ -12,7 +13,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body><FixedNavigation />{children}</body>
+      <body><FixedNavigation /><AccountCloudSync />{children}</body>
     </html>
   );
 }

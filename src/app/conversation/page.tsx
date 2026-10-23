@@ -1,4 +1,5 @@
 "use client";
+import ActivityRewardButton from "../components/activity-reward-button";
 
 import { useEffect, useState } from "react";
 
@@ -24,6 +25,8 @@ export default function ConversationLabPage() {
       ) : (
         <div style={{ padding: 32, fontFamily: "Tahoma, Arial, sans-serif" }}>در حال بارگذاری آزمایشگاه مکالمه…</div>
       )}
+    
+      <ActivityRewardButton type="conversation_completed" activityId="conversation-practice" label="تمرین مکالمه را انجام دادم؛ دریافت ۵ سکه" />
     </main>
   );
 }
